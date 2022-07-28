@@ -1,0 +1,64 @@
+<div class="page">
+    <div class="layout">
+        <div class="card">
+            <h1>{{quizName}}</h1>
+
+            <div *ngIf="questionList.length > 0">
+                <h2>ข้อ {{currentPage+1}} / {{questionList.length}}</h2>
+                <h3 class="timeout">
+                    คุณเหลือเวลา {{timeText}}
+                    <i class="pi pi-clock" style="font-size: 4vh"></i>
+                </h3>
+                <h2>{{questionList[currentPage].questionName}}</h2>
+
+                <div class="row">
+                    <div class="column1">
+                        <span class="text"
+                            [style]="{'color': questionTimeDisplay <= 5 ? questionTimeDisplay%2 ? 'red' : 'orange' :''}">
+                            {{questionTimeDisplay}}
+                            <i class="pi pi-bell" style="font-size: 2vh"></i>
+                        </span>
+                    </div>
+                    <div class="column2">
+                        <p-progressBar [value]="progressbarValue" [showValue]="false"
+                            [style]="{'height': '10px', 'margin-right': '10vh'}">
+                        </p-progressBar>
+                    </div>
+                </div>
+
+
+                <hr color=00bcd4>
+                <div class="box-lab">
+                    <div *ngFor="let c of questionList[currentPage].choiceArr | randomOrder" class="blab">
+                        <p-radioButton *ngIf="questionList[currentPage].questionType==='S'" [inputId]="c.choiceId"
+                            name="choice" [value]="[c]" [(ngModel)]="selectedChoice"></p-radioButton>
+                        <p-checkbox *ngIf="questionList[currentPage].questionType==='M'" name="choice" [value]="c"
+                            [(ngModel)]="selectedChoice" [inputId]="c.choiceId"></p-checkbox>
+                        <label class="choice-text" [for]="c.choiceId">{{c.choiceName}}</label>
+                    </div>
+                </div>
+                <div class="btn">
+                    <p-button [label]="btnText" (click)="nextPage()"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Confirm" [closable]="false" [(visible)]="display" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '50vh'}" [draggable]="false" [resizable]="false">
+    <p>{{detail}}</p>
+    <ng-template pTemplate="footer">
+        <p-button (click)="postAnswer()" label="ส่งคำตอบ" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Error" [closable]="false" [(visible)]="displayError" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '50vh'}" [draggable]="false" [resizable]="false">
+    <p>กรุณาติดต่อเจ้าหน้าที่โดยด่วน</p>
+    <span>ขออภัยในความไม่สะดวก</span>
+    <ng-template pTemplate="footer">
+        <p-button (click)="closeDisplayError()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,18 @@
+<div class="page">
+    <div class="layout">
+        <div class="card">
+            <h1>หมวดหมู่</h1>
+            <hr color=00bcd4>
+            <div *ngIf="categoryList.length<1">
+                <h3>ไม่พบ</h3>
+            </div>
+            <div class="box-lab">
+                <div *ngFor="let c of categoryList" class="blab">
+                    <p-card [style]="{cursor: 'pointer'}" styleClass="mb-3" (click)="gotoQuiz(c.categoryId)"
+                        [header]="c.categoryName" [subheader]="c.categoryName">
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

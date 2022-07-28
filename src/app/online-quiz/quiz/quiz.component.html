@@ -1,0 +1,43 @@
+<div class="page">
+    <div class="layout">
+        <div class="card">
+            <h1>แบบทดสอบ</h1>
+            <hr color=00bcd4>
+            <div *ngIf="quizList.length<1">
+                <h3>ไม่พบ</h3>
+            </div>
+            <div class="box-lab">
+                <div *ngFor="let q of quizList" class="blab">
+                    <p-card [style]="{cursor: 'pointer'}" styleClass="mb-3" (click)="btnClick(q)"
+                        [header]="q.quizName" [subheader]="q.quizName">
+                        <span
+                            [style]="checkTime(q.quizStart, q.quizEnd) ? 'color: rgb(36 166 36)' : checkStartTime(q.quizStart) ? 'color: #f00' : ''">เริ่ม
+                            {{q.quizStart | date:'short':'':'th'}} สิ้นสุด {{q.quizEnd | date:'short':'':'th'}}</span>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [header]="title" [(visible)]="display" [breakpoints]="{'960px': '75vw'}" [style]="{width: '60vh'}" [draggable]="false" [resizable]="false">
+
+    <div class="center" style="flex-direction: column">
+        <div class="center incorrect" *ngIf="cPassword">
+            <div class="msg">
+                Password is incorrect.
+            </div>
+        </div>
+    
+        <label for="password" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password</label>
+        <input style="width: 40vh;" id="password" type="text" placeholder="Password" pInputText [(ngModel)]="password"/>
+        <small class="block p-error" *ngIf="submitted && !password">Password is required.</small>
+    </div>
+
+
+    <ng-template pTemplate="footer">
+        <p-button label="ยกเลิก" styleClass="p-button-text" (click)="closeDialog()"></p-button>
+        <p-button label="เริ่มทำแบบทดสอบ" styleClass="p-button-text" (click)="checkPassword()"></p-button>
+    </ng-template>
+</p-dialog>
