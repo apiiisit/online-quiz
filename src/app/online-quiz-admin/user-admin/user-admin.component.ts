@@ -19,7 +19,7 @@ export class UserAdminComponent implements OnInit {
   selectedItem?: any;
   submitted: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 

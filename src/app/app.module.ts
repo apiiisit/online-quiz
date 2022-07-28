@@ -52,6 +52,7 @@ import { CategoryAdminComponent } from './online-quiz-admin/category-admin/categ
 import { QuestionAdminComponent } from './online-quiz-admin/question-admin/question-admin.component';
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
+import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.co
     CategoryAdminComponent,
     QuestionAdminComponent,
     QuizAdminComponent,
-    UserAdminComponent
+    UserAdminComponent,
+    ScoreDetailAdminComponent,
   ],
   imports: [
     BrowserModule,

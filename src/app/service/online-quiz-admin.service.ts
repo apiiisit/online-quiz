@@ -99,5 +99,10 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/user_role');
   }
 
+  // task
+  getTask() {
+    return this.http.get<any>('api/task');
+  }
+
 
 }

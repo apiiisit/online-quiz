@@ -8,6 +8,7 @@ import { CategoryAdminComponent } from './online-quiz-admin/category-admin/categ
 import { OnlineQuizAdminComponent } from './online-quiz-admin/online-quiz-admin.component';
 import { QuestionAdminComponent } from './online-quiz-admin/question-admin/question-admin.component';
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
+import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
 import { CategoryComponent } from './online-quiz/category/category.component';
 import { OnlineQuizComponent } from './online-quiz/online-quiz.component';
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'question',
         component: QuestionAdminComponent
+      },
+      {
+        path: 'score',
+        component: ScoreDetailAdminComponent
       },
       {
         path: 'user',

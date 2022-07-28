@@ -52,6 +52,15 @@ export class NavbarAdminComponent implements OnInit {
         }
       },
       {
+        label: 'Score detail',
+        icon: 'pi pi-fw pi-file',
+        command: () => {
+          this.router.navigateByUrl('/online-quiz', { skipLocationChange: true }).then(() =>
+            this.router.navigate(['/online-quiz/admin/', 'score'])
+          )
+        }
+      },
+      {
         label: 'User',
         icon: 'pi pi-fw pi-file',
         command: () => {
@@ -74,7 +83,7 @@ export class NavbarAdminComponent implements OnInit {
     let pathName = path[path.length - 1].split('?')[0];
     if (pathName === 'admin') pathName = 'category';
 
-    const index = this.items.findIndex(item => item.label?.toLowerCase() === pathName);
+    const index = this.items.findIndex(item => item.label?.toLowerCase().includes(pathName));
     this.items[index]['style'] = this.styleConfig;
   }
 
