@@ -17,7 +17,13 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.params = this.activeRoute.snapshot.params;
-    this.onlineQuizService.getQuiz(this.params.categoryId).subscribe(res => this.quizList = res);
+    this.onlineQuizService.getQuiz(this.params.categoryId).subscribe(res => {
+      if (res.length > 0) {
+        this.quizList = res;
+      } else {
+        this.emptyList = true;
+      }
+    });
   }
 
   checkStartTime(startTime: Date) {
