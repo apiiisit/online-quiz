@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class CategoryAdminComponent implements OnInit {
   selectedItem?: any;
   submitted: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 

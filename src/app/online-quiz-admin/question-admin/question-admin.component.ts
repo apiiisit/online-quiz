@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class QuestionAdminComponent implements OnInit {
   questionTypeList: any[] = [];
   choiceCorrectList: any[] = [];
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
@@ -125,7 +125,6 @@ export class QuestionAdminComponent implements OnInit {
     this.submitted = true;
     const name = this.choice.choiceName?.trim();
     const correcte = this.choice.choiceCorrect;
-
     if (name && correcte) {
       if (this.choice.choiceId) {
         this.saveChoiceToDatabase(this.choice);
