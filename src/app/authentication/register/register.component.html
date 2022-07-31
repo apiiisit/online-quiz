@@ -1,0 +1,62 @@
+<p-card [style]="{width: '110vh'}">
+    <ng-template pTemplate="header">
+        <span class="center title">Register</span>
+    </ng-template>
+
+    <div class="profile" (mouseenter)="uploadBtn.style.display = 'block'"
+        (mouseleave)="uploadBtn.style.display = 'none'">
+        <img [src]="srcImage" id="photo">
+        <input type="file" id="file" (change)="readImage($event)">
+        <label for="file" id="uploadBtn">Choose Photo</label>
+    </div>
+
+    <div class="body">
+
+        <div class="row">
+            <label for="username" class="block mb-1 mt-2"><i class="pi pi-user"></i> Username</label>
+            <input id="username" type="text" placeholder="Username" pInputText [(ngModel)]="username" />
+            <small class="block p-error" *ngIf="submitted && !username">Username is required.</small>
+        </div>
+
+        <div class="row">
+            <label for="firstname" class="block mb-1 mt-2"><i class="pi pi-user"></i> Firstname</label>
+            <input id="firstname" type="text" placeholder="Firstname" pInputText [(ngModel)]="firstname" />
+            <small class="block p-error" *ngIf="submitted && !firstname">Firstname is required.</small>
+
+            <label for="lastname" class="block mb-1 mt-2"><i class="pi pi-user"></i> Lastname</label>
+            <input id="lastname" type="text" placeholder="Lastname" pInputText [(ngModel)]="lastname" />
+            <small class="block p-error" *ngIf="submitted && !lastname">Lastname is required.</small>
+        </div>
+
+        <div class="row">
+            <label for="tel" class="block mb-1 mt-2"><i class="pi pi-user"></i> Tel</label>
+            <input id="tel" type="text" placeholder="Tel" pInputText [(ngModel)]="tel" />
+            <small class="block p-error" *ngIf="submitted && !tel">Tel is required.</small>
+        </div>
+
+        <div class="row">
+            <label for="email" class="block mb-1 mt-2"><i class="pi pi-user"></i> Email</label>
+            <input id="email" type="email" placeholder="Email" pInputText [(ngModel)]="email" />
+            <small class="block p-error" *ngIf="submitted && !email">Email is required.</small>
+        </div>
+
+        <div class="row">
+            <label for="password" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password</label>
+            <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" placeholder="Password">
+            </p-password>
+            <small class="block p-error" *ngIf="submitted && !password">Password is required.</small>
+
+            <label for="cPassword" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password Again</label>
+            <p-password [(ngModel)]="cPassword" [toggleMask]="true" [feedback]="false" placeholder="Password Again">
+            </p-password>
+            <small class="block p-error" *ngIf="submitted && !cPassword">Password again is required.</small>
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="center">
+            <p-button label="Register" (click)="btnSubmit()"></p-button>
+        </div>
+    </ng-template>
+</p-card>

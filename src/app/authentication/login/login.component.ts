@@ -13,12 +13,15 @@ export class LoginComponent implements OnInit {
   password?: string;
   submitted: boolean = false;
   cLogin: boolean = false;
+  
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn$) {
-      this.navigate()
-    }
+    this.authService.isLoggedIn$.subscribe(res => {
+      if (res) {
+        this.navigate()
+      }
+    })
   }
 
   btnSubmit() {

@@ -1,0 +1,75 @@
+.incorrect {
+    background-color: rgb(239, 81, 81);
+    height: 4vh;
+    width: 40vh;
+}
+
+.msg {
+    color: #fff;
+}
+
+input,
+p-password {
+    width: 32vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.profile {
+    height: 150px;
+    width: 150px;
+    transform: translate(42vh);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid grey;
+    margin-bottom: 2vh;
+}
+
+
+#photo {
+    height: 100%;
+    width: 100%;
+}
+
+#file {
+    display: none;
+}
+
+#uploadBtn {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: #000;
+    color: wheat;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    display: none;
+}

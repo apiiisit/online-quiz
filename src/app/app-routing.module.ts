@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
 import { HasRoleGuard } from './guard/has-role.guard';
 import { IsAuthenticatedGuard } from './guard/is-authenticated.guard';
 import { CategoryAdminComponent } from './online-quiz-admin/category-admin/category-admin.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: '',
         component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
       }
     ]
   },

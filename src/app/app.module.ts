@@ -33,6 +33,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { TagModule } from 'primeng/tag';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { PasswordModule } from 'primeng/password';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { ChoicePipe } from './pipe/choice.pipe';
@@ -53,6 +54,7 @@ import { QuestionAdminComponent } from './online-quiz-admin/question-admin/quest
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
 import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
+import { RegisterComponent } from './authentication/register/register.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admi
     QuizAdminComponent,
     UserAdminComponent,
     ScoreDetailAdminComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admi
     DropdownModule,
     CalendarModule,
     TagModule,
-    PanelMenuModule
+    PanelMenuModule,
+    PasswordModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
