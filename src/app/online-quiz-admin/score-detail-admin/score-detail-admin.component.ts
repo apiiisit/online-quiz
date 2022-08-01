@@ -21,7 +21,7 @@ export class ScoreDetailAdminComponent implements OnInit {
       const _res = [...res];
       _res.map(itemTask => {
         itemTask['fullName'] = `${itemTask.user.firstName} ${itemTask.user.lastName}`;
-        itemTask['time'] = this.calTime(itemTask.taskStart, itemTask.taskFinish);
+        itemTask['time'] = this.calTime(itemTask.taskStart.slice(0, -5), itemTask.taskFinish.slice(0, -5));
       })
       this.taskList = _res;
     });

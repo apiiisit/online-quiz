@@ -78,7 +78,7 @@ import { RegisterComponent } from './authentication/register/register.component'
     QuizAdminComponent,
     UserAdminComponent,
     ScoreDetailAdminComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

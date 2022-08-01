@@ -28,6 +28,8 @@ export class QuizAdminComponent implements OnInit {
       next: (res) => {
         _res = [...res];
         _res.forEach(itemQuiz => {
+          itemQuiz['quizStart'] = itemQuiz['quizStart'].slice(0, -5);
+          itemQuiz['quizEnd'] = itemQuiz['quizEnd'].slice(0, -5);
           this.onlineQuizAdminService.getQuestion().subscribe(res => {
             itemQuiz['questionAll'] = [...res].filter(itemQuestion => itemQuestion.quiz.quizId === itemQuiz.quizId).length;
           })

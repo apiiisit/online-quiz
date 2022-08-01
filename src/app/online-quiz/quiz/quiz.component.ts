@@ -19,7 +19,12 @@ export class QuizComponent implements OnInit {
     this.params = this.activeRoute.snapshot.params;
     this.onlineQuizService.getQuiz(this.params.categoryId).subscribe(res => {
       if (res.length > 0) {
-        this.quizList = res;
+        const _res = [...res];
+        _res.map(item => {
+          item['quizStart'] = item['quizStart'].slice(0, -5);
+          item['quizEnd'] = item['quizEnd'].slice(0, -5);
+        })
+        this.quizList = _res;
       } else {
         this.emptyList = true;
       }

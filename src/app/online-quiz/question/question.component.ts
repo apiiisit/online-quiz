@@ -46,12 +46,15 @@ export class QuestionComponent implements OnInit {
 
     this.onlineQuizService.getQuizById(params['quizId']).subscribe(res => {
 
+      res.quizStart = res.quizStart.slice(0, -5);
+      res.quizEnd = res.quizEnd.slice(0, -5);
+
       if ((new Date(res.quizEnd).getTime() - new Date().getTime()) < 0) {
         this.router.navigate(['']);
         return
       }
 
-      this.task['taskStart'] = new Date().getTime();
+      this.task['taskStart'] = new Date();
       this.task['quiz'] = { quizId: res.quizId };
       this.quizName = res.quizName;
       this.quizPass = res.quizPass;
@@ -176,7 +179,7 @@ export class QuestionComponent implements OnInit {
     this.task['taskStatus'] = pass >= this.quizPass;
     this.task['taskScore'] = this.point;
     this.task['taskPass'] = pass.toString() + '%';
-    this.task['taskFinish'] = new Date().getTime();
+    this.task['taskFinish'] = new Date();
 
     this.onlineQuizService.postTask(this.task).subscribe({
       complete: () => {
