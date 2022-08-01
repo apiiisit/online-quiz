@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { OnlineQuizService } from 'src/app/service/online-quiz.service';
+import { customValue } from 'src/app/validate/custom-value';
 
 @Component({
   selector: 'app-register',
@@ -9,20 +12,27 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  username?: string;
-  firstname?: string;
-  lastname?: string;
-  tel?: string;
-  email?: string;
-  password?: string;
-  cPassword?: string;
+  userForm: FormGroup = new FormGroup({
+    userName: new FormControl(null, [Validators.required, customValue]),
+    firstName: new FormControl(null, [Validators.required, customValue]),
+    lastName: new FormControl(null, [Validators.required, customValue]),
+    tel: new FormControl(null, [Validators.required, customValue]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [Validators.required, customValue]),
+    cPassword: new FormControl(null, [Validators.required, customValue]),
+    userRole: new FormControl({userRoleId: 2})
+  })
+
   submitted: boolean = false;
   cLogin: boolean = false;
-  srcImage: any = '../../../assets/images/person.png';
+  imageSrc: any = 'assets/images/person.png';
+
+  formImage = new FormData();
 
   uploadBtn?: any;
 
-  constructor(private router: Router, private authService: AuthService, private el: ElementRef) { }
+
+  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService, private el: ElementRef) { }
 
   ngOnInit(): void {
 
@@ -36,30 +46,37 @@ export class RegisterComponent implements OnInit {
 
   btnSubmit() {
     this.submitted = true;
-    const user = this.username;
-    const pass = this.password;
-    if (user && pass) {
-      this.authService
-        .login(user, pass)
-        .subscribe({
-          complete: (() => this.navigate()),
-          error: (() => this.cLogin = true)
-        })
-    }
+    const user = this.userForm.value;
+    if (this.userForm.valid && user.password === user.cPassword) {
+      delete user['cPassword']
 
+      if(this.formImage.get('fileName')) {
+        const imageType = this.formImage.get('fileName')?.toString().split('.')[1];
+        const imageName = `profile-${user.userName}-${new Date().getTime()}.${imageType}`;
+        this.formImage.set('fileName', imageName);
+        user.profile = imageName;
+        this.onlineQuizService.postUploadImage(this.formImage).subscribe();
+      }
+      
+      this.onlineQuizService.postUser(user).subscribe();
+
+    }
   }
 
-  readImage(event: any) {
-    const choosedFile = event.target.files[0];
-    if (choosedFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(choosedFile);
-      reader.onload = () => {
-        console.log(reader.result);
-        this.srcImage = reader.result;
-      };
+  previewImage(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
 
+      this.formImage.append("fileName", file.name);
+      this.formImage.append("files", file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageSrc = reader.result;
+      };
     }
+
   }
 
   navigate() {

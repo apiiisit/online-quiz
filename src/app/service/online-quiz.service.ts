@@ -32,8 +32,16 @@ export class OnlineQuizService {
     return this.http.get<any>(`api/user/${id}`);    
   }
 
+  postUser(user: any) {
+    return this.http.post('api/user', user);
+  }
+
   postTask(task: any) {
     return this.http.post('api/task', task);
+  }
+
+  postUploadImage(formData: any) {
+    return this.http.post('api/user/upload', formData);
   }
 
 }
