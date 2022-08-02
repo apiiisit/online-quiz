@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 import { customValue } from 'src/app/validate/custom-value';
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, customValue]),
     cPassword: new FormControl(null, [Validators.required, customValue]),
-    userRole: new FormControl({userRoleId: 2})
+    userRole: new FormControl({ userRoleId: 2 })
   })
 
   submitted: boolean = false;
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
   uploadBtn?: any;
 
 
-  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService, private el: ElementRef) { }
+  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
 
   ngOnInit(): void {
 
@@ -50,15 +51,24 @@ export class RegisterComponent implements OnInit {
     if (this.userForm.valid && user.password === user.cPassword) {
       delete user['cPassword']
 
-      if(this.formImage.get('fileName')) {
+      if (this.formImage.get('fileName')) {
         const imageType = this.formImage.get('fileName')?.toString().split('.')[1];
         const imageName = `profile-${user.userName}-${new Date().getTime()}.${imageType}`;
         this.formImage.set('fileName', imageName);
         user.profile = imageName;
         this.onlineQuizService.postUploadImage(this.formImage).subscribe();
       }
-      
-      this.onlineQuizService.postUser(user).subscribe();
+
+      this.onlineQuizService.postUser(user).subscribe((res: any) => {
+        if (res.error) {
+          return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: res.error, life: 3000 });
+        }
+        this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 3000 });
+        setTimeout(() => {
+          this.navigate();
+        }, 3000)
+      });
+
 
     }
   }

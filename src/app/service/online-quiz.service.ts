@@ -27,6 +27,10 @@ export class OnlineQuizService {
   login(username: string, password: string) {
     return this.http.get<any>(`api/user/auth?username=${username}&password=${password}`);
   }
+
+  updateLastLogin(id: number) {
+    return this.http.put(`api/user/lastlogin`, {userId: id});
+  }
   
   getUser(id: number) {
     return this.http.get<any>(`api/user/${id}`);    

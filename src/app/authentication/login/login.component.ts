@@ -26,13 +26,16 @@ export class LoginComponent implements OnInit {
 
   btnSubmit() {
     this.submitted = true;
-    const user = this.username;
+    const user = this.username?.toLowerCase();
     const pass = this.password;
     if (user && pass) {
       this.authService
         .login(user, pass)
         .subscribe({
-          complete: (() => this.navigate()),
+          complete: (() => {
+            this.authService.updateLastLogin().subscribe();
+            this.navigate()
+          }),
           error: (() => this.cLogin = true)
         })
     }

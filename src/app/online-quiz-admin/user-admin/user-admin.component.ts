@@ -22,7 +22,13 @@ export class UserAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.onlineQuizAdminService.getUser().subscribe(res => this.userList = res);
+    this.onlineQuizAdminService.getUser().subscribe(res => {
+      const _res = [...res];
+      _res.map(item => {
+        if (item['lastLogin']) item['lastLogin'] = item['lastLogin'].slice(0, -5);
+      })
+      this.userList = _res;
+    });
     this.onlineQuizAdminService.getUserRole().subscribe(res => this.userRoleList = res);
 
   }

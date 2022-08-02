@@ -36,6 +36,10 @@ export class AuthService {
     localStorage.clear();
   }
 
+  updateLastLogin() {
+    return this.onlineQuizService.updateLastLogin(this.user.userid);
+  }
+
   private getUser(token: string) {
     if (!token) return;
     const user = atob(token.split('.')[1]).split(',');
