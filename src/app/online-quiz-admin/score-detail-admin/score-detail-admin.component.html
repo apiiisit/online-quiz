@@ -1,8 +1,8 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="card">
     <p-table #dt [value]="taskList" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['fullName', 'quiz.category.categoryName', 'quiz.quizName']" responsiveLayout="scroll" [(selection)]="selectedItem"
-        [rowHover]="true" dataKey="userId"
+        [globalFilterFields]="['fullName', 'quiz.category.categoryName', 'quiz.quizName', 'taskStatus']" responsiveLayout="scroll"
+        [(selection)]="selectedItem" [rowHover]="true" dataKey="userId"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
@@ -10,7 +10,8 @@
                 <div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="searchText" (input)="search(dt)" placeholder="Search..." />
+                        <input pInputText type="text" [(ngModel)]="searchText" (input)="search(dt)"
+                            placeholder="Search..." />
                     </span>
                 </div>
             </div>
@@ -20,12 +21,19 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="fullName">Name<p-sortIcon field="fullName"></p-sortIcon></th>
-                <th pSortableColumn="quiz.category.categoryName">Category<p-sortIcon field="quiz.category.categoryName"></p-sortIcon></th>
-                <th pSortableColumn="quiz.quizName">Quiz<p-sortIcon field="quiz.quizName"></p-sortIcon></th>
-                <th pSortableColumn="taskScore">Score<p-sortIcon field="taskScore"></p-sortIcon></th>
-                <th pSortableColumn="taskStatus">Status<p-sortIcon field="taskStatus"></p-sortIcon></th>
-                <th pSortableColumn="time">Time<p-sortIcon field="time"></p-sortIcon></th>
+                <th pSortableColumn="fullName">Name<p-sortIcon field="fullName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="quiz.category.categoryName">Category<p-sortIcon field="quiz.category.categoryName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quiz.quizName">Quiz<p-sortIcon field="quiz.quizName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="taskScore">Score<p-sortIcon field="taskScore"></p-sortIcon>
+                </th>
+                <th pSortableColumn="taskStatus">Status<p-sortIcon field="taskStatus"></p-sortIcon>
+                </th>
+                <th pSortableColumn="time">Time<p-sortIcon field="time"></p-sortIcon>
+                </th>
                 <th></th>
             </tr>
         </ng-template>
@@ -37,8 +45,12 @@
                 <td>{{task.fullName}}</td>
                 <td>{{task.quiz.category.categoryName}}</td>
                 <td>{{task.quiz.quizName}}</td>
-                <td>{{task.taskScore}}</td>
-                <td>{{task.taskStatus}}</td>
+                <td>{{task.taskScore}}/{{task.quiz.numberOfQuestion}}</td>
+                <td>
+                    <p-tag [severity]="task.taskStatus ? 'success' : 'danger'"
+                        [value]="task.taskStatus ? 'Pass' : 'Not pass'"></p-tag>
+                </td>
+
                 <td>{{task.time}}</td>
                 <!-- <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"

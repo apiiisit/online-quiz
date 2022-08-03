@@ -48,7 +48,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-quiz let-index="rowIndex">
-            <tr>
+            <tr [style]="{cursor: 'pointer'}">
                 <td>
                     <p-tableCheckbox [value]="quiz"></p-tableCheckbox>
                 </td>

@@ -19,7 +19,8 @@
                 <div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="searchText" (focus)="search(dt)" (input)="search(dt)" appAutoFocus placeholder="Search..." />
+                        <input pInputText type="text" [(ngModel)]="searchText" (focus)="search(dt)" (input)="search(dt)"
+                            appAutoFocus placeholder="Search..." />
                     </span>
                 </div>
             </div>
@@ -37,12 +38,13 @@
                 </th>
                 <th pSortableColumn="questionTime">Delay(s)<p-sortIcon field="questionTime"></p-sortIcon>
                 </th>
-                <th pSortableColumn="verified">Verified<p-sortIcon field="verified"></p-sortIcon></th>
+                <th pSortableColumn="verified">Verified<p-sortIcon field="verified"></p-sortIcon>
+                </th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-question let-expanded="expanded">
-            <tr [style]="expanded ? 'background-color: #cae6fc' : ''">
+            <tr [style]="{cursor: 'pointer', 'background-color': expanded?'#cae6fc':''}">
                 <td>
                     <p-tableCheckbox [value]="question"></p-tableCheckbox>
                 </td>
@@ -51,7 +53,8 @@
                 <td [pRowToggler]="question">{{question.quiz.quizName}}</td>
                 <td [pRowToggler]="question" class="text-center">{{question.questionTime}}</td>
                 <td [pRowToggler]="question" class="text-center">
-                    <i [style]="question.verified ? 'color: #689F38' : 'color: #D32F2F'" class="pi" [ngClass]="{'true-icon pi-check-circle': question.verified, 'false-icon pi-times-circle': !question.verified}"></i>
+                    <i [style]="question.verified ? 'color: #689F38' : 'color: #D32F2F'" class="pi"
+                        [ngClass]="{'true-icon pi-check-circle': question.verified, 'false-icon pi-times-circle': !question.verified}"></i>
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
@@ -73,50 +76,54 @@
                         <p-table [value]="question.choiceArr" dataKey="choiceId">
                             <ng-template pTemplate="caption">
                                 <div class="flex align-items-center justify-content-between">
-                                    <h5 class="m-0">Manage Question "{{question.questionName}}" | {{question.questionType | choice}}</h5>
+                                    <h5 class="m-0">Manage Question "{{question.questionName}}" |
+                                        {{question.questionType | choice}}</h5>
                                     <div>
-                                        <p-button class="mr-2" icon="pi pi-plus" (click)="openDialogChoice(question)"></p-button>
+                                        <p-button class="mr-2" icon="pi pi-plus" (click)="openDialogChoice(question)">
+                                        </p-button>
                                     </div>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Correct</th>
-                                    <th></th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-choice>
-                                <tr>
-                                    <td>{{choice.choiceName}}</td>
-                                    <td><p-tag [severity]="choice.choiceCorrect ? 'success' : 'danger'" [value]="choice.choiceCorrect ? 'Correct' : 'Incorrect'"></p-tag></td>
-                                    <td>
-                                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
-                                            (click)="editItemChoice(choice)"></button>
-                                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
-                                            (click)="deleteItemChoice(choice)"></button>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="emptymessage">
-                                <tr>
-                                    <td colspan="6">There are no order for this choice yet.</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+            <tr>
+                <th>Name</th>
+                <th>Correct</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-choice>
+            <tr>
+                <td>{{choice.choiceName}}</td>
+                <td>
+                    <p-tag [severity]="choice.choiceCorrect ? 'success' : 'danger'"
+                        [value]="choice.choiceCorrect ? 'Correct' : 'Incorrect'"></p-tag>
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                        (click)="editItemChoice(choice)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteItemChoice(choice)"></button>
                 </td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">There are no order for this choice yet.</td>
+            </tr>
+        </ng-template>
     </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
 </div>
 
 <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Question Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Name</label>
-            <textarea id="name" pInputTextarea [(ngModel)]="question.questionName" required autofocus
-                rows="3"
+            <textarea id="name" pInputTextarea [(ngModel)]="question.questionName" required autofocus rows="3"
                 cols="20">
             </textarea>
             <small class="p-error" *ngIf="submitted && !question.questionName?.trim()">Name is required.</small>
@@ -142,7 +149,8 @@
         <div class="field">
             <label for="delay">Delay(s)</label>
             <input type="text" pInputText id="delay" [(ngModel)]="question.questionTime" require />
-            <small class="p-error" *ngIf="submitted && !question.questionTime?.toString().trim()">Delay is required.</small>
+            <small class="p-error" *ngIf="submitted && !question.questionTime?.toString().trim()">Delay is
+                required.</small>
         </div>
     </ng-template>
 
@@ -153,13 +161,12 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="dialogChoice" [style]="{width: '400px', height: '500px'}" header="Choice Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialogChoice" [style]="{width: '400px', height: '500px'}" header="Choice Details" [modal]="true"
+    styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Name</label>
-            <textarea id="name" pInputTextarea [(ngModel)]="choice.choiceName" required autofocus
-                rows="3"
-                cols="20">
+            <textarea id="name" pInputTextarea [(ngModel)]="choice.choiceName" required autofocus rows="3" cols="20">
             </textarea>
             <small class="p-error" *ngIf="submitted && !choice.choiceName?.trim()">Name is required.</small>
         </div>
@@ -177,6 +184,7 @@
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-seccect" class="p-button-danger"
             (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveItemChoice()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"
+            (click)="saveItemChoice()"></button>
     </ng-template>
 </p-dialog>

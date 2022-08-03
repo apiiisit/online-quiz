@@ -29,7 +29,11 @@ export class ScoreDetailAdminComponent implements OnInit {
   }
 
   search(dt: any) {
-    dt.filterGlobal(this.searchText, 'contains')
+    let txt = this.searchText!.toLowerCase();
+    if (txt.includes('not')) txt = 'false';
+    else if (txt.includes('pass')) txt = 'true';
+    
+    dt.filterGlobal(txt, 'contains')
   }
 
   calTime(start: number, finish: number) {
