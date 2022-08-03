@@ -61,6 +61,12 @@ export class QuizAdminComponent implements OnInit {
     })
   }
 
+  goPageScore(name: string) {
+    this.router.navigate(['/online-quiz/admin/', 'score'], {
+      queryParams: { quiz: name }
+    })
+  }
+
   openNew() {
     this.quiz = {
       category: this.caregoryList[this.caregoryList.findIndex(item => item.categoryName === this.searchText)],

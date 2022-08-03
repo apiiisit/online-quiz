@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class ScoreDetailAdminComponent implements OnInit {
   taskList: any[] = [];
   selectedItem?: any;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -25,6 +26,9 @@ export class ScoreDetailAdminComponent implements OnInit {
       })
       this.taskList = _res;
     });
+
+    const quiz = this.router.url.split('=')[1];
+    if (quiz) this.searchText = decodeURI(quiz);
 
   }
 

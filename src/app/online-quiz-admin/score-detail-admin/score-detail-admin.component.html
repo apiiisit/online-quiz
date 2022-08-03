@@ -10,7 +10,7 @@
                 <div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="searchText" (input)="search(dt)"
+                        <input pInputText type="text" [(ngModel)]="searchText" (focus)="search(dt)" (input)="search(dt)" appAutoFocus
                             placeholder="Search..." />
                     </span>
                 </div>
