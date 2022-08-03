@@ -175,7 +175,7 @@ export class QuestionComponent implements OnInit {
 
   postAnswer() {
     const pass = (this.point / this.questionList.length) * 100;
-    this.task['user'] = { userId: this.authService.user.userid };
+    this.task['user'] = { userId: this.authService.user.userId };
     this.task['taskStatus'] = pass >= this.quizPass;
     this.task['taskScore'] = this.point;
     this.task['taskPass'] = pass.toString() + '%';

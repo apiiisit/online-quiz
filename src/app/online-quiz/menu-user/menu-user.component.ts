@@ -30,6 +30,7 @@ export class MenuUserComponent implements OnInit {
           {
             label: 'แก้ไขข้อมูลส่วนตัว',
             icon: 'pi pi-fw pi-pencil',
+            routerLink: 'edit/profile'
           },
           {
             label: 'ออกจากระบบ',
@@ -48,7 +49,7 @@ export class MenuUserComponent implements OnInit {
       }
     ];
 
-    this.onlineQuizService.getUser(this.authService.user.userid).subscribe(res => {
+    this.onlineQuizService.getUser(this.authService.user.userId).subscribe(res => {
       this.items![1].label = `${res.firstName} ${res.lastName}`
       this.onlineQuizService.getCategory().subscribe({
         next: (res) => {

@@ -40,6 +40,10 @@ export class OnlineQuizService {
     return this.http.post('api/user', user);
   }
 
+  updateUser(id: any, user: any) {
+    return this.http.put(`api/user/${id}`, user);
+  }
+
   postTask(task: any) {
     return this.http.post('api/task', task);
   }

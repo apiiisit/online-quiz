@@ -11,7 +11,7 @@ export class AuthService {
   private readonly TOKEN_NAME = 'online-quiz';
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   user!: any;
-  
+
   get token() {
     return localStorage.getItem(this.TOKEN_NAME);
   }
@@ -37,15 +37,15 @@ export class AuthService {
   }
 
   updateLastLogin() {
-    return this.onlineQuizService.updateLastLogin(this.user.userid);
+    return this.onlineQuizService.updateLastLogin(this.user.userId);
   }
 
   private getUser(token: string) {
     if (!token) return;
     const user = atob(token.split('.')[1]).split(',');
     return {
-      userid: user[0],
-      username: user[1],
+      userId: user[0],
+      userName: user[1],
       role: user[2] === 'A' ? 'Admin' : 'User'
     }
   }

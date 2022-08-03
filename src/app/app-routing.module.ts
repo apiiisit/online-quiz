@@ -15,6 +15,7 @@ import { CategoryComponent } from './online-quiz/category/category.component';
 import { OnlineQuizComponent } from './online-quiz/online-quiz.component';
 import { QuestionComponent } from './online-quiz/question/question.component';
 import { QuizComponent } from './online-quiz/quiz/quiz.component';
+import { Mode } from './type/mode';
 
 const routes: Routes = [
   { path: '', redirectTo: 'online-quiz/auth', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        data: { mode: Mode.ADD }
       }
     ]
   },
@@ -49,6 +51,11 @@ const routes: Routes = [
         path: 'quiz/:categoryId/:quizId',
         component: QuestionComponent
       },
+      {
+        path: 'edit/profile',
+        component: RegisterComponent,
+        data: { mode: Mode.EDIT }
+      }
     ]
   },
   {

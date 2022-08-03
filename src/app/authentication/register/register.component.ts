@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
+import { Mode } from 'src/app/type/mode';
 import { customValue } from 'src/app/validate/custom-value';
 
 @Component({
@@ -20,9 +21,11 @@ export class RegisterComponent implements OnInit {
     tel: new FormControl(null, [Validators.required, customValue]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, customValue]),
-    cPassword: new FormControl(null, [Validators.required, customValue]),
-    userRole: new FormControl({ userRoleId: 2 })
+    cPassword: new FormControl(null, [Validators.required, customValue])
   })
+
+  title?: string;
+  btnValue?: string;
 
   submitted: boolean = false;
   cLogin: boolean = false;
@@ -32,44 +35,81 @@ export class RegisterComponent implements OnInit {
 
   uploadBtn?: any;
 
+  mode!: Mode;
+  Mode = Mode;
 
-  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
+  constructor(private activeRoute: ActivatedRoute, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
 
   ngOnInit(): void {
 
-    this.authService.isLoggedIn$.subscribe(res => {
-      if (res) {
-        this.navigate()
-      }
-    })
+    const { mode } = this.activeRoute.snapshot.data;
+    this.mode = mode;
+
+    if (mode === Mode.ADD) {
+      this.title = 'Register';
+      this.btnValue = 'Register';
+      this.authService.isLoggedIn$.subscribe(res => {
+        if (res) {
+          this.navigate()
+        }
+      })
+    } else if (mode === Mode.EDIT) {
+      this.title = 'Edit profile';
+      this.btnValue = 'Save';
+      this.userForm.get('userName')?.disable();
+      this.userForm.get('password')?.disable();
+      this.userForm.get('cPassword')?.disable();
+
+      this.onlineQuizService.getUser(this.authService.user.userId).subscribe(res => {
+        this.userForm.controls['userName'].setValue(res.userName);
+        this.userForm.controls['firstName'].setValue(res.firstName);
+        this.userForm.controls['lastName'].setValue(res.lastName);
+        this.userForm.controls['tel'].setValue(res.tel);
+        this.userForm.controls['email'].setValue(res.email);
+        if (res.profile) this.imageSrc = `api/user/image/${res.profile}`;
+      })
+    }
+
     this.uploadBtn = this.el.nativeElement.querySelector('#uploadBtn');
   }
 
   btnSubmit() {
     this.submitted = true;
     const user = this.userForm.value;
-    if (this.userForm.valid && user.password === user.cPassword) {
-      delete user['cPassword']
 
-      if (this.formImage.get('fileName')) {
-        const imageType = this.formImage.get('fileName')?.toString().split('.')[1];
-        const imageName = `profile-${user.userName}-${new Date().getTime()}.${imageType}`;
-        this.formImage.set('fileName', imageName);
-        user.profile = imageName;
-        this.onlineQuizService.postUploadImage(this.formImage).subscribe();
+    if (this.formImage.get('fileName')) {
+      const imageType = this.formImage.get('fileName')?.toString().split('.')[1];
+      const imageName = `profile-${this.userForm.get('userName')?.value}-${new Date().getTime()}.${imageType}`;
+      this.formImage.set('fileName', imageName);
+      user.profile = imageName;
+      this.onlineQuizService.postUploadImage(this.formImage).subscribe();
+    }
+
+    if (this.mode === Mode.ADD) {
+      if (this.userForm.valid && user.password === user.cPassword) {
+        delete user['cPassword']
+        this.onlineQuizService.postUser(user).subscribe((res: any) => {
+          if (res.error) {
+            return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: res.error, life: 1500 });
+          }
+          this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 1500 });
+          setTimeout(() => {
+            this.navigate();
+          }, 1500)
+        });
       }
-
-      this.onlineQuizService.postUser(user).subscribe((res: any) => {
-        if (res.error) {
-          return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: res.error, life: 3000 });
-        }
-        this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 3000 });
-        setTimeout(() => {
-          this.navigate();
-        }, 3000)
-      });
-
-
+    } else if (this.mode === Mode.EDIT) {
+      if (this.userForm.valid) {
+        this.onlineQuizService.updateUser(this.authService.user.userId, user).subscribe((res: any) => {
+          if (res.error) {
+            return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: res.error, life: 1500 });
+          }
+          this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 1500 });
+          setTimeout(() => {
+            this.navigate();
+          }, 1500)
+        });
+      }
     }
   }
 
@@ -93,6 +133,8 @@ export class RegisterComponent implements OnInit {
     const role = this.authService.user?.role;
     const path = ['/online-quiz/']
     if (role === 'Admin') path.push('admin')
-    this.router.navigate(path)
+    window.location.pathname = path.join('');
   }
+
+
 }
