@@ -10,8 +10,8 @@
     </p-toolbar>
 
     <p-table #dt [value]="userList" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['userName', 'firstName', 'lastName']" responsiveLayout="scroll" [(selection)]="selectedItem"
-        [rowHover]="true" dataKey="userId"
+        [globalFilterFields]="['userName', 'firstName', 'lastName']" responsiveLayout="scroll"
+        [(selection)]="selectedItem" [rowHover]="true" dataKey="userId"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
@@ -19,7 +19,8 @@
                 <div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" [(ngModel)]="searchText" (input)="search(dt)" placeholder="Search..." />
+                        <input pInputText type="text" [(ngModel)]="searchText" (input)="search(dt)"
+                            placeholder="Search..." />
                     </span>
                 </div>
             </div>
@@ -29,13 +30,18 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="userName">Username<p-sortIcon field="userName"></p-sortIcon></th>
-                <th pSortableColumn="firstName">Name<p-sortIcon field="firstName"></p-sortIcon></th>
+                <th>Profile</th>
+                <th pSortableColumn="userName">Username<p-sortIcon field="userName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="firstName">Name<p-sortIcon field="firstName"></p-sortIcon>
+                </th>
                 <th>Tel</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th pSortableColumn="lastLogin">Last login<p-sortIcon field="lastLogin"></p-sortIcon></th>
-                <th pSortableColumn="userRole.userRoleName">Role<p-sortIcon field="userRole.userRoleName"></p-sortIcon></th>
+                <th pSortableColumn="lastLogin">Last login<p-sortIcon field="lastLogin"></p-sortIcon>
+                </th>
+                <th pSortableColumn="userRole.userRoleName">Role<p-sortIcon field="userRole.userRoleName"></p-sortIcon>
+                </th>
                 <th></th>
             </tr>
         </ng-template>
@@ -43,6 +49,10 @@
             <tr>
                 <td>
                     <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                </td>
+                <td>
+                    <p-image src="api/user/image/{{user.profile ? user.profile : 'person.png'}}" alt="Profile"
+                        width="50px" [preview]="true"></p-image>
                 </td>
                 <td>{{user.userName}}</td>
                 <td>{{user.firstName}} {{user.lastName}}</td>
@@ -83,7 +93,6 @@
             <label for="firstName">Firstname</label>
             <input type="text" pInputText id="firstName" [(ngModel)]="user.firstName" required />
             <small class="p-error" *ngIf="submitted && !user.firstName?.trim()">Firstname is required.</small>
-
         </div>
         <div class="field">
             <label for="lastName">Lastname</label>

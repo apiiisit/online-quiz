@@ -34,6 +34,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TagModule } from 'primeng/tag';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
+import { ImageModule } from 'primeng/image';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { ChoicePipe } from './pipe/choice.pipe';
@@ -107,7 +108,8 @@ import { RegisterComponent } from './authentication/register/register.component'
     CalendarModule,
     TagModule,
     PanelMenuModule,
-    PasswordModule
+    PasswordModule,
+    ImageModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

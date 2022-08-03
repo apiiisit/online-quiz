@@ -15,6 +15,7 @@ export class MenuUserComponent implements OnInit {
 
   items!: MenuItem[];
   showMenu: boolean = false;
+  imageSrc?: string = 'assets/images/person.png';
 
   ngOnInit() {
 
@@ -51,6 +52,8 @@ export class MenuUserComponent implements OnInit {
 
     this.onlineQuizService.getUser(this.authService.user.userId).subscribe(res => {
       this.items![1].label = `${res.firstName} ${res.lastName}`
+      if (res.profile) this.imageSrc = `api/user/image/${res.profile}`;
+
       this.onlineQuizService.getCategory().subscribe({
         next: (res) => {
           [...res].forEach(item => {

@@ -33,9 +33,9 @@ export class ScoreDetailAdminComponent implements OnInit {
   }
 
   search(dt: any) {
-    let txt = this.searchText!.toLowerCase();
-    if (txt.includes('not')) txt = 'false';
-    else if (txt.includes('pass')) txt = 'true';
+    let txt = this.searchText?.toLowerCase();
+    if (txt?.includes('not')) txt = 'false';
+    else if (txt?.includes('pass')) txt = 'true';
     
     dt.filterGlobal(txt, 'contains')
   }
