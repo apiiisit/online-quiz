@@ -8,10 +8,10 @@
             </div>
             <div class="box-lab">
                 <div *ngFor="let q of quizList" class="blab">
-                    <p-card [style]="{cursor: 'pointer'}" styleClass="mb-3" (click)="btnClick(q)"
-                        [header]="q.quizName" [subheader]="q.quizName">
-                        <span
-                            [style]="checkTime(q.quizStart, q.quizEnd) ? 'color: rgb(36 166 36)' : checkStartTime(q.quizStart) ? 'color: #f00' : ''">เริ่ม
+                    <p-card [style]="{cursor: 'pointer'}" styleClass="mb-3" (click)="btnClick(q.status, q)"
+                        [header]="q.quizName" [subheader]="showStatus(q.status, q.quizEnd)">
+                        <span *ngIf="!q.status"
+                            [style]="checkTime(q.quizStart, q.quizEnd) ? 'color: rgb(36 166 36)' : checkEndTime(q.quizEnd) ? 'color: #f00' : ''">เริ่ม
                             {{q.quizStart | date:'short':'':'th'}} สิ้นสุด {{q.quizEnd | date:'short':'':'th'}}</span>
                     </p-card>
                 </div>

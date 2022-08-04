@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class QuizComponent implements OnInit {
   emptyList: boolean = false;
   params: any;
 
-  constructor(private onlineQuizService: OnlineQuizService, private activeRoute: ActivatedRoute, private router: Router) { }
+  constructor(private onlineQuizService: OnlineQuizService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.params = this.activeRoute.snapshot.params;
@@ -23,18 +24,22 @@ export class QuizComponent implements OnInit {
         _res.map(item => {
           item['quizStart'] = item['quizStart'].slice(0, -5);
           item['quizEnd'] = item['quizEnd'].slice(0, -5);
+          this.onlineQuizService.getUserDoQuiz(this.authService.user.userId, item.quizId).subscribe({
+            next: (res: any) => item['status'] = res.length > 0,
+            complete: () => this.quizList = _res
+          });
         })
-        this.quizList = _res;
+
       } else {
         this.emptyList = true;
       }
     });
   }
 
-  checkStartTime(startTime: Date) {
+  checkEndTime(endTime: Date) {
     const dateNow = new Date().getTime();
-    const start = new Date(startTime).getTime();
-    return (dateNow > start);
+    const end = new Date(endTime).getTime();
+    return (dateNow > end);
   }
 
   checkTime(startTime: Date, endTime: Date) {
@@ -51,7 +56,8 @@ export class QuizComponent implements OnInit {
   cPassword: boolean = false;
   submitted: boolean = false;
 
-  btnClick(q: any) {
+  btnClick(status: boolean, q: any) {
+    if (status) return;
     if (this.checkTime(q.quizStart, q.quizEnd)) {
       this.quiz = q;
       // showDialog
@@ -59,6 +65,18 @@ export class QuizComponent implements OnInit {
       this.display = true;
 
     }
+  }
+
+  showStatus(quizStatus: boolean, endTime: Date) {
+    let status = '...';
+    if (quizStatus) {
+      status = 'ทำแล้ว';
+    } else if (this.checkEndTime(endTime)) {
+      status = 'หมดสิทธิ์ทำแบบทดสอบ';
+    } else {
+      status = 'ยังไม่ได้ทำ';
+    }
+    return status;
   }
 
   checkPassword() {

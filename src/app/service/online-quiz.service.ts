@@ -52,4 +52,8 @@ export class OnlineQuizService {
     return this.http.post('api/user/upload', formData);
   }
 
+  getUserDoQuiz(userId: any, quizId: any) {
+    return this.http.get(`api/task/check?uid=${userId}&qid=${quizId}`);
+  }
+
 }
