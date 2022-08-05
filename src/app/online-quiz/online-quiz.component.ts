@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-online-quiz',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnlineQuizComponent implements OnInit {
 
-  constructor() { }
+  imageSrc: any;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.imageSrc = this.authService.profileUrl;
   }
 
 }

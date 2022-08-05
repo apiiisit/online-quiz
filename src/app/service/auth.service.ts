@@ -9,16 +9,24 @@ export class AuthService {
 
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   private readonly TOKEN_NAME = 'online-quiz';
+  private readonly PROFILE = 'profile';
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   user!: any;
+  profileUrl!: any;
 
   get token() {
     return localStorage.getItem(this.TOKEN_NAME);
   }
 
+  get profile() {
+    return localStorage.getItem(this.PROFILE);
+  }
+
   constructor(private onlineQuizService: OnlineQuizService) {
     this._isLoggedIn$.next(!!this.token);
-    this.user = this.getUser(this.token!)
+    this.user = this.getUser(this.token!);
+    this.profileUrl = this.getProfile(this.profile!);
+
   }
 
   login(username: string, password: string) {
@@ -27,6 +35,10 @@ export class AuthService {
         this._isLoggedIn$.next(true);
         localStorage.setItem(this.TOKEN_NAME, res.token);
         this.user = this.getUser(res.token)
+        
+        const profileBase64 = btoa(res.profile || 'person.png').slice(0,-2);
+        localStorage.setItem(this.PROFILE, profileBase64);
+        this.profileUrl = this.getProfile(profileBase64);
       })
     );
   }
@@ -49,4 +61,11 @@ export class AuthService {
       role: user[2] === 'A' ? 'Admin' : 'User'
     }
   }
+
+  private getProfile(profile: string) {
+    if (!profile) return;
+    const profileStr = atob(profile);
+    return profileStr === 'person.png' ? 'assets/images/person.png' : `api/user/image/${profileStr}`;
+  }
+  
 }
