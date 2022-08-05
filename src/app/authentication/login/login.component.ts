@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
             this.authService.updateLastLogin().subscribe((res) => {
               console.log(res);
             });
-            this.navigate()
+            // this.navigate()
           }),
           error: (() => this.cLogin = true)
         })
