@@ -33,10 +33,8 @@ export class LoginComponent implements OnInit {
         .login(user, pass)
         .subscribe({
           complete: (() => {
-            this.authService.updateLastLogin().subscribe((res) => {
-              console.log(res);
-            });
-            // this.navigate()
+            this.authService.updateLastLogin().subscribe();
+            this.navigate()
           }),
           error: (() => this.cLogin = true)
         })
