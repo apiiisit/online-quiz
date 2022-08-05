@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   password?: string;
   submitted: boolean = false;
   cLogin: boolean = false;
-  
+
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
         .login(user, pass)
         .subscribe({
           complete: (() => {
-            this.authService.updateLastLogin().subscribe();
+            this.authService.updateLastLogin().subscribe((res) => {
+              console.log(res);
+            });
             this.navigate()
           }),
           error: (() => this.cLogin = true)
