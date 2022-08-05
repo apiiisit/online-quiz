@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import { HasQuizKeyGuard } from './guard/has-quiz-key.guard';
 import { HasRoleGuard } from './guard/has-role.guard';
 import { IsAuthenticatedGuard } from './guard/is-authenticated.guard';
 import { CategoryAdminComponent } from './online-quiz-admin/category-admin/category-admin.component';
@@ -49,7 +50,8 @@ const routes: Routes = [
       },
       {
         path: 'quiz/:categoryId/:quizId',
-        component: QuestionComponent
+        component: QuestionComponent,
+        canActivate: [HasQuizKeyGuard]
       },
       {
         path: 'edit/profile',
