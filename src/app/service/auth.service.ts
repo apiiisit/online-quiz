@@ -36,7 +36,7 @@ export class AuthService {
         localStorage.setItem(this.TOKEN_NAME, res.token);
         this.user = this.getUser(res.token)
         
-        const profileBase64 = btoa(res.profile || 'person.png').slice(0,-2);
+        const profileBase64 = btoa(res.profile || 'person.png');
         localStorage.setItem(this.PROFILE, profileBase64);
         this.profileUrl = this.getProfile(profileBase64);
       })
