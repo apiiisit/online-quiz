@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
+import { QuizKeyService } from 'src/app/service/quiz-key.service';
 
 @Component({
   selector: 'app-quiz',
@@ -14,7 +15,7 @@ export class QuizComponent implements OnInit {
   emptyList: boolean = false;
   params: any;
 
-  constructor(private onlineQuizService: OnlineQuizService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
+  constructor(private onlineQuizService: OnlineQuizService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService, private quizKeyService: QuizKeyService) { }
 
   ngOnInit(): void {
     this.params = this.activeRoute.snapshot.params;
@@ -83,6 +84,7 @@ export class QuizComponent implements OnInit {
     this.submitted = true;
     if (this.password) {
       if (this.password === this.quiz.quizPassword) {
+        this.quizKeyService.postQuizKey();
         this.router.navigate(['/online-quiz/quiz/', this.params.categoryId, this.quiz.quizId])
         this.quiz = {};
         this.display = false;
