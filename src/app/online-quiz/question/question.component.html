@@ -9,7 +9,7 @@
                     คุณเหลือเวลา {{timeText}}
                     <i class="pi pi-clock" style="font-size: 4vh"></i>
                 </h3>
-                <h2>{{questionList[currentPage].questionName}}</h2>
+                <h2 [innerHTML]="questionList[currentPage].questionName"></h2>
 
                 <div class="row">
                     <div class="column1">
@@ -34,7 +34,7 @@
                             name="choice" [value]="[c]" [(ngModel)]="selectedChoice"></p-radioButton>
                         <p-checkbox *ngIf="questionList[currentPage].questionType==='M'" name="choice" [value]="c"
                             [(ngModel)]="selectedChoice" [inputId]="c.choiceId"></p-checkbox>
-                        <label class="choice-text" [for]="c.choiceId">{{c.choiceName}}</label>
+                        <label class="choice-text" [for]="c.choiceId" [innerHTML]="c.choiceName"></label>
                     </div>
                 </div>
                 <div class="btn">

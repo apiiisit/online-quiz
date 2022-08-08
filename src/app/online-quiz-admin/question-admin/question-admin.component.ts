@@ -98,6 +98,7 @@ export class QuestionAdminComponent implements OnInit {
 
   saveItem() {
     this.submitted = true;
+    this.question.questionName = this.question.questionName.slice(3,-4);
     const name = this.question.questionName?.trim();
     const type = this.question.questionType;
     const quiz = this.question.quiz;
@@ -123,6 +124,7 @@ export class QuestionAdminComponent implements OnInit {
 
   saveItemChoice() {
     this.submitted = true;
+    this.choice.choiceName = this.choice.choiceName.slice(3,-4);
     const name = this.choice.choiceName?.trim();
     const correcte = this.choice.choiceCorrect;
     if (name && correcte) {

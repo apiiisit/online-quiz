@@ -35,6 +35,7 @@ import { TagModule } from 'primeng/tag';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
 import { ImageModule } from 'primeng/image';
+import { EditorModule } from 'primeng/editor';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { ChoicePipe } from './pipe/choice.pipe';
@@ -109,7 +110,8 @@ import { RegisterComponent } from './authentication/register/register.component'
     TagModule,
     PanelMenuModule,
     PasswordModule,
-    ImageModule
+    ImageModule,
+    EditorModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
