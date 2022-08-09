@@ -32,7 +32,7 @@ export class QuestionAdminComponent implements OnInit {
       next: (res) => {
         _res = [...res];
         _res.forEach(itemQuestion => {
-          const correctLen = [...itemQuestion.choiceArr].filter(i => i.choiceCorrect === true).length
+          const correctLen = [...itemQuestion.choiceArr].filter(i => i.choiceCorrect.choiceCorrectCheck === true).length
           itemQuestion['verified'] = itemQuestion.questionType === 'S' ? correctLen === 1 : correctLen >= 2;
         })
       },
@@ -40,7 +40,16 @@ export class QuestionAdminComponent implements OnInit {
         this.questionList = _res;
         this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
         this.questionTypeList = ['S', 'M'];
-        this.choiceCorrectList = ['true', 'false'];
+        this.choiceCorrectList = [
+          {
+            choiceCorrectId: 0,
+            choiceCorrectCheck: 'false'
+          },
+          {
+            choiceCorrectId: 1,
+            choiceCorrectCheck: 'true'
+          }
+        ];
       }
     });
 
@@ -71,7 +80,7 @@ export class QuestionAdminComponent implements OnInit {
 
   openDialogChoice(question: any) {
     this.choice = {
-      choiceCorrect: 'false',
+      choiceCorrect: this.choiceCorrectList[0],
       question: {
         questionId: question.questionId
       }
@@ -86,19 +95,23 @@ export class QuestionAdminComponent implements OnInit {
   }
 
   editItem(question: any) {
-    this.question = { ...question };
+    const _question = { ...question };
+    _question.questionName = `<p>${_question.questionName}</p>`;
+    this.question = _question;
     this.dialog = true;
   }
 
   editItemChoice(choice: any) {
-    this.choice = { ...choice };
-    this.choice.choiceCorrect = this.choice.choiceCorrect.toString();
+    const _choice = { ...choice };
+    _choice.choiceName = `<p>${_choice.choiceName}</p>`;
+    _choice.choiceCorrect = this.choiceCorrectList[_choice.choiceCorrect.choiceCorrectId];
+    this.choice = _choice;
     this.dialogChoice = true;
   }
 
   saveItem() {
     this.submitted = true;
-    this.question.questionName = this.question.questionName.slice(3,-4);
+    this.question.questionName = this.question.questionName.slice(3, -4);
     const name = this.question.questionName?.trim();
     const type = this.question.questionType;
     const quiz = this.question.quiz;
@@ -124,7 +137,7 @@ export class QuestionAdminComponent implements OnInit {
 
   saveItemChoice() {
     this.submitted = true;
-    this.choice.choiceName = this.choice.choiceName.slice(3,-4);
+    this.choice.choiceName = this.choice.choiceName.slice(3, -4);
     const name = this.choice.choiceName?.trim();
     const correcte = this.choice.choiceCorrect;
     if (name && correcte) {
