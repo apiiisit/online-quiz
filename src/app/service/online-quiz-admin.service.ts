@@ -94,11 +94,6 @@ export class OnlineQuizAdminService {
     return this.http.delete(`api/user/${user.userId}`);
   }
 
-  // user role
-  getUserRole() {
-    return this.http.get<any>('api/user_role');
-  }
-
   // task
   getTask() {
     return this.http.get<any>('api/task');

@@ -112,7 +112,7 @@
         </div>
         <div class="field" style="margin-bottom: 100px;">
             <label for="userRole.userRoleName">Role</label>
-            <p-dropdown [(ngModel)]="user.userRole" [options]="userRoleList" optionLabel="userRoleName"
+            <p-dropdown [(ngModel)]="user.userRole" [options]="userRoleList" optionLabel="userRoleDescription"
                 placeholder="Select">
                 <ng-template let-option pTemplate="item">
                     <span [class]="'product-badge user-role-' + option.userRoleId">{{option.userRoleName}}</span>

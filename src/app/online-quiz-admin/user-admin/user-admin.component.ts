@@ -29,7 +29,18 @@ export class UserAdminComponent implements OnInit {
       })
       this.userList = _res;
     });
-    this.onlineQuizAdminService.getUserRole().subscribe(res => this.userRoleList = res);
+    this.userRoleList = [
+      {
+        userRoleId: 1,
+        userRoleName: 'A',
+        userRoleDescription: 'admin'
+      },
+      {
+        userRoleId: 2,
+        userRoleName: 'U',
+        userRoleDescription: 'user'
+      },
+    ]
 
   }
 
