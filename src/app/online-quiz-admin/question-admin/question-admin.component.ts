@@ -27,31 +27,28 @@ export class QuestionAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let _res: any[];
-    this.onlineQuizAdminService.getQuestion().subscribe({
-      next: (res) => {
-        _res = [...res];
-        _res.forEach(itemQuestion => {
-          const correctLen = [...itemQuestion.choiceArr].filter(i => i.choiceCorrect.choiceCorrectCheck === true).length
-          itemQuestion['verified'] = itemQuestion.questionType === 'S' ? correctLen === 1 : correctLen >= 2;
-        })
-      },
-      complete: () => {
-        this.questionList = _res;
-        this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
-        this.questionTypeList = ['S', 'M'];
-        this.choiceCorrectList = [
-          {
-            choiceCorrectId: 0,
-            choiceCorrectCheck: 'false'
-          },
-          {
-            choiceCorrectId: 1,
-            choiceCorrectCheck: 'true'
+    this.onlineQuizAdminService.getQuestion().subscribe(res => {
+      let _res = [...res];
+
+      _res.forEach(itemQuestion => {
+        this.onlineQuizAdminService.getChoiceCorrect(itemQuestion.questionId).subscribe((resChoice: any) => {
+          for (let choice of resChoice) {
+            let question = itemQuestion.choiceArr.find((item: any) => item.choiceId == choice.choice.choiceId)
+            question.choiceCorrectId = choice.choiceCorrectId;
+            question.choiceCorrectCheck = choice.choiceCorrectCheck;
           }
-        ];
-      }
-    });
+        })
+
+      })
+      this.questionList = _res;
+      console.log(_res);
+
+
+      this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
+      this.questionTypeList = ['S', 'M'];
+      this.choiceCorrectList = ['true', 'false'];
+
+    })
 
     const name = this.router.url.split('=')[1];
     if (name) this.searchText = decodeURI(name);
@@ -80,7 +77,6 @@ export class QuestionAdminComponent implements OnInit {
 
   openDialogChoice(question: any) {
     this.choice = {
-      choiceCorrect: this.choiceCorrectList[0],
       question: {
         questionId: question.questionId
       }
@@ -104,7 +100,7 @@ export class QuestionAdminComponent implements OnInit {
   editItemChoice(choice: any) {
     const _choice = { ...choice };
     _choice.choiceName = `<p>${_choice.choiceName}</p>`;
-    _choice.choiceCorrect = this.choiceCorrectList[_choice.choiceCorrect.choiceCorrectId];
+    _choice.choiceCorrectCheck = _choice.choiceCorrectCheck.toString();
     this.choice = _choice;
     this.dialogChoice = true;
   }
@@ -139,13 +135,19 @@ export class QuestionAdminComponent implements OnInit {
     this.submitted = true;
     this.choice.choiceName = this.choice.choiceName.slice(3, -4);
     const name = this.choice.choiceName?.trim();
-    const correcte = this.choice.choiceCorrect;
+    const correcte = this.choice.choiceCorrectCheck;
+
+
     if (name && correcte) {
       if (this.choice.choiceId) {
         this.saveChoiceToDatabase(this.choice);
       }
       else {
+        let cId: number;
         this.onlineQuizAdminService.newChoice(this.choice).subscribe({
+          next: (res: any) => {
+            cId = res.choiceId;
+          },
           complete: () => {
             this.refresh();
             this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Choice created');

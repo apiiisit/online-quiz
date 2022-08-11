@@ -95,7 +95,7 @@
                                 <tr>
                                     <td [innerHTML]="choice.choiceName"></td>
                                     <td>
-                                        <p-tag [severity]="choice.choiceCorrect.choiceCorrectCheck ? 'success' : 'danger'" [value]="choice.choiceCorrect.choiceCorrectCheck ? 'Correct' : 'Incorrect'"></p-tag>
+                                        <p-tag [severity]="choice.choiceCorrectCheck ? 'success' : 'danger'" [value]="choice.choiceCorrectCheck ? 'Correct' : 'Incorrect'"></p-tag>
                                     </td>
                                     <td>
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editItemChoice(choice)"></button>
@@ -182,12 +182,12 @@
         </div>
         <div class="field">
             <label for="questionType">Correct</label>
-            <p-dropdown [(ngModel)]="choice.choiceCorrect" [options]="choiceCorrectList" optionLabel="choiceCorrectCheck" placeholder="Select">
+            <p-dropdown [(ngModel)]="choice.choiceCorrectCheck" [options]="choiceCorrectList" placeholder="Select">
                 <ng-template let-option pTemplate="item">
-                    <span [class]="'product-badge type'">{{option.choiceCorrectCheck}}</span>
+                    <span [class]="'product-badge type'">{{option}}</span>
                 </ng-template>
             </p-dropdown>
-            <small class="p-error" *ngIf="submitted && !choice.choiceCorrect">Correct is required.</small>
+            <small class="p-error" *ngIf="submitted && !choice.choiceCorrectCheck">Correct is required.</small>
         </div>
     </ng-template>
 

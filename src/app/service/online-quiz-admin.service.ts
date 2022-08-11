@@ -77,6 +77,11 @@ export class OnlineQuizAdminService {
     return this.http.delete(`api/choice/${choice.choiceId}`);
   }
 
+  // choice_correct
+  getChoiceCorrect(qId: number) {
+    return this.http.get(`api/choice_correct/choice/${qId}`);
+  }
+
   // user
   getUser() {
     return this.http.get<any>('api/user');
