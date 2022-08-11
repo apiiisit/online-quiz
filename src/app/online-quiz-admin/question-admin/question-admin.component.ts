@@ -13,10 +13,8 @@ export class QuestionAdminComponent implements OnInit {
   searchText?: string;
 
   dialog: boolean = false;
-  dialogChoice: boolean = false;
   questionList: any[] = [];
   question?: any;
-  choice?: any;
   selectedItem?: any;
   submitted: boolean = false;
   quizList: any[] = [];
@@ -27,28 +25,15 @@ export class QuestionAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.onlineQuizAdminService.getQuestion().subscribe(res => {
-      let _res = [...res];
+    this.onlineQuizAdminService.getQuestion().subscribe(res => this.questionList = res);
 
-      _res.forEach(itemQuestion => {
-        this.onlineQuizAdminService.getChoiceCorrect(itemQuestion.questionId).subscribe((resChoice: any) => {
-          for (let choice of resChoice) {
-            let question = itemQuestion.choiceArr.find((item: any) => item.choiceId == choice.choice.choiceId)
-            question.choiceCorrectId = choice.choiceCorrectId;
-            question.choiceCorrectCheck = choice.choiceCorrectCheck;
-          }
-        })
-
-      })
-      this.questionList = _res;
-      console.log(_res);
-
-
-      this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
-      this.questionTypeList = ['S', 'M'];
-      this.choiceCorrectList = ['true', 'false'];
-
+    this.onlineQuizAdminService.getchoiceCorrect().subscribe(res => {
+      for (let correct of res) correct.choiceCorrectCheck = correct.choiceCorrectCheck.toString();
+      this.choiceCorrectList = res;
     })
+
+    this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
+    this.questionTypeList = ['S', 'M'];
 
     const name = this.router.url.split('=')[1];
     if (name) this.searchText = decodeURI(name);
@@ -61,7 +46,6 @@ export class QuestionAdminComponent implements OnInit {
 
   refresh() {
     this.question = {};
-    this.choice = {};
     this.ngOnInit();
   }
 
@@ -69,50 +53,53 @@ export class QuestionAdminComponent implements OnInit {
     this.question = {
       questionType: 'S',
       questionTime: 30,
-      quiz: this.quizList[this.quizList.findIndex(item => item.quizName === this.searchText)]
+      quiz: this.quizList[this.quizList.findIndex(item => item.quizName === this.searchText)],
+      choiceArr: []
     };
+
+    for (let i = 0; i < 4; i++) {
+      this.question.choiceArr.push({ choiceCorrect: this.choiceCorrectList[0] })
+    }
     this.submitted = false;
     this.dialog = true;
   }
 
-  openDialogChoice(question: any) {
-    this.choice = {
-      question: {
-        questionId: question.questionId
-      }
-    };
-    this.dialogChoice = true;
-  }
-
   hideDialog() {
+    this.refresh();
     this.dialog = false;
-    this.dialogChoice = false;
     this.submitted = false;
   }
 
   editItem(question: any) {
     const _question = { ...question };
+    for (let choice of _question.choiceArr) {
+      choice.choiceCorrect.choiceCorrectCheck = choice.choiceCorrect.choiceCorrectCheck.toString();
+    }
+
     _question.questionName = `<p>${_question.questionName}</p>`;
     this.question = _question;
     this.dialog = true;
   }
 
-  editItemChoice(choice: any) {
-    const _choice = { ...choice };
-    _choice.choiceName = `<p>${_choice.choiceName}</p>`;
-    _choice.choiceCorrectCheck = _choice.choiceCorrectCheck.toString();
-    this.choice = _choice;
-    this.dialogChoice = true;
-  }
-
   saveItem() {
     this.submitted = true;
-    this.question.questionName = this.question.questionName.slice(3, -4);
+
     const name = this.question.questionName?.trim();
     const type = this.question.questionType;
     const quiz = this.question.quiz;
     const delay = this.question.questionTime?.toString().trim();
-    if (name && type && quiz && delay) {
+
+    for (let choice of this.question.choiceArr) {
+      if (!choice.choiceName) return;
+    }
+
+    if (name && name.length > 7 && type && quiz && delay) {
+
+      this.question.questionName = this.question.questionName.slice(3, -4);
+      for (let choice of this.question.choiceArr) {
+        choice.choiceName = choice.choiceName.slice(3, -4);
+      }
+
       if (this.question.questionId) {
         this.saveToDatabase(this.question);
       }
@@ -131,36 +118,6 @@ export class QuestionAdminComponent implements OnInit {
     }
   }
 
-  saveItemChoice() {
-    this.submitted = true;
-    this.choice.choiceName = this.choice.choiceName.slice(3, -4);
-    const name = this.choice.choiceName?.trim();
-    const correcte = this.choice.choiceCorrectCheck;
-
-
-    if (name && correcte) {
-      if (this.choice.choiceId) {
-        this.saveChoiceToDatabase(this.choice);
-      }
-      else {
-        let cId: number;
-        this.onlineQuizAdminService.newChoice(this.choice).subscribe({
-          next: (res: any) => {
-            cId = res.choiceId;
-          },
-          complete: () => {
-            this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Choice created');
-          },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Choice create error');
-          }
-        });
-      }
-      this.dialogChoice = false;
-    }
-  }
-
   saveToDatabase(question: any) {
     this.onlineQuizAdminService.updateQuestion(question).subscribe({
       complete: () => {
@@ -171,19 +128,6 @@ export class QuestionAdminComponent implements OnInit {
         this.onlineQuizAdminService.alertMsg('error', 'Error', 'Question update error');
       }
     });
-  }
-
-  saveChoiceToDatabase(choice: any) {
-    this.onlineQuizAdminService.updateChoice(choice).subscribe({
-      complete: () => {
-        this.refresh();
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Choice updated');
-      },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'Choice update error');
-      }
-    });
-
   }
 
   deleteItem(question: any) {
@@ -205,25 +149,6 @@ export class QuestionAdminComponent implements OnInit {
     });
   }
 
-  deleteItemChoice(choice: any) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + choice.choiceName + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.onlineQuizAdminService.deleteChoice(choice).subscribe({
-          complete: () => {
-            this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Choice deleted');
-          },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Choice delete error');
-          }
-        });
-
-      }
-    });
-  }
 
   deleteSelectedItem() {
     this.confirmationService.confirm({
