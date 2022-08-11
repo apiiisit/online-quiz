@@ -104,5 +104,9 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/task');
   }
 
+  deleteTask(task: any) {
+    return this.http.delete(`api/task/${task.taskId}`);
+  }
+
 
 }

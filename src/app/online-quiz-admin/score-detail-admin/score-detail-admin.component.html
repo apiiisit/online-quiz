@@ -1,5 +1,13 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="card">
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
+                [disabled]="!selectedItem || !selectedItem.length"></button>
+        </ng-template>
+    </p-toolbar>
+
     <p-table #dt [value]="taskList" [rows]="10" [paginator]="true"
         [globalFilterFields]="['fullName', 'quiz.category.categoryName', 'quiz.quizName', 'taskStatus']" responsiveLayout="scroll"
         [(selection)]="selectedItem" [rowHover]="true" dataKey="userId"
@@ -52,12 +60,10 @@
                 </td>
 
                 <td>{{task.time}}</td>
-                <!-- <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
-                        (click)="editItem(user)"></button>
+                <td>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
-                        (click)="deleteItem(user)"></button>
-                </td> -->
+                        (click)="deleteItem(task)"></button>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
