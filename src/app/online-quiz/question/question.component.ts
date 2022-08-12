@@ -20,6 +20,7 @@ export class QuestionComponent implements OnInit {
   questionType: string[] = ['radio', 'checkbox'];
   questionTime!: number;
   selectedChoice: any[] = [];
+  choiceSelect: any[] = [];
   point: number = 0;
   btnText: string = 'ถัดไป';
 
@@ -41,6 +42,7 @@ export class QuestionComponent implements OnInit {
   constructor(private onlineQuizService: OnlineQuizService, private messageService: MessageService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+
     const params = this.activeRoute.snapshot.params;
     let timeAll;
 
@@ -147,23 +149,12 @@ export class QuestionComponent implements OnInit {
 
   answer() {
     const q = this.questionList[this.currentPage];
-
-    if (q.questionType === 'S' && this.selectedChoice.length === 1) {
-      if (this.selectedChoice[0].choiceCorrect) {
-        this.selectedChoice = [];
-        this.point++;
-      }
-    } else if (q.questionType === 'M') {
-      const choiceUserCorrect = this.selectedChoice.filter(item => item.choiceCorrect).length
-      const choiceCorrectAll = [...q.choiceArr].filter(item => item.choiceCorrect).length
-
-      if (this.selectedChoice.length > choiceCorrectAll) {
-        this.point--;
-      } else {
-        this.point += (choiceUserCorrect / choiceCorrectAll);
-      }
-
+    let raw_choice = [q.questionId];
+    for (let choice of this.selectedChoice) {
+      raw_choice.push(choice.choiceId);
     }
+    this.selectedChoice = [];
+    this.choiceSelect.push(raw_choice);
   }
 
   showDisplay(detail: string) {
@@ -174,26 +165,34 @@ export class QuestionComponent implements OnInit {
   }
 
   postAnswer() {
-    const pass = (this.point / this.questionList.length) * 100;
     this.task['user'] = { userId: this.authService.user.userId };
-    this.task['taskStatus'] = pass >= this.quizPass;
-    this.task['taskScore'] = this.point;
-    this.task['taskPass'] = pass.toString() + '%';
     this.task['taskFinish'] = new Date();
 
-    this.onlineQuizService.postTask(this.task).subscribe({
-      complete: () => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 3000 });
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 3000)
-
+    this.onlineQuizService.checkScore(this.choiceSelect).subscribe({
+      next: (point: any) => {
+        const pass = (point / this.questionList.length) * 100;
+        this.task['taskStatus'] = pass >= this.quizPass;
+        this.task['taskScore'] = point;
+        this.task['taskPass'] = pass.toString() + '%';
       },
-      error: () => {
-        this.displayError = true;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'มีบางอย่างผิดพลาด', life: 3000 });
+      complete: () => {
+        this.onlineQuizService.postTask(this.task).subscribe({
+          complete: () => {
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 2000 });
+            setTimeout(() => {
+              window.location.pathname = 'online-quiz'
+            }, 2000)
+
+          },
+          error: () => {
+            this.displayError = true;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'มีบางอย่างผิดพลาด', life: 3000 });
+          }
+        });
       }
     });
+
+
 
     this.display = false;
   }

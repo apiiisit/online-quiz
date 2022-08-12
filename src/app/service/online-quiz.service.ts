@@ -48,6 +48,10 @@ export class OnlineQuizService {
     return this.http.post('api/task', task);
   }
 
+  checkScore(choiceArr: any) {
+    return this.http.post('api/task/score', choiceArr);
+  }
+
   postUploadImage(formData: any) {
     return this.http.post('api/user/upload', formData);
   }
