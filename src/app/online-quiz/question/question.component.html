@@ -10,7 +10,7 @@
                     <i class="pi pi-clock" style="font-size: 4vh"></i>
                 </h3>
                 <h2 [innerHTML]="questionList[currentPage].questionName"></h2>
-
+                
                 <div class="row">
                     <div class="column1">
                         <span class="text"
@@ -29,6 +29,9 @@
 
                 <hr color=00bcd4>
                 <div class="box-lab">
+                    <p *ngIf="questionList[currentPage].questionType==='M'">
+                        ข้อนี้ต้องตอบ {{questionList[currentPage].choiceCorrectLength}} ข้อ
+                    </p>
                     <div *ngFor="let c of questionList[currentPage].choiceArr | randomOrder" class="blab">
                         <p-radioButton *ngIf="questionList[currentPage].questionType==='S'" [inputId]="c.choiceId"
                             name="choice" [value]="[c]" [(ngModel)]="selectedChoice"></p-radioButton>
