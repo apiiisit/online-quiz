@@ -79,6 +79,14 @@ export class QuestionComponent implements OnInit {
 
   }
 
+  pushSelectedChoice(choice: any) {
+    const indexChoice = this.selectedChoice.find(item => item.choiceId == choice.choiceId)
+    if (indexChoice) {
+      return this.selectedChoice = this.selectedChoice.filter(item => item.choiceId !== choice.choiceId);
+    }
+    return this.selectedChoice.push(choice)
+  }
+
   nextPage() {
     if (this.cTimeOut) return
     if (this.currentPage + 1 === this.questionList.length) {
@@ -172,7 +180,7 @@ export class QuestionComponent implements OnInit {
       next: (point: any) => {
         const pass = (point / this.questionList.length) * 100;
         this.task['taskStatus'] = pass >= this.quizPass;
-        this.task['taskScore'] = point;
+        this.task['taskScore'] = point.toFixed(2);
         this.task['taskPass'] = pass.toString() + '%';
       },
       complete: () => {
@@ -180,7 +188,7 @@ export class QuestionComponent implements OnInit {
           complete: () => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 2000 });
             setTimeout(() => {
-              window.location.pathname = 'online-quiz'
+              window.location.pathname = 'online-quiz';
             }, 2000)
 
           },
@@ -199,7 +207,7 @@ export class QuestionComponent implements OnInit {
 
   closeDisplayError() {
     this.displayError = false;
-    this.router.navigate(['']);
+    window.location.pathname = 'online-quiz';
   }
 
 }
