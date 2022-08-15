@@ -74,6 +74,7 @@ export class QuestionAdminComponent implements OnInit {
     const _question = { ...question };
     for (let choice of _question.choiceArr) {
       choice.choiceCorrect.choiceCorrectCheck = choice.choiceCorrect.choiceCorrectCheck.toString();
+      choice.choiceName = `<p>${choice.choiceName}</p>`;
     }
 
     _question.questionName = `<p>${_question.questionName}</p>`;
@@ -95,9 +96,10 @@ export class QuestionAdminComponent implements OnInit {
 
     if (name && name.length > 7 && type && quiz && delay) {
 
-      this.question.questionName = this.question.questionName.slice(3, -4);
+      this.question.questionName = this.validateData(this.question.questionName);
+
       for (let choice of this.question.choiceArr) {
-        choice.choiceName = choice.choiceName.slice(3, -4);
+        choice.choiceName = this.validateData(choice.choiceName);
       }
 
       if (this.question.questionId) {
@@ -116,6 +118,12 @@ export class QuestionAdminComponent implements OnInit {
       }
       this.dialog = false;
     }
+  }
+
+  validateData(val: string) {
+    if (val.slice(0, 3) == '<p>') val = val.slice(3);
+    if (val.slice(-4) == '</p>') val = val.slice(0, -4);
+    return val;
   }
 
   saveToDatabase(question: any) {
