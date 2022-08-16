@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     userName: new FormControl(null, [Validators.required, customValue]),
     firstName: new FormControl(null, [Validators.required, customValue]),
     lastName: new FormControl(null, [Validators.required, customValue]),
-    tel: new FormControl(null, [Validators.required, customValue]),
+    tel: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]{9,13}$/)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, customValue]),
     cPassword: new FormControl(null, [Validators.required, customValue])
