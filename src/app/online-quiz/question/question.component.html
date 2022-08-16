@@ -30,7 +30,7 @@
                 <hr color=00bcd4>
                 <div class="box-lab">
                     <p *ngIf="questionList[currentPage].questionType==='M'" class="title text">
-                        ข้อนี้ต้องตอบ {{questionList[currentPage].choiceCorrectLength}} ข้อ
+                        **ข้อนี้ตอบได้ {{questionList[currentPage].choiceCorrectLength}} ข้อ
                     </p>
                     <div *ngFor="let c of questionList[currentPage].choiceArr | randomOrder" class="blab">
                         <div class="inputGroup">
