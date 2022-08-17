@@ -33,6 +33,11 @@ export class MenuUserComponent implements OnInit {
             routerLink: 'edit/profile'
           },
           {
+            label: 'เปลี่ยนรหัสผ่าน',
+            icon: 'pi pi-fw pi-lock',
+            routerLink: 'edit/password'
+          },
+          {
             label: 'ออกจากระบบ',
             icon: 'pi pi-power-off',
             command: (() => {

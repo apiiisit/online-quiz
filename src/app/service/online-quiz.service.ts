@@ -60,4 +60,12 @@ export class OnlineQuizService {
     return this.http.get(`api/task/check?uid=${userId}&qid=${quizId}`);
   }
 
+  searchUser(username: string, email: string, password: string) {
+    return this.http.get(`api/user/search?username=${username}&email=${email}&password=${password}`);
+  }
+
+  changePassword(user: any) {
+    return this.http.put('api/user/changePassword', user);
+  }
+
 }

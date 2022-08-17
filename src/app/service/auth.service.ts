@@ -52,6 +52,18 @@ export class AuthService {
     return this.onlineQuizService.updateLastLogin(this.user.userId);
   }
 
+  searchUser(username: string, email: string, password: string) {
+    return this.onlineQuizService.searchUser(username, email, password);
+  }
+
+  changePassword(username: string, password: String) {
+    const user = {
+      userName: username,
+      password: password
+    }
+    return this.onlineQuizService.changePassword(user);
+  }
+
   private getUser(token: string) {
     if (!token) return;
     const user = atob(token.split('.')[1]).split(',');

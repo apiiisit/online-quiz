@@ -22,7 +22,11 @@
     <ng-template pTemplate="footer">
         <div class="center">
             <p-button label="Login" (click)="btnSubmit()" (keydown.enter)="btnSubmit()"></p-button>
-            <a class="mt-2" routerLink="register">Go to register</a>
+            <div class="link">
+                <a routerLink="register">Go to register</a>
+                <a routerLink="resetpassword">Reset-password</a>
+
+            </div>
         </div>
     </ng-template>
 </p-card>

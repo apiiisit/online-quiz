@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { HasQuizKeyGuard } from './guard/has-quiz-key.guard';
 import { HasRoleGuard } from './guard/has-role.guard';
 import { IsAuthenticatedGuard } from './guard/is-authenticated.guard';
@@ -32,6 +34,10 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         data: { mode: Mode.ADD }
+      },
+      {
+        path: 'resetpassword',
+        component: ResetPasswordComponent,
       }
     ]
   },
@@ -57,6 +63,10 @@ const routes: Routes = [
         path: 'edit/profile',
         component: RegisterComponent,
         data: { mode: Mode.EDIT }
+      },
+      {
+        path: 'edit/password',
+        component: ChangePasswordComponent
       }
     ]
   },

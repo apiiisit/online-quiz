@@ -57,6 +57,8 @@ import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.co
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
 import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { RegisterComponent } from './authentication/register/register.component'
     QuizAdminComponent,
     UserAdminComponent,
     ScoreDetailAdminComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

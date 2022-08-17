@@ -1,8 +1,8 @@
 <p-menubar>
     <ng-template pTemplate="start">
         <div class="title">
-            <img src="assets/images/cdg-logo.png" height="40" class="mr-2">
-            <span class="title-text">Online Quiz</span>
+            <img src="assets/images/cdg-logo.png" height="40" class="mr-2" (click)="goHome()">
+            <span class="title-text" (click)="goHome()">Online Quiz</span>
         </div>
     </ng-template>
 </p-menubar>
