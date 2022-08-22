@@ -94,9 +94,14 @@
             <textarea id="description" pInputTextarea [(ngModel)]="quiz.quizDescription" rows="3" cols="20"></textarea>
         </div>
 
-        <div class="field">
+        <div class="field random">
+            <label for="rPassword">Random Password</label>
+            <p-inputSwitch [(ngModel)]="canRandomPassword"></p-inputSwitch>
+        </div>
+
+        <div class="field" *ngIf="!canRandomPassword">
             <label for="password">Password</label>
-            <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword" />
+            <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword" [disabled]="canRandomPassword" />
         </div>
         
         <div class="field">
@@ -130,6 +135,7 @@
 
         <div class="field">
             <label for="start">Start</label>
+            {{quiz.quizStart | json}}
             <p-calendar [(ngModel)]="quiz.quizStart" [showTime]="true" [showButtonBar]="true"></p-calendar>
             <small class="p-error" *ngIf="submitted && !quiz.quizStart">Start is required.</small>
         </div>
@@ -137,6 +143,7 @@
             <label for="end">End</label>
             <p-calendar [(ngModel)]="quiz.quizEnd" [showTime]="true" [showButtonBar]="true"></p-calendar>
             <small class="p-error" *ngIf="submitted && !quiz.quizEnd">End is required.</small>
+            <small class="p-error" *ngIf="submitted && !valiDate(quiz.quizStart, quiz.quizEnd)">More than 5 minutes from the start time.</small>
         </div>
 
     </ng-template>

@@ -16,6 +16,7 @@ export class QuizAdminComponent implements OnInit {
   quizList: any[] = [];
   quiz?: any;
   selectedItem?: any;
+  canRandomPassword: boolean = false;
   submitted: boolean = false;
   caregoryList: any[] = [];
 
@@ -52,6 +53,7 @@ export class QuizAdminComponent implements OnInit {
 
   refresh() {
     this.quiz = {};
+    this.canRandomPassword = false;
     this.ngOnInit();
   }
 
@@ -78,6 +80,7 @@ export class QuizAdminComponent implements OnInit {
 
   hideDialog() {
     this.dialog = false;
+    this.canRandomPassword = false;
     this.submitted = false;
   }
 
@@ -96,7 +99,11 @@ export class QuizAdminComponent implements OnInit {
     const category = this.quiz.category;
     const start = this.quiz.quizStart;
     const end = this.quiz.quizEnd;
-    if (name && pass && numberOfQuestion && category && start && end) {
+
+    if (name && pass && numberOfQuestion && category && start && end && this.valiDate(start, end)) {
+      if (this.canRandomPassword) {
+        this.quiz.quizPassword = null;
+      }
       if (this.quiz.quizId) {
         this.saveToDatabase(this.quiz);
       }
@@ -113,6 +120,12 @@ export class QuizAdminComponent implements OnInit {
       }
       this.dialog = false;
     }
+  }
+
+  valiDate(startTime: any, endTime: any) {
+    const start = new Date(startTime).getTime();
+    const end = new Date(endTime).getTime();
+    return (start < end) && (end - start) >= 300000;
   }
 
   saveToDatabase(quiz: any) {
