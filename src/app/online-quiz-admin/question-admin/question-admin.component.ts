@@ -84,7 +84,6 @@ export class QuestionAdminComponent implements OnInit {
 
   saveItem() {
     this.submitted = true;
-
     const name = this.question.questionName?.trim();
     const type = this.question.questionType;
     const quiz = this.question.quiz;
