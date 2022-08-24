@@ -25,7 +25,10 @@ export class QuestionAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.onlineQuizAdminService.getQuestion().subscribe(res => this.questionList = res);
+    this.onlineQuizAdminService.getQuestion().subscribe(res => {
+      for (let row of res) row.questionType = row.questionType == 'S' ? 'Single choice' : 'Multi choice';
+      this.questionList = res
+    });
 
     this.onlineQuizAdminService.getchoiceCorrect().subscribe(res => {
       for (let correct of res) correct.choiceCorrectCheck = correct.choiceCorrectCheck.toString();
@@ -33,7 +36,7 @@ export class QuestionAdminComponent implements OnInit {
     })
 
     this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
-    this.questionTypeList = ['S', 'M'];
+    this.questionTypeList = ['Single choice', 'Multi choice'];
 
     const name = this.router.url.split('=')[1];
     if (name) this.searchText = decodeURI(name);
@@ -94,7 +97,7 @@ export class QuestionAdminComponent implements OnInit {
     }
 
     if (name && name.length > 7 && type && quiz && delay) {
-
+      this.question.questionType = this.question.questionType[0];
       this.question.questionName = this.validateData(this.question.questionName);
 
       for (let choice of this.question.choiceArr) {

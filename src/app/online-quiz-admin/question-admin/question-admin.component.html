@@ -30,6 +30,7 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
+                <th style="width: 3rem"></th>
                 <th pSortableColumn="questionName">Name<p-sortIcon field="questionName"></p-sortIcon>
                 </th>
                 <th pSortableColumn="questionType">Type<p-sortIcon field="questionType"></p-sortIcon>
@@ -48,8 +49,11 @@
                 <td>
                     <p-tableCheckbox [value]="question"></p-tableCheckbox>
                 </td>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="question" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
                 <td [pRowToggler]="question" [innerHTML]="question.questionName"></td>
-                <td [pRowToggler]="question">{{question.questionType | choice}}</td>
+                <td [pRowToggler]="question">{{question.questionType}}</td>
                 <td [pRowToggler]="question">{{question.quiz.quizName}}</td>
                 <td [pRowToggler]="question" class="text-center">{{question.questionTime}}</td>
                 <td [pRowToggler]="question" class="text-center">
@@ -76,7 +80,7 @@
                         <p-table [value]="question.choiceArr" dataKey="choiceId">
                             <ng-template pTemplate="caption">
                                 <div class="flex align-items-center justify-content-between">
-                                    <h5 class="m-0">Manage Question "<span [innerHTML]="question.questionName"></span>" | {{question.questionType | choice}}</h5>
+                                    <h5 class="m-0">Manage Question "<span [innerHTML]="question.questionName"></span>" | {{question.questionType}}</h5>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="header">
@@ -135,7 +139,7 @@
                 <label for="questionType">Type</label>
                 <p-dropdown [(ngModel)]="question.questionType" [options]="questionTypeList" placeholder="Select">
                     <ng-template let-option pTemplate="item">
-                        <span [class]="'product-badge type'">{{option | choice}}</span>
+                        <span class="product-badge type">{{option}}</span>
                     </ng-template>
                 </p-dropdown>
                 <small class="p-error" *ngIf="submitted && !question.questionType">Type is required.</small>

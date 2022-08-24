@@ -31,9 +31,6 @@ export class QuizAdminComponent implements OnInit {
         _res.forEach(itemQuiz => {
           itemQuiz['quizStart'] = itemQuiz['quizStart'].slice(0, -5);
           itemQuiz['quizEnd'] = itemQuiz['quizEnd'].slice(0, -5);
-          this.onlineQuizAdminService.getQuestion().subscribe(res => {
-            itemQuiz['questionAll'] = [...res].filter(itemQuestion => itemQuestion.quiz.quizId === itemQuiz.quizId).length;
-          })
         })
       },
       complete: () => {
@@ -101,10 +98,10 @@ export class QuizAdminComponent implements OnInit {
     const end = this.quiz.quizEnd;
 
     if (name && pass && numberOfQuestion && category && start && end && this.valiDate(start, end)) {
-      if (this.canRandomPassword) {
-        this.quiz.quizPassword = null;
-      }
+      
       if (this.quiz.quizId) {
+        if (!this.canRandomPassword && this.quiz.quizPassword.toString().trim().length <= 0) return
+        if (this.canRandomPassword) this.quiz.quizPassword = null;
         this.saveToDatabase(this.quiz);
       }
       else {

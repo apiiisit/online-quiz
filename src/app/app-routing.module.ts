@@ -9,6 +9,7 @@ import { HasQuizKeyGuard } from './guard/has-quiz-key.guard';
 import { HasRoleGuard } from './guard/has-role.guard';
 import { IsAuthenticatedGuard } from './guard/is-authenticated.guard';
 import { CategoryAdminComponent } from './online-quiz-admin/category-admin/category-admin.component';
+import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
 import { OnlineQuizAdminComponent } from './online-quiz-admin/online-quiz-admin.component';
 import { QuestionAdminComponent } from './online-quiz-admin/question-admin/question-admin.component';
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
@@ -80,6 +81,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        component: DashboardComponent
+      },
+      {
+        path: 'category',
         component: CategoryAdminComponent
       },
       {

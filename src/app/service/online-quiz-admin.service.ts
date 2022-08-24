@@ -13,6 +13,10 @@ export class OnlineQuizAdminService {
     return this.messageService.add({ severity: type, summary: title, detail: detail, life: 3000 });
   }
 
+  getCounter() {
+    return this.http.get<any>('api/counter');
+  }
+
   // category
   getCategory() {
     return this.http.get<any>('api/category/admin');

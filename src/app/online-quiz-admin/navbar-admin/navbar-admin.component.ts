@@ -29,7 +29,7 @@ export class NavbarAdminComponent implements OnInit {
         icon: 'pi pi-fw pi-file',
         command: () => {
           this.router.navigateByUrl('/online-quiz', { skipLocationChange: true }).then(() =>
-            this.router.navigate(['/online-quiz/admin'])
+            this.router.navigate(['/online-quiz/admin', 'category'])
           )
         }
       },
@@ -81,10 +81,8 @@ export class NavbarAdminComponent implements OnInit {
 
     const path = this.router.url.split('/');
     let pathName = path[path.length - 1].split('?')[0];
-    if (pathName === 'admin') pathName = 'category';
-
     const index = this.items.findIndex(item => item.label?.toLowerCase().includes(pathName));
-    this.items[index]['style'] = this.styleConfig;
+    if (index > -1) this.items[index]['style'] = this.styleConfig;
   }
 
   goHome() {

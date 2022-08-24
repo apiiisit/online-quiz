@@ -37,7 +37,6 @@
                 </th>
                 <th>Tel</th>
                 <th>Email</th>
-                <th>Password</th>
                 <th pSortableColumn="lastLogin">Last login<p-sortIcon field="lastLogin"></p-sortIcon>
                 </th>
                 <th pSortableColumn="userRole.userRoleName">Role<p-sortIcon field="userRole.userRoleName"></p-sortIcon>
@@ -58,7 +57,6 @@
                 <td>{{user.firstName}} {{user.lastName}}</td>
                 <td>{{user.tel}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.password}}</td>
                 <td>{{user.lastLogin | date:'short':'':'th'}}</td>
                 <td>{{user.userRole.userRoleName | userRole}}</td>
                 <td>
@@ -115,7 +113,7 @@
             <p-dropdown [(ngModel)]="user.userRole" [options]="userRoleList" optionLabel="userRoleDescription"
                 placeholder="Select">
                 <ng-template let-option pTemplate="item">
-                    <span [class]="'product-badge user-role-' + option.userRoleId">{{option.userRoleName}}</span>
+                    <span [class]="'product-badge user-role-' + option.userRoleId">{{option.userRoleName | userRole}}</span>
                 </ng-template>
             </p-dropdown>
             <small class="p-error" *ngIf="submitted && !user.userRole">Role is required.</small>

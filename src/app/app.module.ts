@@ -36,9 +36,9 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
 import { ImageModule } from 'primeng/image';
 import { EditorModule } from 'primeng/editor';
+import { ChartModule } from 'primeng/chart';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
-import { ChoicePipe } from './pipe/choice.pipe';
 import { RandomOrderPipe } from './pipe/random-order.pipe';
 import { UserRolePipe } from './pipe/user-role.pipe';
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -59,12 +59,12 @@ import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admi
 import { RegisterComponent } from './authentication/register/register.component';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
+import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AutoFocusDirective,
-    ChoicePipe,
     RandomOrderPipe,
     UserRolePipe,
     AuthenticationComponent,
@@ -84,7 +84,8 @@ import { ChangePasswordComponent } from './authentication/change-password/change
     ScoreDetailAdminComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +116,8 @@ import { ChangePasswordComponent } from './authentication/change-password/change
     PanelMenuModule,
     PasswordModule,
     ImageModule,
-    EditorModule
+    EditorModule,
+    ChartModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

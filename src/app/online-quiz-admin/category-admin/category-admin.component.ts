@@ -21,24 +21,7 @@ export class CategoryAdminComponent implements OnInit {
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-
-    let _res: any[];
-    this.onlineQuizAdminService.getCategory().subscribe({
-      next: (res) => {
-        _res = [...res];
-        _res.forEach(itemCategory => {
-          this.onlineQuizAdminService.getQuiz().subscribe(res => {
-            const _resq = [...res];
-            itemCategory['quizAll'] = _resq.filter(itemQuiz => itemQuiz.category.categoryId === itemCategory.categoryId).length;
-            itemCategory['quizOn'] = _resq.filter(itemQuiz => itemQuiz.quizActive && itemQuiz.category.categoryId === itemCategory.categoryId).length;
-          })
-        })
-      },
-      complete: () => {
-        this.categoryList = _res;
-      }
-    });
-
+    this.onlineQuizAdminService.getCategory().subscribe(res => this.categoryList = res);
   }
 
   search(dt: any) {

@@ -32,7 +32,6 @@
                 <th pSortableColumn="categoryName">Name<p-sortIcon field="categoryName"></p-sortIcon>
                 </th>
                 <th>Description</th>
-                <th>Quiz(On/n)</th>
                 <th pSortableColumn="categoryActive">Status<p-sortIcon field="categoryActive"></p-sortIcon>
                 </th>
                 <th></th>
@@ -45,7 +44,6 @@
                 </td>
                 <td (click)="goPageByName(category.categoryName)">{{category.categoryName}}</td>
                 <td (click)="goPageByName(category.categoryName)">{{category.categoryDescription}}</td>
-                <td (click)="goPageByName(category.categoryName)">{{category.quizOn}}/{{category.quizAll}}</td>
                 <td>
                     <p-inputSwitch [(ngModel)]="category.categoryActive" (click)="activeSwitch(category, index)">
                     </p-inputSwitch>
