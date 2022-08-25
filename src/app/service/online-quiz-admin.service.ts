@@ -17,6 +17,14 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/counter');
   }
 
+  getQuizCheck() {
+    return this.http.get<any>('api/quiz/admin/check');
+  }
+
+  getCounterChart(quizId: number) {
+    return this.http.get<any>(`api/counter/${quizId}`);
+  }
+
   // category
   getCategory() {
     return this.http.get<any>('api/category/admin');

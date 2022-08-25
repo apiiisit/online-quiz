@@ -10,56 +10,28 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class DashboardComponent implements OnInit {
 
   counter: any;
-
-  data1: any;
-  data2: any;
+  quizList: any;
+  showDisplay: boolean = false;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
   ngOnInit(): void {
-    this.counter = this.onlineQuizAdminService.getCounter().subscribe(res => this.counter = res)
-
-    this.data1 = {
-      labels: ['ผ่าน', 'ไม่ผ่าน'],
-
-      datasets: [
-        {
-          data: [50, 100],
-          backgroundColor: [
-            "#36A2EB",
-            "#FF6384"
-          ],
-          hoverBackgroundColor: [
-            "#36A2EB",
-            "#FF6384"
-          ]
-        }
-      ]
-    };
-
-    this.data2 = {
-      labels: ['ผ่าน', 'ไม่ผ่าน'],
-
-      datasets: [
-        {
-          data: [10, 100],
-          backgroundColor: [
-            "#36A2EB",
-            "#FF6384"
-          ],
-          hoverBackgroundColor: [
-            "#36A2EB",
-            "#FF6384"
-          ]
-        }
-      ]
-    };
-
+    this.onlineQuizAdminService.getCounter().subscribe({
+      next: (res) => {
+        this.counter = res
+      },
+      complete: () => {
+        this.showDisplay = true;
+      }
+    })
+    this.onlineQuizAdminService.getQuizCheck().subscribe(res => this.quizList = res)
   }
 
   gotoPage(name: string) {
     return this.router.navigate(['online-quiz/admin', name])
   }
+
+
 
 
 

@@ -134,12 +134,12 @@
 
         <div class="field">
             <label for="start">Start</label>
-            <p-calendar [(ngModel)]="quiz.quizStart" [showTime]="true" [showButtonBar]="true"></p-calendar>
+            <p-calendar [(ngModel)]="quiz.quizStart" [showTime]="true" [showButtonBar]="true" appendTo="body"></p-calendar>
             <small class="p-error" *ngIf="submitted && !quiz.quizStart">Start is required.</small>
         </div>
         <div class="field">
             <label for="end">End</label>
-            <p-calendar [(ngModel)]="quiz.quizEnd" [showTime]="true" [showButtonBar]="true"></p-calendar>
+            <p-calendar [(ngModel)]="quiz.quizEnd" [showTime]="true" [showButtonBar]="true" appendTo="body"></p-calendar>
             <small class="p-error" *ngIf="submitted && !quiz.quizEnd">End is required.</small>
             <small class="p-error" *ngIf="submitted && !valiDate(quiz.quizStart, quiz.quizEnd)">More than 5 minutes from the start time.</small>
         </div>

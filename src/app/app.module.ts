@@ -60,6 +60,7 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.comp
     RegisterComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

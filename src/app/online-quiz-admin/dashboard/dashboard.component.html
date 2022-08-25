@@ -1,6 +1,6 @@
 <app-navbar-admin></app-navbar-admin>
 
-<div class="displays">
+<div class="displays" *ngIf="showDisplay">
     <div class="grid" style="margin-top: 3rem;">
         <div class="grid-item" (click)="gotoPage('category')">
             <p-card header="Category" subheader="เปิดใช้งาน {{counter.counterCategoryActive}}/{{counter.counterCategory}}" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
@@ -12,22 +12,18 @@
             <p-card header="Question" subheader="เปิดใช้งาน {{counter.counterQuestionActive}}/{{counter.counterQuestion}}" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
         </div>
         <div class="grid-item" (click)="gotoPage('score')">
-            <p-card header="Task" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} งาน" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
+            <p-card header="Task all" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} งาน" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
         </div>
         <div class="grid-item" (click)="gotoPage('user')">
-            <p-card header="User" subheader="มีทั้งหมด {{counter.counterUser}} คน" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
+            <p-card header="User" subheader="มีผู้ใช้ {{counter.counterUser}} คน" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
         </div>
         
     </div>
     
     <div class="grid">
-        <div class="chart-item">
-            <p>Basic math</p>
-            <p-chart type="doughnut" [data]="data1"></p-chart>
-        </div>
-        <div class="chart-item">
-            <p>Mobile Application Development</p>
-            <p-chart type="doughnut" [data]="data2"></p-chart>
+        <div class="chart-item" *ngFor="let quiz of quizList">
+            <p>Quiz {{quiz.quizName}}</p>
+            <app-chart [data]="quiz.quizId"></app-chart>
         </div>
     </div>
 
