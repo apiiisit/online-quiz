@@ -30,7 +30,6 @@ export class QuizAdminComponent implements OnInit {
         _res = [...res];
         _res.forEach(itemQuiz => {
           itemQuiz['quizStart'] = itemQuiz['quizStart'].slice(0, -5);
-          itemQuiz['quizEnd'] = itemQuiz['quizEnd'].slice(0, -5);
         })
       },
       complete: () => {
@@ -95,9 +94,9 @@ export class QuizAdminComponent implements OnInit {
     const numberOfQuestion = this.quiz.numberOfQuestion?.toString().trim();
     const category = this.quiz.category;
     const start = this.quiz.quizStart;
-    const end = this.quiz.quizEnd;
+    const averageTestTime = this.quiz.averageTestTime?.toString().trim();
 
-    if (name && pass && numberOfQuestion && category && start && end && this.valiDate(start, end)) {
+    if (name && pass && numberOfQuestion && category && start && averageTestTime) {
       
       if (this.quiz.quizId) {
         if (!this.canRandomPassword && this.quiz.quizPassword.toString().trim().length <= 0) return
@@ -117,12 +116,6 @@ export class QuizAdminComponent implements OnInit {
       }
       this.dialog = false;
     }
-  }
-
-  valiDate(startTime: any, endTime: any) {
-    const start = new Date(startTime).getTime();
-    const end = new Date(endTime).getTime();
-    return (start < end) && (end - start) >= 300000;
   }
 
   saveToDatabase(quiz: any) {

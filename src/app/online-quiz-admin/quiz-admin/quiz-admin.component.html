@@ -40,7 +40,7 @@
                 </th>
                 <th pSortableColumn="quizStart">Start<p-sortIcon field="quizStart"></p-sortIcon>
                 </th>
-                <th pSortableColumn="quizEnd">End<p-sortIcon field="quizEnd"></p-sortIcon>
+                <th pSortableColumn="averageTest">Average test<p-sortIcon field="averageTest"></p-sortIcon>
                 </th>
                 <th>Password</th>
                 <th></th>
@@ -60,7 +60,7 @@
                     </p-inputSwitch>
                 </td>
                 <td (click)="goPageByName(quiz.quizName)">{{quiz.quizStart | date:'short':'':'th'}}</td>
-                <td (click)="goPageByName(quiz.quizName)">{{quiz.quizEnd | date:'short':'':'th'}}</td>
+                <td (click)="goPageByName(quiz.quizName)">{{quiz.averageTestTime}} min</td>
                 <td>{{quiz.quizPassword}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-search" class="p-button-rounded mr-2"
@@ -138,12 +138,10 @@
             <small class="p-error" *ngIf="submitted && !quiz.quizStart">Start is required.</small>
         </div>
         <div class="field">
-            <label for="end">End</label>
-            <p-calendar [(ngModel)]="quiz.quizEnd" [showTime]="true" [showButtonBar]="true" appendTo="body"></p-calendar>
-            <small class="p-error" *ngIf="submitted && !quiz.quizEnd">End is required.</small>
-            <small class="p-error" *ngIf="submitted && !valiDate(quiz.quizStart, quiz.quizEnd)">More than 5 minutes from the start time.</small>
+            <label for="averageTestTime">Average test time</label>
+            <input type="text" pInputText id="averageTestTime" [(ngModel)]="quiz.averageTestTime" required autofocus />
+            <small class="p-error" *ngIf="submitted && !quiz.averageTestTime?.toString().trim()">Average test time is required.</small>
         </div>
-
     </ng-template>
 
     <ng-template pTemplate="footer">
