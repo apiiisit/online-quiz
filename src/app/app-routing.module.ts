@@ -15,6 +15,11 @@ import { QuestionAdminComponent } from './online-quiz-admin/question-admin/quest
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
 import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
+import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
+import { QuizManagementComponent } from './online-quiz-management/quiz-management/quiz-management.component';
+import { ResultManagementComponent } from './online-quiz-management/result-management/result-management.component';
+import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
+import { UserManagementComponent } from './online-quiz-management/user-management/user-management.component';
 import { CategoryComponent } from './online-quiz/category/category.component';
 import { OnlineQuizComponent } from './online-quiz/online-quiz.component';
 import { QuestionComponent } from './online-quiz/question/question.component';
@@ -68,6 +73,36 @@ const routes: Routes = [
       {
         path: 'edit/password',
         component: ChangePasswordComponent
+      }
+    ]
+  },
+  {
+    path: 'online-quiz/management',
+    component: OnlineQuizManagementComponent,
+    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+    data: {
+      role: 'Admin'
+    },
+    children: [
+      {
+        path: '',
+        component: QuizManagementComponent
+      },
+      {
+        path: 'quiz',
+        component: QuizManagementComponent
+      },
+      {
+        path: 'results',
+        component: ResultManagementComponent
+      },
+      {
+        path: 'users',
+        component: UserManagementComponent
+      },
+      {
+        path: 'settings',
+        component: SettingManagementComponent
       }
     ]
   },

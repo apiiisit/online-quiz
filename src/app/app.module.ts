@@ -37,6 +37,9 @@ import { PasswordModule } from 'primeng/password';
 import { ImageModule } from 'primeng/image';
 import { EditorModule } from 'primeng/editor';
 import { ChartModule } from 'primeng/chart';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ChipModule } from 'primeng/chip';
+import { MenuModule } from 'primeng/menu';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { RandomOrderPipe } from './pipe/random-order.pipe';
@@ -61,6 +64,13 @@ import { ResetPasswordComponent } from './authentication/reset-password/reset-pa
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
 import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
 import { ChartComponent } from './chart/chart.component';
+import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
+import { QuizManagementComponent } from './online-quiz-management/quiz-management/quiz-management.component';
+import { ResultManagementComponent } from './online-quiz-management/result-management/result-management.component';
+import { UserManagementComponent } from './online-quiz-management/user-management/user-management.component';
+import { NavbarManagementComponent } from './online-quiz-management/navbar-management/navbar-management.component';
+import { MenuManagementComponent } from './online-quiz-management/menu-management/menu-management.component';
+import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +97,14 @@ import { ChartComponent } from './chart/chart.component';
     ResetPasswordComponent,
     ChangePasswordComponent,
     DashboardComponent,
-    ChartComponent
+    ChartComponent,
+    OnlineQuizManagementComponent,
+    QuizManagementComponent,
+    ResultManagementComponent,
+    UserManagementComponent,
+    NavbarManagementComponent,
+    MenuManagementComponent,
+    SettingManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +136,10 @@ import { ChartComponent } from './chart/chart.component';
     PasswordModule,
     ImageModule,
     EditorModule,
-    ChartModule
+    ChartModule,
+    ScrollPanelModule,
+    ChipModule,
+    MenuModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

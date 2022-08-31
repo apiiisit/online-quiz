@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="column left">
+        <app-menu-management></app-menu-management>
+    </div>
+    <div class="column right">
+        <div class="row">
+            <app-navbar-management></app-navbar-management>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <p-scrollPanel [style]="{width: '100%', height: '630px'}" styleClass="custombar">
+                    <router-outlet></router-outlet>
+                </p-scrollPanel>
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="ADD QUIZ" icon="pi pi-plus" class="p-button-info mr-2"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+        <p-chip label="Apisit Noiluangchai" image="http://localhost:4200/api/user/image/san.jpg" [style]="{height: '7vh', cursor: 'pointer'}" (click)="menu.toggle($event)"></p-chip>
+        <p-menu #menu [popup]="true" [model]="items" [style]="{width: '30vh'}"></p-menu>
+    </ng-template>
+</p-toolbar>
