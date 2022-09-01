@@ -1,3 +1,6 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
 <div class="row">
     <div class="column left">
         <app-menu-management></app-menu-management>
@@ -9,7 +12,7 @@
 
         <div class="row">
             <div class="column">
-                <p-scrollPanel [style]="{width: '100%', height: '630px'}" styleClass="custombar">
+                <p-scrollPanel [style]="{width: '100%', 'min-width': '1220px', height: '630px'}" styleClass="custombar">
                     <router-outlet></router-outlet>
                 </p-scrollPanel>
             </div>

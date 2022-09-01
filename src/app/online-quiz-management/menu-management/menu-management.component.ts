@@ -50,7 +50,6 @@ export class MenuManagementComponent implements OnInit {
     const pathName = path[path.length - 1]
     const index = this.items.findIndex(item => item.label?.toLowerCase().includes(pathName));
     if (index > -1) this.items[index]['style'] = this.styleConfig;
-    else this.items[1]['style'] = this.styleConfig;
 
   }
 

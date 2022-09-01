@@ -1,6 +1,7 @@
 <p-toolbar>
     <ng-template pTemplate="left">
-        <button pButton pRipple label="ADD QUIZ" icon="pi pi-plus" class="p-button-info mr-2"></button>
+        <button *ngIf="btnShow == 0" pButton pRipple label="ADD QUIZ" icon="pi pi-plus" class="p-button-info mr-2"></button>
+        <button *ngIf="btnShow == 1" pButton pRipple label="ADD USER" icon="pi pi-plus" class="p-button-info mr-2"></button>
     </ng-template>
 
     <ng-template pTemplate="right">

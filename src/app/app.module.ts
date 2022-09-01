@@ -71,6 +71,8 @@ import { UserManagementComponent } from './online-quiz-management/user-managemen
 import { NavbarManagementComponent } from './online-quiz-management/navbar-management/navbar-management.component';
 import { MenuManagementComponent } from './online-quiz-management/menu-management/menu-management.component';
 import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
+import { ShowStrLenPipe } from './pipe/show-str-len.pipe';
+import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +106,9 @@ import { SettingManagementComponent } from './online-quiz-management/setting-man
     UserManagementComponent,
     NavbarManagementComponent,
     MenuManagementComponent,
-    SettingManagementComponent
+    SettingManagementComponent,
+    ShowStrLenPipe,
+    DashboardManagementComponent
   ],
   imports: [
     BrowserModule,

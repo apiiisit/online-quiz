@@ -15,6 +15,7 @@ import { QuestionAdminComponent } from './online-quiz-admin/question-admin/quest
 import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
 import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
+import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
 import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
 import { QuizManagementComponent } from './online-quiz-management/quiz-management/quiz-management.component';
 import { ResultManagementComponent } from './online-quiz-management/result-management/result-management.component';
@@ -86,7 +87,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: QuizManagementComponent
+        component: DashboardManagementComponent
       },
       {
         path: 'quiz',
