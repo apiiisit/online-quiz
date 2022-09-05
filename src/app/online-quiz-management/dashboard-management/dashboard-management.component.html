@@ -1,18 +1,15 @@
 <div class="container" *ngIf="showDisplay">
     <div class="grid" style="margin-top: 3rem;">
-        <!-- <div class="grid-item" (click)="gotoPage('category')">
-            <p-card header="Category" subheader="เปิดใช้งาน {{counter.counterCategoryActive}}/{{counter.counterCategory}}" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
-        </div> -->
+
         <div class="grid-item" (click)="gotoPage('quiz')">
             <p-card header="Quiz" subheader="เปิดใช้งาน {{counter.counterQuizActive}}/{{counter.counterQuiz}}" [style]="cardStyle"></p-card>
         </div>
-        <!-- <div class="grid-item" (click)="gotoPage('question')">
-            <p-card header="Question" subheader="เปิดใช้งาน {{counter.counterQuestionActive}}/{{counter.counterQuestion}}" [style]="{'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}"></p-card>
-        </div> -->
-        <div class="grid-item" (click)="gotoPage('score')">
-            <p-card header="Results" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}}" [style]="cardStyle"></p-card>
+
+        <div class="grid-item" (click)="gotoPage('results')">
+            <p-card header="Results" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} คิดเป็น {{(counter.counterTaskStatus/counter.counterTask*100).toFixed(2)}}%" [style]="cardStyle"></p-card>
         </div>
-        <div class="grid-item" (click)="gotoPage('user')">
+        
+        <div class="grid-item" (click)="gotoPage('users')">
             <p-card header="User" subheader="ผู้ใช้ {{counter.counterUser}} คน" [style]="cardStyle"></p-card>
         </div>
         

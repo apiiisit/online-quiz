@@ -37,9 +37,9 @@
                 <td>
                     <p-tableCheckbox [value]="task"></p-tableCheckbox>
                 </td>
-                <td>{{task.fullName}}</td>
-                <td>{{task.quiz.category.categoryName}}</td>
-                <td>{{task.quiz.quizName}}</td>
+                <td>{{task.fullName | showStrLen}}</td>
+                <td>{{task.quiz.category.categoryName | showStrLen}}</td>
+                <td>{{task.quiz.quizName | showStrLen}}</td>
                 <td>{{task.taskScore}}/{{task.quiz.numberOfQuestion}}</td>
                 <td>{{task.taskPass}}</td>
                 <td>

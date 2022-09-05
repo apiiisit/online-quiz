@@ -27,11 +27,11 @@ export class DashboardManagementComponent implements OnInit {
     })
     this.onlineQuizAdminService.getQuizCheck().subscribe(res => this.quizList = res)
 
-    this.cardStyle = {'width': '12rem', 'margin-bottom': '2em', 'height': '10rem'}
+    this.cardStyle = {'width': '15rem', 'margin-bottom': '2em', 'height': '10rem'}
   }
 
   gotoPage(name: string) {
-    return this.router.navigate(['online-quiz/admin', name])
+    return this.router.navigate(['online-quiz/management', name])
   }
 
 }

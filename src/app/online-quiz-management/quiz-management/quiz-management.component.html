@@ -1,1 +1,55 @@
-<p>quiz-management works!</p>
+<div class="container">
+    <!-- <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll"> -->
+    <p-table [value]="quizList" sortField="category.categoryName" sortMode="single" dataKey="category.categoryId"
+        rowGroupMode="subheader" groupRowsBy="category.categoryId" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Quiz</th>
+                <th>Random test item</th>
+                <th>Pass%</th>
+                <th>Status</th>
+                <th>Start</th>
+                <th>Average test time</th>
+                <th>Password</th>
+                <th>Controls</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-quiz let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr [style]="{'background-color': expanded?'#DCDCDC':''}">
+                <td colspan="8">
+                    <button [style]="{width:'30px', height:'30px'}" type="button" pButton pRipple [pRowToggler]="quiz"
+                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    <span class="font-bold ml-2">{{quiz.category.categoryName | showStrLen}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupfooter" let-quiz>
+            <tr class="p-rowgroup-footer">
+                <td colspan="8" style="text-align: right">Total quiz {{quiz.category.quizLength}} items.</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-quiz>
+            <tr>
+                <td>{{quiz.quizName | showStrLen}}</td>
+                <td>{{quiz.numberOfQuestion}}</td>
+                <td>{{quiz.quizPass}}%</td>
+                <td>
+                    <p-tag [severity]="quiz.quizActive ? 'success' : 'info'"
+                        [value]="quiz.quizActive ? 'Active' : 'Hidden'" [rounded]="true"></p-tag>
+                </td>
+                <td>{{quiz.quizStart | date:'short':'':'th'}}</td>
+                <td>{{quiz.averageTestTime}}</td>
+                <td>{{quiz.quizPassword}}</td>
+                <td>
+                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
+                        class="p-button-rounded mr-2"></button>
+                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-pencil"
+                        class="p-button-rounded p-button-warning mr-2"></button>
+                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
