@@ -11,21 +11,31 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class QuizDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
-  @Input() quiz: any = {};
-  caregoryList: any[] = [];
-  questionList: any[] = [];
-  status: any;
+  @Input() quizList: any = {};
 
-  canRandomPassword: boolean = false;
+  category: any = {};
+  quiz: any = {};
+  questionList: any[] = [];
+
+  caregoryList: any[] = [];
   submitted: boolean = false;
+
+  testa: any;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.caregoryList = res)
-    this.status = [{ id: 0, sub: 'false', value: 'Hidden' }, { id: 1, sub: 'true', value: 'Active' }]
-    
-    this.questionList = new Array(2);
+
+
+
+    this.questionList = [
+      { choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
+      { choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
+      { choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
+      { choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
+      { choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
+    ]
 
   }
 
@@ -39,54 +49,44 @@ export class QuizDialogComponent implements OnInit {
 
   hideDialog() {
     this.dialog = false;
-    this.canRandomPassword = false;
     this.submitted = false;
   }
 
   addQuestion() {
-    this.questionList.push([])
+    this.questionList.push({ choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
+  }
+
+  addChoice(index: number) {
+    this.questionList[index].choiceArr.push({ choiceCorrect: { choiceCorrectCheck: false } })
+  }
+
+  removeChoice(index: number, choiceIndex: number) {
+    this.questionList[index].choiceArr.splice(choiceIndex, 1);
   }
 
   saveItem() {
-    this.submitted = true;
-    const name = this.quiz.quizName?.trim();
-    const pass = this.quiz.quizPass?.toString().trim();
-    const numberOfQuestion = this.quiz.numberOfQuestion?.toString().trim();
-    const category = this.quiz.category;
-    const start = this.quiz.quizStart;
-    const averageTestTime = this.quiz.averageTestTime?.toString().trim();
-
-    if (name && pass && numberOfQuestion && category && start && averageTestTime) {
-
-      if (this.quiz.quizId) {
-        if (!this.canRandomPassword && this.quiz.quizPassword.toString().trim().length <= 0) return
-        if (this.canRandomPassword) this.quiz.quizPassword = null;
-        this.saveToDatabase(this.quiz);
-      }
-      else {
-        this.onlineQuizAdminService.newQuiz(this.quiz).subscribe({
-          complete: () => {
-            this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz created');
-          },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz create error');
-          }
-        });
-      }
-      this.dialog = false;
+    let categoryId;
+    if (typeof this.category.categoryName == 'object') {
+      categoryId = this.category.categoryName.categoryId
     }
+
+    this.quiz.category = { categoryId: categoryId }
+    this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
+      let quizId = res.quizId
+      for (let question of this.questionList) {
+        question.quiz = { quizId: quizId };
+        question.questionType = question.questionType ? 'M' : 'S'
+        question.choiceArr.forEach((item: any) => {
+          item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
+        })
+        this.onlineQuizAdminService.newQuestion(question).subscribe(res => console.log(res))
+      }
+
+
+    })
+
   }
 
-  saveToDatabase(quiz: any) {
-    this.onlineQuizAdminService.updateQuiz(quiz).subscribe({
-      complete: () => {
-        this.refresh();
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz updated');
-      },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz update error');
-      }
-    });
-  }
+  
+
 }
