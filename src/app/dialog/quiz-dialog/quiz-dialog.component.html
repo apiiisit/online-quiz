@@ -74,8 +74,13 @@
             </div>
 
             <div class="field-checkbox mt-3" *ngFor="let choice of question.choiceArr; let ic = index">
-                <p-checkbox [binary]="true" [(ngModel)]="choice.choiceCorrect.choiceCorrectCheck" inputId="choice"
-                    class="mr-2"></p-checkbox>
+                <p-checkbox *ngIf="question.questionType" [binary]="true" inputId="choice"
+                    [(ngModel)]="choice.choiceCorrect.choiceCorrectCheck" class="mr-2"></p-checkbox>
+
+                <p-radioButton *ngIf="!question.questionType" inputId="choice" [(ngModel)]="question.choiceSelected"
+                    [value]="ic" class="mr-2">
+                </p-radioButton>
+
                 <input type="text" pInputText id="question" [(ngModel)]="choice.choiceName" />
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="ml-2 p-button-rounded p-button-danger p-button-text" (click)="removeChoice(i, ic)"></button>
@@ -84,7 +89,6 @@
                 <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="ADD Choice"
                     class="p-button-text" (click)="addChoice(i)"></button>
             </div>
-
 
         </div>
 

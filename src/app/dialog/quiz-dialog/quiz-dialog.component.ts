@@ -17,9 +17,6 @@ export class QuizDialogComponent implements OnInit {
   @Input() questionList: any[] = [];
 
   caregoryList: any[] = [];
-  submitted: boolean = false;
-
-  testa: any;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
@@ -43,10 +40,8 @@ export class QuizDialogComponent implements OnInit {
     }, 1000);
   }
 
-
   hideDialog() {
     this.dialog = false;
-    this.submitted = false;
   }
 
   addQuestion() {
@@ -66,21 +61,41 @@ export class QuizDialogComponent implements OnInit {
       this.category = this.category.categoryName
     }
 
-    this.onlineQuizAdminService.newCategory(this.category).subscribe((res: any) => {
-      this.quiz.category = { categoryId: res.categoryId }
-      this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
-        let quizId = res.quizId
-        for (let question of this.questionList) {
-          question.quiz = { quizId: quizId };
-          question.questionType = question.questionType ? 'M' : 'S'
-          question.choiceArr.forEach((item: any) => {
-            item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
-          })
-          this.onlineQuizAdminService.newQuestion(question).subscribe()
-        }
-      })
+    this.onlineQuizAdminService.newCategory(this.category).subscribe({
+      next: (res: any) => {
+        this.quiz.category = { categoryId: res.categoryId }
+        this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
+          let quizId = res.quizId
+          for (let question of this.questionList) {
+            question.quiz = { quizId: quizId };
+            question.questionType = question.questionType == true ? 'M' : 'S'
+
+            if (question.questionType == 'S') {
+              question.choiceArr.forEach((item: any) => {
+                item.choiceCorrect.choiceCorrectId = 0
+                item.choiceCorrect.choiceCorrectCheck = false
+              })
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectId = 1
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectCheck = true
+            } else {
+              question.choiceArr.forEach((item: any) => {
+                item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
+              })
+            }
+
+            this.onlineQuizAdminService.newQuestion(question).subscribe()
+          }
+        })
+      },
+      complete: () => {
+        this.refresh();
+        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz created');
+      },
+      error: () => {
+        this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz create error');
+      }
     })
   }
 
-  
+
 }
