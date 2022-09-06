@@ -65,28 +65,29 @@ export class QuizDialogComponent implements OnInit {
   }
 
   saveItem() {
-    let categoryId;
     if (typeof this.category.categoryName == 'object') {
-      categoryId = this.category.categoryName.categoryId
+      this.category = this.category.categoryName
     }
 
-    this.quiz.category = { categoryId: categoryId }
-    this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
-      let quizId = res.quizId
-      for (let question of this.questionList) {
-        question.quiz = { quizId: quizId };
-        question.questionType = question.questionType ? 'M' : 'S'
-        question.choiceArr.forEach((item: any) => {
-          item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
-        })
-        this.onlineQuizAdminService.newQuestion(question).subscribe(res => console.log(res))
-      }
-
-
+    this.onlineQuizAdminService.newCategory(this.category).subscribe((res: any) => {
+      this.quiz.category = { categoryId: res.categoryId }
+      this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
+        let quizId = res.quizId
+        for (let question of this.questionList) {
+          question.quiz = { quizId: quizId };
+          question.questionType = question.questionType ? 'M' : 'S'
+          question.choiceArr.forEach((item: any) => {
+            item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
+          })
+          this.onlineQuizAdminService.newQuestion(question).subscribe()
+        }
+      })
     })
+
+
 
   }
 
-  
+
 
 }
