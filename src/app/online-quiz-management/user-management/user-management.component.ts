@@ -45,11 +45,6 @@ export class UserManagementComponent implements OnInit {
     this.ngOnInit();
   }
 
-  hideDialog() {
-    this.dialog = false;
-    this.submitted = false;
-  }
-
   editItem(user: any) {
     this.user = { ...user };
     this.dialog = false;

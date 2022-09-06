@@ -64,6 +64,10 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/question/admin');
   }
 
+  getQuestionByQuiz(quizId: number) {
+    return this.http.get<any>(`api/question/admin/${quizId}`);
+  }
+
   newQuestion(question: any) {
     return this.http.post('api/question', question);
   }

@@ -11,11 +11,10 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class QuizDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
-  @Input() quizList: any = {};
 
-  category: any = {};
-  quiz: any = {};
-  questionList: any[] = [];
+  @Input() category: any = {};
+  @Input() quiz: any = {};
+  @Input() questionList: any[] = [];
 
   caregoryList: any[] = [];
   submitted: boolean = false;
@@ -26,8 +25,6 @@ export class QuizDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.caregoryList = res)
-
-
 
     this.questionList = [
       { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
@@ -84,4 +81,6 @@ export class QuizDialogComponent implements OnInit {
       })
     })
   }
+
+  
 }

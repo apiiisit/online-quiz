@@ -10,18 +10,35 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 })
 export class QuizManagementComponent implements OnInit {
 
+  dialog: boolean = false;
   quizList: any[] = [];
+
+  category: any = {};
+  quiz: any = {};
+  questionList: any[] = [];
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    
+
     this.onlineQuizAdminService.getQuiz().subscribe(res => {
       res.forEach((item: any) => {
         item['quizStart'] = item['quizStart'].slice(0, -5);
       })
       this.quizList = res;
     })
+  }
+
+  editItem(_quiz: any) {
+
+    const quiz = {..._quiz};
+    quiz.quizStart = new Date(quiz.quizStart)
+    this.onlineQuizAdminService.getQuestionByQuiz(quiz.quizId).subscribe(res => this.questionList = res)
+    this.category = quiz.category;
+    this.quiz = quiz;
+    
+    this.dialog = false;
+    setTimeout(() => this.dialog = true);
   }
 
 }

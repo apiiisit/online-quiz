@@ -14,6 +14,7 @@ export class NavbarManagementComponent implements OnInit {
   num!: number;
 
   dialogUser: boolean = false;
+  dialogQuiz: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -66,6 +67,11 @@ export class NavbarManagementComponent implements OnInit {
   openDialogUser() {
     this.dialogUser = false;
     setTimeout(() => this.dialogUser = true);
+  }
+
+  openDialogQuiz() {
+    this.dialogQuiz = false;
+    setTimeout(() => this.dialogQuiz = true);
   }
 
 }

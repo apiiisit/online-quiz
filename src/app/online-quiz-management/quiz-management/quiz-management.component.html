@@ -1,5 +1,4 @@
 <div class="container">
-    <!-- <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" responsiveLayout="scroll"> -->
     <p-table [value]="quizList" sortField="category.categoryName" sortMode="single" dataKey="category.categoryId"
         rowGroupMode="subheader" groupRowsBy="category.categoryId" responsiveLayout="scroll">
         <ng-template pTemplate="header">
@@ -44,7 +43,7 @@
                 <td>
                     <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
                         class="p-button-rounded mr-2"></button>
-                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-pencil"
+                    <button (click)="editItem(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-pencil"
                         class="p-button-rounded p-button-warning mr-2"></button>
                     <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-trash"
                         class="p-button-rounded p-button-danger"></button>
@@ -54,4 +53,4 @@
     </p-table>
 </div>
 
-<app-quiz-dialog [dialog]="true"></app-quiz-dialog>
+<app-quiz-dialog [dialog]="dialog" [category]="category" [quiz]="quiz" [questionList]="questionList"></app-quiz-dialog>
