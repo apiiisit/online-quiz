@@ -1,7 +1,7 @@
 <p-toolbar>
     <ng-template pTemplate="left">
         <button *ngIf="btnShow == 0" pButton pRipple label="ADD QUIZ" icon="pi pi-plus" class="p-button-info mr-2"></button>
-        <button *ngIf="btnShow == 1" pButton pRipple label="ADD USER" icon="pi pi-plus" class="p-button-info mr-2"></button>
+        <button *ngIf="btnShow == 1" pButton pRipple label="ADD USER" (click)="openDialogUser()" icon="pi pi-plus" class="p-button-info mr-2"></button>
     </ng-template>
 
     <ng-template pTemplate="right">
@@ -9,3 +9,5 @@
         <p-menu #menu [popup]="true" [model]="items" [style]="{width: '30vh'}"></p-menu>
     </ng-template>
 </p-toolbar>
+
+<app-user-dialog [dialog]="dialogUser"></app-user-dialog>

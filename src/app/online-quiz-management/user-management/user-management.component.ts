@@ -45,12 +45,6 @@ export class UserManagementComponent implements OnInit {
     this.ngOnInit();
   }
 
-  openNew() {
-    this.user = {};
-    this.submitted = false;
-    this.dialog = true;
-  }
-
   hideDialog() {
     this.dialog = false;
     this.submitted = false;
@@ -58,49 +52,10 @@ export class UserManagementComponent implements OnInit {
 
   editItem(user: any) {
     this.user = { ...user };
-    this.dialog = true;
+    this.dialog = false;
+    setTimeout(() => this.dialog = true);
   }
-
-  saveItem() {
-    this.submitted = true;
-    const userName = this.user.userName?.trim();
-    const password = this.user.password?.trim();
-    const firstName = this.user.firstName?.trim();
-    const lastName = this.user.lastName?.trim();
-    const tel = this.user.tel?.trim();
-    const email = this.user.email?.trim();
-    const role = this.user.userRole;
-    if (userName && password && firstName && lastName && tel && email && role) {
-      if (this.user.userId) {
-        this.saveToDatabase(this.user);
-      }
-      else {
-        this.onlineQuizAdminService.newUser(this.user).subscribe({
-          complete: () => {
-            this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'User created');
-          },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'User create error');
-          }
-        });
-      }
-      this.dialog = false;
-    }
-  }
-
-  saveToDatabase(user: any) {
-    this.onlineQuizAdminService.updateUser(user).subscribe({
-      complete: () => {
-        this.refresh();
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'User updated');
-      },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'User update error');
-      }
-    });
-  }
-
+  
   deleteItem(user: any) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + user.userName + '?',

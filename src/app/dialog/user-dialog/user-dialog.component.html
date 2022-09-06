@@ -1,0 +1,51 @@
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="User Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="userName">Username</label>
+            <input type="text" pInputText id="userName" [(ngModel)]="user.userName" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.userName?.trim()">Username is required.</small>
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="text" pInputText id="password" [(ngModel)]="user.password" required />
+            <small class="p-error" *ngIf="submitted && !user.password?.trim()">Password is required.</small>
+        </div>
+        <div class="field">
+            <label for="firstName">Firstname</label>
+            <input type="text" pInputText id="firstName" [(ngModel)]="user.firstName" required />
+            <small class="p-error" *ngIf="submitted && !user.firstName?.trim()">Firstname is required.</small>
+        </div>
+        <div class="field">
+            <label for="lastName">Lastname</label>
+            <input type="text" pInputText id="lastName" [(ngModel)]="user.lastName" required />
+            <small class="p-error" *ngIf="submitted && !user.lastName?.trim()">Lastname is required.</small>
+
+        </div>
+        <div class="field">
+            <label for="tel">Tel</label>
+            <input type="text" pInputText id="tel" [(ngModel)]="user.tel" required />
+            <small class="p-error" *ngIf="submitted && !user.tel?.trim()">Tel is required.</small>
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="text" pInputText id="email" [(ngModel)]="user.email" required />
+            <small class="p-error" *ngIf="submitted && !user.email?.trim()">Email is required.</small>
+        </div>
+        <div class="field" style="margin-bottom: 100px;">
+            <label for="userRole.userRoleName">Role</label>
+            <p-dropdown [(ngModel)]="user.userRole" [options]="userRoleList" optionLabel="userRoleDescription"
+                placeholder="Select">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge user-role-' + option.userRoleId">{{option.userRoleName | userRole}}</span>
+                </ng-template>
+            </p-dropdown>
+            <small class="p-error" *ngIf="submitted && !user.userRole">Role is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-seccect" class="p-button-danger"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveItem()"></button>
+    </ng-template>
+</p-dialog>

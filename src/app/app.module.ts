@@ -40,6 +40,7 @@ import { ChartModule } from 'primeng/chart';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ChipModule } from 'primeng/chip';
 import { MenuModule } from 'primeng/menu';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { RandomOrderPipe } from './pipe/random-order.pipe';
@@ -73,6 +74,8 @@ import { MenuManagementComponent } from './online-quiz-management/menu-managemen
 import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
 import { ShowStrLenPipe } from './pipe/show-str-len.pipe';
 import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
+import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
+import { QuizDialogComponent } from './dialog/quiz-dialog/quiz-dialog.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +111,9 @@ import { DashboardManagementComponent } from './online-quiz-management/dashboard
     MenuManagementComponent,
     SettingManagementComponent,
     ShowStrLenPipe,
-    DashboardManagementComponent
+    DashboardManagementComponent,
+    UserDialogComponent,
+    QuizDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +148,8 @@ import { DashboardManagementComponent } from './online-quiz-management/dashboard
     ChartModule,
     ScrollPanelModule,
     ChipModule,
-    MenuModule
+    MenuModule,
+    InputNumberModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

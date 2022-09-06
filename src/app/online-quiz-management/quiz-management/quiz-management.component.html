@@ -20,7 +20,7 @@
                     <button [style]="{width:'30px', height:'30px'}" type="button" pButton pRipple [pRowToggler]="quiz"
                         class="p-button-text p-button-rounded p-button-plain mr-2"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                    <span class="font-bold ml-2">{{quiz.category.categoryName | showStrLen}}</span>
+                    <span class="font-bold ml-2">{{expanded ? quiz.category.categoryName : quiz.category.categoryName | showStrLen}}</span>
                 </td>
             </tr>
         </ng-template>
@@ -32,14 +32,14 @@
         <ng-template pTemplate="rowexpansion" let-quiz>
             <tr>
                 <td>{{quiz.quizName | showStrLen}}</td>
-                <td>{{quiz.numberOfQuestion}}</td>
+                <td>{{quiz.numberOfQuestion}} items</td>
                 <td>{{quiz.quizPass}}%</td>
                 <td>
                     <p-tag [severity]="quiz.quizActive ? 'success' : 'info'"
                         [value]="quiz.quizActive ? 'Active' : 'Hidden'" [rounded]="true"></p-tag>
                 </td>
                 <td>{{quiz.quizStart | date:'short':'':'th'}}</td>
-                <td>{{quiz.averageTestTime}}</td>
+                <td>{{quiz.averageTestTime}} min</td>
                 <td>{{quiz.quizPassword}}</td>
                 <td>
                     <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
@@ -53,3 +53,5 @@
         </ng-template>
     </p-table>
 </div>
+
+<app-quiz-dialog [dialog]="true"></app-quiz-dialog>

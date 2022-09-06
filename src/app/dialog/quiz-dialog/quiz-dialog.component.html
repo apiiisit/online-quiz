@@ -1,0 +1,95 @@
+<p-dialog [(visible)]="dialog" [style]="{width: '1200px'}" header="Quiz Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="category">Category</label>
+                <p-dropdown [options]="caregoryList" [(ngModel)]="quiz.category" [editable]="true"
+                    optionLabel="categoryName"></p-dropdown>
+            </div>
+
+            <div class="field col">
+                <label for="start">Start</label>
+                <p-calendar [(ngModel)]="quiz.quizStart" [showIcon]="true" [showTime]="true" [showButtonBar]="true"
+                    appendTo="body"></p-calendar>
+            </div>
+
+            <div class="field col">
+                <label for="average-test-time">Average test time (min)</label>
+                <p-inputNumber [(ngModel)]="quiz.averageTestTime" inputId="average-test-time" mode="decimal" [min]="0"
+                    [max]="999"></p-inputNumber>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col-6">
+                <label for="quiz">Quiz</label>
+                <input type="text" pInputText id="quiz" [(ngModel)]="quiz.quizName" />
+            </div>
+
+            <div class="field col-1">
+                <label for="status">Status</label>
+                <div>
+                    <p-inputSwitch [(ngModel)]="quiz.quizActive"></p-inputSwitch>
+                </div>
+            </div>
+
+            <div class="field col">
+                <label for="random-test-item">Random test item</label>
+                <p-inputNumber [(ngModel)]="quiz.numberOfQuestion" inputId="random-test-item" mode="decimal" [min]="0"
+                    [max]="999"></p-inputNumber>
+            </div>
+
+            <div class="field col">
+                <label for="pass">Pass%</label>
+                <p-inputNumber [(ngModel)]="quiz.quizPass" inputId="pass" mode="decimal" [min]="0" [max]="100">
+                </p-inputNumber>
+            </div>
+
+            <div class="field col">
+                <label for="password">Password</label>
+                <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword" />
+            </div>
+        </div>
+
+        <div *ngFor="let quistion of questionList; let i = index">
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="question">Question {{i+1}}</label>
+                    <input type="text" pInputText id="question" [(ngModel)]="quiz.quizPassword" />
+                </div>
+    
+                <div class="field col-2">
+                    <label for="average-test-time">Test time (sec)</label>
+                    <p-inputNumber [(ngModel)]="quiz.time" inputId="average-test-time" mode="decimal" [min]="0"
+                        [max]="999"></p-inputNumber>
+                </div>
+            </div>
+            
+
+            <div class="field-checkbox mt-3" *ngFor="let quistion of [1,1,1,1]">
+                <p-checkbox [binary]="true" inputId="binary" class="mr-2"></p-checkbox>
+                <input type="text" pInputText id="question" [(ngModel)]="quiz.quizPassword" />
+                <button pButton pRipple type="button" icon="pi pi-trash"
+                    class="ml-2 p-button-rounded p-button-danger p-button-text"></button>
+            </div>
+            <div class="btn-right">
+                <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="ADD Choice"
+                    class="p-button-text" (click)="addQuestion()"></button>
+            </div>
+        </div>
+
+        <div class="field">
+            <button [style]="{'float': 'right', 'width': 'auto'}" pButton pRipple type="button" label="ADD Question"
+                class="p-button-text" (click)="addQuestion()"></button>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-seccect" class="p-button-danger"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveItem()"></button>
+    </ng-template>
+</p-dialog>

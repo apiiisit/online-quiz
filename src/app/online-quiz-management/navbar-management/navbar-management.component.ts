@@ -12,6 +12,9 @@ export class NavbarManagementComponent implements OnInit {
   btnShow!: number;
   items!: MenuItem[];
   num!: number;
+
+  dialogUser: boolean = false;
+
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -58,6 +61,11 @@ export class NavbarManagementComponent implements OnInit {
   filterPath(url: string) {
     const arrPath = url.split('/')
     return arrPath[arrPath.length - 1]
+  }
+
+  openDialogUser() {
+    this.dialogUser = false;
+    setTimeout(() => this.dialogUser = true);
   }
 
 }
