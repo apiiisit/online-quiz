@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/service/auth.service';
 export class NavbarManagementComponent implements OnInit {
   btnShow!: string;
   items!: MenuItem[];
-  num!: number;
 
   dialogQuiz: boolean = false;
   dialogCategory: boolean = false;
@@ -35,11 +34,13 @@ export class NavbarManagementComponent implements OnInit {
         items: [
           {
             label: 'Edit profile',
-            icon: 'pi pi-user-edit'
+            icon: 'pi pi-user-edit',
+            routerLink: 'edit/profile'
           },
           {
             label: 'Change password',
             icon: 'pi pi-lock',
+            routerLink: 'edit/password'
           },
           {
             separator: true

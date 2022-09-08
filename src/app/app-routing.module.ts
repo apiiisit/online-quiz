@@ -100,8 +100,13 @@ const routes: Routes = [
         component: UserManagementComponent
       },
       {
-        path: 'settings',
-        component: SettingManagementComponent
+        path: 'edit/profile',
+        component: RegisterComponent,
+        data: { mode: Mode.EDIT }
+      },
+      {
+        path: 'edit/password',
+        component: ChangePasswordComponent
       }
     ]
   }
