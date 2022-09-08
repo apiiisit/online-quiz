@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
+import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 
 @Component({
   selector: 'app-navbar-management',
@@ -11,14 +12,22 @@ import { AuthService } from 'src/app/service/auth.service';
 export class NavbarManagementComponent implements OnInit {
   btnShow!: string;
   items!: MenuItem[];
+  
+  fullName!: string;
+  imageSrc: any;
 
   dialogQuiz: boolean = false;
   dialogCategory: boolean = false;
   dialogUser: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService) { }
 
   ngOnInit(): void {
+
+    this.imageSrc = this.authService.profileUrl;
+    this.onlineQuizService.getUser(this.authService.user.userId).subscribe(res => {
+      this.fullName = `${res.firstName} ${res.lastName}`;
+    })
 
     this.btnShow = this.filterPath(this.router.url)
 

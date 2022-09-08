@@ -6,7 +6,7 @@
     </ng-template>
 
     <ng-template pTemplate="right">
-        <p-chip label="Apisit Noiluangchai" image="http://localhost:4200/api/user/image/san.jpg" [style]="{height: '7vh', cursor: 'pointer'}" (click)="menu.toggle($event)"></p-chip>
+        <p-chip [label]="fullName" [image]="imageSrc" [style]="{height: '7vh', cursor: 'pointer'}" (click)="menu.toggle($event)"></p-chip>
         <p-menu #menu [popup]="true" [model]="items" [style]="{width: '30vh'}"></p-menu>
     </ng-template>
 </p-toolbar>
