@@ -132,7 +132,7 @@ export class RegisterComponent implements OnInit {
   navigate() {
     const role = this.authService.user?.role;
     const path = ['/online-quiz/']
-    if (role === 'Admin') path.push('admin')
+    if (role === 'Admin') path.push('management')
     window.location.pathname = path.join('');
   }
 

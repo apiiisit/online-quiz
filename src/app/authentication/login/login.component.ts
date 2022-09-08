@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
   navigate() {
     const role = this.authService.user?.role;
     const path = ['/online-quiz/']
-    if (role === 'Admin') path.push('admin')
-    this.router.navigate(path)
+    if (role === 'Admin') path.push('management')
+    window.location.pathname = path.join('');
   }
 
 }

@@ -48,22 +48,14 @@ import { UserRolePipe } from './pipe/user-role.pipe';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { OnlineQuizComponent } from './online-quiz/online-quiz.component';
-import { OnlineQuizAdminComponent } from './online-quiz-admin/online-quiz-admin.component';
 import { NavbarUserComponent } from './online-quiz/navbar-user/navbar-user.component';
 import { MenuUserComponent } from './online-quiz/menu-user/menu-user.component';
 import { CategoryComponent } from './online-quiz/category/category.component';
 import { QuestionComponent } from './online-quiz/question/question.component';
 import { QuizComponent } from './online-quiz/quiz/quiz.component';
-import { NavbarAdminComponent } from './online-quiz-admin/navbar-admin/navbar-admin.component';
-import { CategoryAdminComponent } from './online-quiz-admin/category-admin/category-admin.component';
-import { QuestionAdminComponent } from './online-quiz-admin/question-admin/question-admin.component';
-import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
-import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
-import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './authentication/change-password/change-password.component';
-import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
 import { ChartComponent } from './chart/chart.component';
 import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
 import { QuizManagementComponent } from './online-quiz-management/quiz-management/quiz-management.component';
@@ -88,22 +80,14 @@ import { CategoryDialogComponent } from './dialog/category-dialog/category-dialo
     AuthenticationComponent,
     LoginComponent,
     OnlineQuizComponent,
-    OnlineQuizAdminComponent,
     NavbarUserComponent,
     MenuUserComponent,
     CategoryComponent,
     QuestionComponent,
     QuizComponent,
-    NavbarAdminComponent,
-    CategoryAdminComponent,
-    QuestionAdminComponent,
-    QuizAdminComponent,
-    UserAdminComponent,
-    ScoreDetailAdminComponent,
     RegisterComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
-    DashboardComponent,
     ChartComponent,
     OnlineQuizManagementComponent,
     QuizManagementComponent,

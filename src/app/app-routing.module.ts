@@ -8,13 +8,6 @@ import { ResetPasswordComponent } from './authentication/reset-password/reset-pa
 import { HasQuizKeyGuard } from './guard/has-quiz-key.guard';
 import { HasRoleGuard } from './guard/has-role.guard';
 import { IsAuthenticatedGuard } from './guard/is-authenticated.guard';
-import { CategoryAdminComponent } from './online-quiz-admin/category-admin/category-admin.component';
-import { DashboardComponent } from './online-quiz-admin/dashboard/dashboard.component';
-import { OnlineQuizAdminComponent } from './online-quiz-admin/online-quiz-admin.component';
-import { QuestionAdminComponent } from './online-quiz-admin/question-admin/question-admin.component';
-import { QuizAdminComponent } from './online-quiz-admin/quiz-admin/quiz-admin.component';
-import { ScoreDetailAdminComponent } from './online-quiz-admin/score-detail-admin/score-detail-admin.component';
-import { UserAdminComponent } from './online-quiz-admin/user-admin/user-admin.component';
 import { CategoryManagementComponent } from './online-quiz-management/category-management/category-management.component';
 import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
 import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
@@ -109,40 +102,6 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingManagementComponent
-      }
-    ]
-  },
-  {
-    path: 'online-quiz/admin',
-    component: OnlineQuizAdminComponent,
-    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
-    data: {
-      role: 'Admin'
-    },
-    children: [
-      {
-        path: '',
-        component: DashboardComponent
-      },
-      {
-        path: 'category',
-        component: CategoryAdminComponent
-      },
-      {
-        path: 'quiz',
-        component: QuizAdminComponent
-      },
-      {
-        path: 'question',
-        component: QuestionAdminComponent
-      },
-      {
-        path: 'score',
-        component: ScoreDetailAdminComponent
-      },
-      {
-        path: 'user',
-        component: UserAdminComponent
       }
     ]
   }
