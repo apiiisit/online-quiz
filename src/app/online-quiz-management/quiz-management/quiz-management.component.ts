@@ -31,12 +31,20 @@ export class QuizManagementComponent implements OnInit {
 
   editItem(_quiz: any) {
 
-    const quiz = {..._quiz};
+    const quiz = { ..._quiz };
     quiz.quizStart = new Date(quiz.quizStart)
-    this.onlineQuizAdminService.getQuestionByQuiz(quiz.quizId).subscribe(res => this.questionList = res)
+    this.onlineQuizAdminService.getQuestionByQuiz(quiz.quizId).subscribe(res => {
+      for (let question of res) {
+        if (question.questionType == 'S') {
+          question.choiceSelected = question.choiceArr.findIndex((x: any) => x.choiceCorrect.choiceCorrectCheck)
+        }
+        question.questionType = question.questionType == 'M'
+      }
+      this.questionList = res
+    })
     this.category = quiz.category;
     this.quiz = quiz;
-    
+
     this.dialog = false;
     setTimeout(() => this.dialog = true);
   }

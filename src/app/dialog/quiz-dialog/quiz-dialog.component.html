@@ -26,7 +26,7 @@
                 <input type="text" pInputText id="quiz" [(ngModel)]="quiz.quizName" />
             </div>
 
-            <div class="field col-1">
+            <div class="field">
                 <label for="status">Status</label>
                 <div>
                     <p-inputSwitch [(ngModel)]="quiz.quizActive"></p-inputSwitch>
@@ -35,8 +35,9 @@
 
             <div class="field col">
                 <label for="number-of-question">Random test item</label>
-                <p-inputNumber [(ngModel)]="quiz.numberOfQuestion" inputId="number-of-question" mode="decimal" [min]="0"
-                    [max]="999"></p-inputNumber>
+                <p-inputNumber [(ngModel)]="quiz.numberOfQuestion"
+                    (ngModelChange)="generateQuestion(quiz.numberOfQuestion)" inputId="number-of-question"
+                    mode="decimal" [min]="0" [max]="999"></p-inputNumber>
             </div>
 
             <div class="field col">
@@ -45,9 +46,17 @@
                 </p-inputNumber>
             </div>
 
-            <div class="field col">
+            <div class="field">
+                <label for="status">Random</label>
+                <div class="ml-5">
+                    <p-checkbox [binary]="true" inputId="choice" [(ngModel)]="randomPassword"></p-checkbox>
+                </div>
+            </div>
+
+            <div class="field col-1">
                 <label for="password">Password</label>
-                <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword" />
+                <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword"
+                    [disabled]="randomPassword" />
             </div>
         </div>
 
@@ -67,7 +76,7 @@
             </div>
 
             <div class="field">
-                <label for="type">Multichoice</label>
+                <label for="type">Multi choice</label>
                 <div>
                     <p-inputSwitch [(ngModel)]="question.questionType"></p-inputSwitch>
                 </div>

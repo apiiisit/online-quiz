@@ -17,31 +17,28 @@ export class QuizDialogComponent implements OnInit {
   @Input() questionList: any[] = [];
 
   caregoryList: any[] = [];
+  randomPassword: boolean = false;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.caregoryList = res)
-
-    this.questionList = [
-      { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
-      { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
-      { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
-      { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
-      { questionType: false, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] },
-    ]
-
   }
 
   refresh() {
-    this.quiz = {};
+    this.dialog = false;
     setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['online-quiz/management', 'quiz'])
+      });
+    }, 2000);
   }
 
   hideDialog() {
     this.dialog = false;
+    this.category = {}
+    this.quiz = {}
+    this.questionList = []
   }
 
   addQuestion() {
@@ -54,6 +51,13 @@ export class QuizDialogComponent implements OnInit {
 
   removeChoice(index: number, choiceIndex: number) {
     this.questionList[index].choiceArr.splice(choiceIndex, 1);
+
+    if (this.questionList[index].choiceSelected) {
+      if (this.questionList[index].choiceSelected > choiceIndex) {
+        this.questionList[index].choiceSelected--;
+      }
+    }
+
   }
 
   saveItem() {
@@ -61,10 +65,60 @@ export class QuizDialogComponent implements OnInit {
       this.category = this.category.categoryName
     }
 
-    this.onlineQuizAdminService.newCategory(this.category).subscribe({
-      next: (res: any) => {
-        this.quiz.category = { categoryId: res.categoryId }
-        this.onlineQuizAdminService.newQuiz(this.quiz).subscribe((res: any) => {
+    if (this.quiz.quizId) {
+      this.editQuiz()
+    } else {
+      this.newQuiz()
+    }
+  }
+
+  editQuiz() {
+    this.onlineQuizAdminService.newCategory(this.category).subscribe((res: any) => {
+      this.quiz.category = { categoryId: res.categoryId }
+      if (this.randomPassword) this.quiz.quizPassword = null;
+      this.onlineQuizAdminService.updateQuiz(this.quiz).subscribe({
+        next: (res: any) => {
+          let quizId = res.quizId
+          for (let question of this.questionList) {
+            question.quiz = { quizId: quizId };
+            question.questionType = question.questionType == true ? 'M' : 'S'
+
+            if (question.questionType == 'S') {
+              question.choiceArr.forEach((item: any) => {
+                item.choiceCorrect.choiceCorrectId = 0
+                item.choiceCorrect.choiceCorrectCheck = false
+              })
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectId = 1
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectCheck = true
+            } else {
+              question.choiceArr.forEach((item: any) => {
+                item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
+              })
+            }
+            if (question.questionId) {
+              this.onlineQuizAdminService.updateQuestion(question).subscribe()
+            } else {
+              this.onlineQuizAdminService.newQuestion(question).subscribe()
+            }
+          }
+        },
+        complete: () => {
+          this.refresh();
+          this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz updated');
+        },
+        error: () => {
+          this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz update error');
+        }
+      })
+    })
+  }
+
+  newQuiz() {
+    this.onlineQuizAdminService.newCategory(this.category).subscribe((res: any) => {
+      this.quiz.category = { categoryId: res.categoryId }
+      if (this.randomPassword) this.quiz.quizPassword = null;
+      this.onlineQuizAdminService.newQuiz(this.quiz).subscribe({
+        next: (res: any) => {
           let quizId = res.quizId
           for (let question of this.questionList) {
             question.quiz = { quizId: quizId };
@@ -85,16 +139,22 @@ export class QuizDialogComponent implements OnInit {
 
             this.onlineQuizAdminService.newQuestion(question).subscribe()
           }
-        })
-      },
-      complete: () => {
-        this.refresh();
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz created');
-      },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz create error');
-      }
+        },
+        complete: () => {
+          this.refresh();
+          this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz created');
+        },
+        error: () => {
+          this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz create error');
+        }
+      })
     })
+  }
+
+  generateQuestion(num: number) {
+    for (let i = this.questionList.length; i < num; i++) {
+      this.questionList.push({ choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
+    }
   }
 
 
