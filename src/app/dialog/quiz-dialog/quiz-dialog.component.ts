@@ -19,7 +19,7 @@ export class QuizDialogComponent implements OnInit {
   caregoryList: any[] = [];
   randomPassword: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.caregoryList = res)

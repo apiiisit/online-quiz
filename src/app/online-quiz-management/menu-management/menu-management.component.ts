@@ -35,6 +35,12 @@ export class MenuManagementComponent implements OnInit {
         command: () => setTimeout(() => this.ngOnInit())
       },
       {
+        label: 'Category',
+        icon: 'pi pi-tags',
+        routerLink: '/online-quiz/management/category',
+        command: () => setTimeout(() => this.ngOnInit())
+      },
+      {
         label: 'Users',
         icon: 'pi pi-users',
         routerLink: '/online-quiz/management/users',

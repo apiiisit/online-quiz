@@ -11,11 +11,11 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class UserDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
-  @Input() user: any;
+  @Input() user: any = {};
   userRoleList: any[] = [];
   submitted: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
 
   ngOnInit(): void {
     this.userRoleList = [

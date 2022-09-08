@@ -76,6 +76,8 @@ import { ShowStrLenPipe } from './pipe/show-str-len.pipe';
 import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
 import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
 import { QuizDialogComponent } from './dialog/quiz-dialog/quiz-dialog.component';
+import { CategoryManagementComponent } from './online-quiz-management/category-management/category-management.component';
+import { CategoryDialogComponent } from './dialog/category-dialog/category-dialog.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +115,9 @@ import { QuizDialogComponent } from './dialog/quiz-dialog/quiz-dialog.component'
     ShowStrLenPipe,
     DashboardManagementComponent,
     UserDialogComponent,
-    QuizDialogComponent
+    QuizDialogComponent,
+    CategoryManagementComponent,
+    CategoryDialogComponent
   ],
   imports: [
     BrowserModule,

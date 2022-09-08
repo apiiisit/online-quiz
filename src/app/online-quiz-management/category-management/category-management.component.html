@@ -1,0 +1,51 @@
+<div class="container">
+    <p-table [value]="categoryList" [rows]="10" [paginator]="true"
+        responsiveLayout="scroll"
+        [(selection)]="selectedItem" [rowHover]="true" dataKey="categoryId"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
+                    [disabled]="!selectedItem || !selectedItem.length"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="categoryName">Name<p-sortIcon field="userName"></p-sortIcon></th>
+                <th>Description</th>
+                <th>Status</th>
+                <th></th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category let-index="rowIndex">
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="category"></p-tableCheckbox>
+                </td>
+                <td>{{category.categoryName | showStrLen}}</td>
+                <td>{{category.categoryDescription | showStrLen}}</td>
+                <td>
+                    <p-tag [severity]="category.categoryActive ? 'success' : 'info'"
+                        [value]="category.categoryActive ? 'Active' : 'Hidden'" [rounded]="true"></p-tag>
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                        (click)="editItem(category)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteItem(category)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{categoryList ? categoryList.length : 0 }} user.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<app-category-dialog [dialog]="dialog" [category]="category"></app-category-dialog>
