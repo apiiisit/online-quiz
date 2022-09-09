@@ -1,4 +1,42 @@
 <div class="container">
+    <div class="filter">
+        <div class="formgrid grid">
+            <div class="field">
+                <label for="category">Category</label>
+                <p-dropdown [style]="{'width': '30vh'}" [options]="categoryList" [(ngModel)]="categorySelected"
+                    placeholder="All category" optionLabel="categoryName" [showClear]="true"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="quiz">Quiz</label>
+                <p-dropdown [style]="{'width': '30vh'}" [options]="quizList" [(ngModel)]="quizSelected"
+                    placeholder="All quiz" optionLabel="quizName" [showClear]="true"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="status">Status</label>
+                <div class="box">
+                    <div class="field-checkbox">
+                        <p-checkbox name="status" value="Active" [(ngModel)]="statusSelected" inputId="active">
+                        </p-checkbox>
+                        <label for="active">Active</label>
+                    </div>
+                    <div class="field-checkbox">
+                        <p-checkbox name="status" value="Hidden" [(ngModel)]="statusSelected" inputId="hidden">
+                        </p-checkbox>
+                        <label for="hidden">Hidden</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button (click)="filter()" pButton pRipple type="button" label="APPLY FILTER"
+                class="p-button-rounded p-button-info"></button>
+        </div>
+
+    </div>
+
 
     <p-table [value]="taskList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedItem"
         [rowHover]="true" dataKey="taskId"
@@ -6,7 +44,7 @@
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
-                [disabled]="!selectedItem || !selectedItem.length"></button>
+                    [disabled]="!selectedItem || !selectedItem.length"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="header">

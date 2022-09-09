@@ -63,7 +63,6 @@ import { ResultManagementComponent } from './online-quiz-management/result-manag
 import { UserManagementComponent } from './online-quiz-management/user-management/user-management.component';
 import { NavbarManagementComponent } from './online-quiz-management/navbar-management/navbar-management.component';
 import { MenuManagementComponent } from './online-quiz-management/menu-management/menu-management.component';
-import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
 import { ShowStrLenPipe } from './pipe/show-str-len.pipe';
 import { DashboardManagementComponent } from './online-quiz-management/dashboard-management/dashboard-management.component';
 import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
@@ -95,7 +94,6 @@ import { CategoryDialogComponent } from './dialog/category-dialog/category-dialo
     UserManagementComponent,
     NavbarManagementComponent,
     MenuManagementComponent,
-    SettingManagementComponent,
     ShowStrLenPipe,
     DashboardManagementComponent,
     UserDialogComponent,

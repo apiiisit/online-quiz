@@ -13,7 +13,6 @@ import { DashboardManagementComponent } from './online-quiz-management/dashboard
 import { OnlineQuizManagementComponent } from './online-quiz-management/online-quiz-management.component';
 import { QuizManagementComponent } from './online-quiz-management/quiz-management/quiz-management.component';
 import { ResultManagementComponent } from './online-quiz-management/result-management/result-management.component';
-import { SettingManagementComponent } from './online-quiz-management/setting-management/setting-management.component';
 import { UserManagementComponent } from './online-quiz-management/user-management/user-management.component';
 import { CategoryComponent } from './online-quiz/category/category.component';
 import { OnlineQuizComponent } from './online-quiz/online-quiz.component';

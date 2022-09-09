@@ -1,0 +1,26 @@
+.filter {
+    display: flex;
+    align-items: center;
+}
+
+.formgrid {
+    margin-top: 1vh;
+    margin-left: 2vh;
+}
+
+.grid {
+    gap: 1rem;
+}
+
+.field label {
+    display: flex;
+
+}
+
+.box {
+    display: flex;
+}
+
+.box .field-checkbox {
+    margin-right: 2vh;
+}

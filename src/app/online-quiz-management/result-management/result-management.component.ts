@@ -12,22 +12,55 @@ export class ResultManagementComponent implements OnInit {
 
   taskList: any[] = [];
   selectedItem?: any;
-  
+
+  categoryList: any;
+  quizList: any;
+
+  categorySelected: any;
+  quizSelected: any;
+  statusSelected: any;
+
+
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getTask().subscribe(res => {
-      const _res = [...res];
-      _res.map(itemTask => {
-        itemTask['fullName'] = `${itemTask.user.firstName} ${itemTask.user.lastName}`;
-        itemTask['time'] = this.calTime(itemTask.taskStart.slice(0, -5), itemTask.taskFinish.slice(0, -5));
-      })
-      this.taskList = _res;
+      this.taskList = this.mapTask(res);
     });
+
+    this.onlineQuizAdminService.getCategory().subscribe(res => this.categoryList = res);
+    this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
   }
 
   refresh() {
     this.ngOnInit();
+  }
+
+  mapTask(res: any) {
+    res.map((itemTask: any) => {
+      itemTask['fullName'] = `${itemTask.user.firstName} ${itemTask.user.lastName}`;
+      itemTask['time'] = this.calTime(itemTask.taskStart.slice(0, -5), itemTask.taskFinish.slice(0, -5));
+    })
+    return res;
+  }
+
+  filter() {
+    const categoryId = this.categorySelected?.categoryId
+    const quizId = this.quizSelected?.quizId
+    let status;
+
+    if (this.statusSelected && this.statusSelected.length == 1) {
+      status = (this.statusSelected[0] == 'Active').toString()
+    } else {
+      status = null;
+    }
+
+    const query = [];
+    if (categoryId) query.push(`categoryId=${categoryId}`)
+    if (quizId) query.push(`quizId=${quizId}`)
+    if (status) query.push(`status=${status}`)
+
+    this.onlineQuizAdminService.getTaskFilter(query.join('&')).subscribe(res => this.taskList = this.mapTask(res));
   }
 
   calTime(start: number, finish: number) {

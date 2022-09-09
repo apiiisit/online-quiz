@@ -120,9 +120,14 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/task');
   }
 
+  getTaskFilter(query: string) {
+    return this.http.get<any>(`api/task/filter?${query}`);
+  }
+
   deleteTask(task: any) {
     return this.http.delete(`api/task/${task.taskId}`);
   }
+
 
 
 }
