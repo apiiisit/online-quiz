@@ -26,10 +26,12 @@ export class QuestionComponent implements OnInit {
 
   intervalTime$: any;
   intervalTimeOut$: any;
+  intervalCountDown$: any;
 
   timeText!: string;
   timeOut!: number;
   cTimeOut: boolean = false;
+  countdown: number = 10;
 
   progressbarValue: number = 100;
   questionTimeDisplay!: number;
@@ -169,6 +171,15 @@ export class QuestionComponent implements OnInit {
 
     this.detail = detail;
     this.display = true;
+
+    this.intervalCountDown$ = interval(1000)
+      .subscribe(() => {
+        this.countdown--;
+        if (this.countdown == 0) {
+          this.postAnswer();
+        }
+      })
+
 
   }
 

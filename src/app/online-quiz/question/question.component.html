@@ -1,16 +1,18 @@
 <div class="page">
     <div class="layout">
         <div class="card">
-            <h1>{{quizName}}</h1>
+            <div class="quiz">
+                <h1>{{quizName}}</h1>
+                <span class="timeout">
+                    เหลือเวลาอีก {{timeText}}
+                    <i class="ml-1 pi pi-clock" style="font-size: 3vh"></i>
+                </span>
+            </div>
 
             <div *ngIf="questionList.length > 0">
                 <div class="title">
-                    <h2>ข้อ {{currentPage+1}} / {{questionList.length}}</h2>
-                    <h3 class="timeout">
-                        คุณเหลือเวลา {{timeText}}
-                        <i class="ml-1 pi pi-clock" style="font-size: 4vh"></i>
-                    </h3>
-                    <h2 [innerHTML]="questionList[currentPage].questionName"></h2>
+                    <span>ข้อ {{currentPage+1}} / {{questionList.length}}</span>
+                    <span [innerHTML]="questionList[currentPage].questionName"></span>
                 </div>
                 <div class="row">
                     <div class="column1">
@@ -25,6 +27,7 @@
                             [style]="{'height': '10px', 'margin-right': '10vh'}">
                         </p-progressBar>
                     </div>
+                    
                 </div>
 
                 <hr color=00bcd4>
@@ -54,7 +57,7 @@
     [style]="{width: '50vh'}" [draggable]="false" [resizable]="false">
     <p>{{detail}}</p>
     <ng-template pTemplate="footer">
-        <p-button (click)="postAnswer()" label="ส่งคำตอบ" styleClass="p-button-text"></p-button>
+        <p-button (click)="postAnswer()" [label]="'ส่งคำตอบ ' + countdown" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
 
