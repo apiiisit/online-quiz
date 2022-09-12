@@ -47,6 +47,10 @@ export class OnlineQuizAdminService {
     return this.http.get<any>('api/quiz/admin');
   }
 
+  getQuizFilter(query: string) {
+    return this.http.get<any>(`api/quiz/filter?${query}`);
+  }
+
   newQuiz(quiz: any) {
     return this.http.post('api/quiz', quiz);
   }

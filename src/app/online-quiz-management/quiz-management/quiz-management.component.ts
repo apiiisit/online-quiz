@@ -11,22 +11,30 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class QuizManagementComponent implements OnInit {
 
   dialog: boolean = false;
+  categoryList: any[] = [];
+  quizListDropdown: any[] = [];
   quizList: any[] = [];
+  questionList: any[] = [];
 
   category: any = {};
   quiz: any = {};
-  questionList: any[] = [];
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
+  expandedRows: any = {};
+
+  categorySelected: any;
+  quizSelected: any;
+  statusSelected: any;
+
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
 
   ngOnInit(): void {
 
+    this.onlineQuizAdminService.getCategory().subscribe(res => this.categoryList = res);
     this.onlineQuizAdminService.getQuiz().subscribe(res => {
-      res.forEach((item: any) => {
-        item['quizStart'] = item['quizStart'].slice(0, -5);
-      })
-      this.quizList = res;
-    })
+      this.quizListDropdown = res;
+      this.quizList = this.mapTask(res);
+    });
+
   }
 
   editItem(_quiz: any) {
@@ -47,6 +55,33 @@ export class QuizManagementComponent implements OnInit {
 
     this.dialog = false;
     setTimeout(() => this.dialog = true);
+  }
+
+  mapTask(res: any) {
+    res.forEach((item: any) => {
+      this.expandedRows[item.category.categoryId] = true
+      item['quizStart'] = item['quizStart'].slice(0, -5);
+    })
+    return res;
+  }
+
+  filter() {
+    const categoryId = this.categorySelected?.categoryId
+    const quizId = this.quizSelected?.quizId
+    let status;
+
+    if (this.statusSelected && this.statusSelected.length == 1) {
+      status = (this.statusSelected[0] == 'Active').toString()
+    } else {
+      status = null;
+    }
+
+    const query = [];
+    if (categoryId) query.push(`categoryId=${categoryId}`)
+    if (quizId) query.push(`quizId=${quizId}`)
+    if (status) query.push(`status=${status}`)
+
+    this.onlineQuizAdminService.getQuizFilter(query.join('&')).subscribe(res => this.quizList = this.mapTask(res));
   }
 
 }

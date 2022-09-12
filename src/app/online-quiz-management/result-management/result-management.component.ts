@@ -50,7 +50,7 @@ export class ResultManagementComponent implements OnInit {
     let status;
 
     if (this.statusSelected && this.statusSelected.length == 1) {
-      status = (this.statusSelected[0] == 'Active').toString()
+      status = (this.statusSelected[0] == 'Pass').toString()
     } else {
       status = null;
     }

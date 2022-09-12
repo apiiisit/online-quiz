@@ -1,6 +1,46 @@
 <div class="container">
+
+    <div class="filter">
+        <div class="formgrid grid">
+            <div class="field">
+                <label for="category">Category</label>
+                <p-dropdown [style]="{'width': '30vh'}" [options]="categoryList" [(ngModel)]="categorySelected"
+                    placeholder="All category" optionLabel="categoryName" [showClear]="true"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="quiz">Quiz</label>
+                <p-dropdown [style]="{'width': '30vh'}" [options]="quizListDropdown" [(ngModel)]="quizSelected"
+                    placeholder="All quiz" optionLabel="quizName" [showClear]="true"></p-dropdown>
+            </div>
+
+            <div class="field">
+                <label for="status">Status</label>
+                <div class="box">
+                    <div class="field-checkbox">
+                        <p-checkbox name="status" value="Active" [(ngModel)]="statusSelected" inputId="active">
+                        </p-checkbox>
+                        <label for="active">Active</label>
+                    </div>
+                    <div class="field-checkbox">
+                        <p-checkbox name="status" value="Hidden" [(ngModel)]="statusSelected" inputId="hidden">
+                        </p-checkbox>
+                        <label for="hidden">Hidden</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button (click)="filter()" pButton pRipple type="button" label="APPLY FILTER"
+                class="p-button-rounded p-button-info"></button>
+        </div>
+
+    </div>
+
     <p-table [value]="quizList" sortField="category.categoryName" sortMode="single" dataKey="category.categoryId"
-        rowGroupMode="subheader" groupRowsBy="category.categoryId" responsiveLayout="scroll">
+        [expandedRowKeys]="expandedRows" rowGroupMode="subheader" groupRowsBy="category.categoryId"
+        responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
                 <th>Quiz</th>
@@ -19,7 +59,8 @@
                     <button [style]="{width:'30px', height:'30px'}" type="button" pButton pRipple [pRowToggler]="quiz"
                         class="p-button-text p-button-rounded p-button-plain mr-2"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                    <span class="font-bold ml-2">{{expanded ? quiz.category.categoryName : quiz.category.categoryName | showStrLen}}</span>
+                    <span class="font-bold ml-2">{{expanded ? quiz.category.categoryName : quiz.category.categoryName |
+                        showStrLen}}</span>
                 </td>
             </tr>
         </ng-template>
@@ -43,8 +84,8 @@
                 <td>
                     <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
                         class="p-button-rounded mr-2"></button>
-                    <button (click)="editItem(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-pencil"
-                        class="p-button-rounded p-button-warning mr-2"></button>
+                    <button (click)="editItem(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple
+                        icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"></button>
                     <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-trash"
                         class="p-button-rounded p-button-danger"></button>
                 </td>
