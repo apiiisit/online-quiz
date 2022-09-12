@@ -36,9 +36,6 @@ export class QuizDialogComponent implements OnInit {
 
   hideDialog() {
     this.dialog = false;
-    this.category = {}
-    this.quiz = {}
-    this.questionList = []
   }
 
   addQuestion() {
