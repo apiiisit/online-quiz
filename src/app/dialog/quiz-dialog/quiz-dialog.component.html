@@ -3,8 +3,9 @@
         <div class="formgrid grid">
             <div class="field col">
                 <label for="category">Category</label>
-                <p-dropdown [options]="caregoryList" [(ngModel)]="category.categoryName" [editable]="true"
+                <p-dropdown *ngIf="!edit" [options]="caregoryList" [(ngModel)]="category.categoryName" [editable]="true"
                     optionLabel="categoryName"></p-dropdown>
+                <p-dropdown *ngIf="edit" [options]="caregoryList" [(ngModel)]="category" placeholder="Select a Category" optionLabel="categoryName"></p-dropdown>
             </div>
 
             <div class="field col">

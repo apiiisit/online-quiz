@@ -53,7 +53,7 @@ export class MenuManagementComponent implements OnInit {
     }
 
     const path = this.router.url.split('/');
-    const pathName = path[path.length - 1]
+    const pathName = path[path.length - 1].split('?')[0];
     const index = this.items.findIndex(item => item.label?.toLowerCase().includes(pathName));
     if (index > -1) this.items[index]['style'] = this.styleConfig;
 

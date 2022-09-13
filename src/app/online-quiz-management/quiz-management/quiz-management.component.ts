@@ -1,3 +1,4 @@
+import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -25,7 +26,7 @@ export class QuizManagementComponent implements OnInit {
   quizSelected: any;
   statusSelected: any;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
+  constructor(private confirmationService: ConfirmationService, private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -37,11 +38,16 @@ export class QuizManagementComponent implements OnInit {
 
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
   editItem(_quiz: any) {
-    const quiz = { ..._quiz };
+    let quiz = {..._quiz};
     quiz.quizStart = new Date(quiz.quizStart)
+    this.category = {...quiz.category};
+    delete this.category.quizLength
     
-    this.category = quiz.category;
     this.quiz = quiz;
 
     this.onlineQuizAdminService.getQuestionByQuiz(quiz.quizId).subscribe(res => {
@@ -53,7 +59,6 @@ export class QuizManagementComponent implements OnInit {
       }
       this.questionList = res
     })
-    
 
     this.dialog = false;
     setTimeout(() => this.dialog = true);
@@ -84,6 +89,32 @@ export class QuizManagementComponent implements OnInit {
     if (status) query.push(`status=${status}`)
 
     this.onlineQuizAdminService.getQuizFilter(query.join('&')).subscribe(res => this.quizList = this.mapTask(res));
+  }
+
+  sendQuizToResult(quiz: any) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['online-quiz/management/results'], { queryParams: { quiz: quiz.quizId } });
+    });
+
+  }
+
+  deleteItem(quiz: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + quiz.quizName + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.onlineQuizAdminService.deleteQuiz(quiz).subscribe({
+          complete: () => {
+            this.refresh();
+            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz deleted');
+          },
+          error: () => {
+            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz delete error');
+          }
+        });
+      }
+    });
   }
 
 }

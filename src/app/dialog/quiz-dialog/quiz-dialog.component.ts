@@ -11,6 +11,7 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class QuizDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
+  @Input() edit: boolean = false;
 
   @Input() category: any = {};
   @Input() quiz: any = {};

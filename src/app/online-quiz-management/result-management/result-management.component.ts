@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
@@ -21,15 +21,27 @@ export class ResultManagementComponent implements OnInit {
   statusSelected: any;
 
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(private activeRoute: ActivatedRoute, private onlineQuizAdminService: OnlineQuizAdminService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+
     this.onlineQuizAdminService.getTask().subscribe(res => {
       this.taskList = this.mapTask(res);
     });
 
     this.onlineQuizAdminService.getCategory().subscribe(res => this.categoryList = res);
-    this.onlineQuizAdminService.getQuiz().subscribe(res => this.quizList = res);
+    this.onlineQuizAdminService.getQuiz().subscribe(res => {
+      this.quizList = res
+
+      this.activeRoute.queryParams.subscribe((params: any) => {
+        if (params.quiz) {
+          this.quizSelected = res.filter((x: any) => x.quizId == params.quiz)[0];
+          this.filter();
+        }
+      })
+
+    });
+
   }
 
   refresh() {
@@ -88,10 +100,10 @@ export class ResultManagementComponent implements OnInit {
         this.onlineQuizAdminService.deleteTask(task).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Task deleted');
+            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Result deleted');
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Task delete error');
+            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Result delete error');
           }
         });
       }
@@ -111,10 +123,10 @@ export class ResultManagementComponent implements OnInit {
                 this.refresh();
                 this.selectedItem = null;
               }
-              this.onlineQuizAdminService.alertMsg('success', 'Successful', `Task ${item.fullName} deleted`);
+              this.onlineQuizAdminService.alertMsg('success', 'Successful', `Result ${item.fullName} deleted`);
             },
             error: () => {
-              this.onlineQuizAdminService.alertMsg('error', 'Error', `Task ${item.fullName} delete error`);
+              this.onlineQuizAdminService.alertMsg('error', 'Error', `Result ${item.fullName} delete error`);
             }
           })
         })

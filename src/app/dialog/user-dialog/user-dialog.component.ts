@@ -60,7 +60,6 @@ export class UserDialogComponent implements OnInit {
     const tel = this.user.tel?.trim();
     const email = this.user.email?.trim();
     const role = this.user.userRole;
-    console.log(this.user);
     
     if (userName && password && firstName && lastName && tel && email && role) {
       if (this.user.userId) {

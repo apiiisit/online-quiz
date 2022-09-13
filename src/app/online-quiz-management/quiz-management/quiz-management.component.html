@@ -82,11 +82,11 @@
                 <td>{{quiz.averageTestTime}} min</td>
                 <td>{{quiz.quizPassword}}</td>
                 <td>
-                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
+                    <button (click)="sendQuizToResult(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"
                         class="p-button-rounded mr-2"></button>
                     <button (click)="editItem(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple
                         icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"></button>
-                    <button [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-trash"
+                    <button (click)="deleteItem(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-trash"
                         class="p-button-rounded p-button-danger"></button>
                 </td>
             </tr>
@@ -94,4 +94,4 @@
     </p-table>
 </div>
 
-<app-quiz-dialog [dialog]="dialog" [category]="category" [quiz]="quiz" [questionList]="questionList"></app-quiz-dialog>
+<app-quiz-dialog [dialog]="dialog" [edit]="true" [category]="category" [quiz]="quiz" [questionList]="questionList"></app-quiz-dialog>
