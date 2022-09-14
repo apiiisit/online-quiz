@@ -43,10 +43,11 @@ export class QuizManagementComponent implements OnInit {
   }
 
   editItem(_quiz: any) {
+    this.category = {..._quiz.category};
+    delete this.category.quizLength
+    
     let quiz = {..._quiz};
     quiz.quizStart = new Date(quiz.quizStart)
-    this.category = {...quiz.category};
-    delete this.category.quizLength
     
     this.quiz = quiz;
 

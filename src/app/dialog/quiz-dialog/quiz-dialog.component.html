@@ -5,7 +5,7 @@
                 <label for="category">Category</label>
                 <p-dropdown *ngIf="!edit" [options]="caregoryList" [(ngModel)]="category.categoryName" [editable]="true"
                     optionLabel="categoryName"></p-dropdown>
-                <p-dropdown *ngIf="edit" [options]="caregoryList" [(ngModel)]="category" placeholder="Select a Category" optionLabel="categoryName"></p-dropdown>
+                <p-dropdown *ngIf="edit" [options]="caregoryList" [(ngModel)]="category" placeholder="Select category" optionLabel="categoryName"></p-dropdown>
             </div>
 
             <div class="field col">
