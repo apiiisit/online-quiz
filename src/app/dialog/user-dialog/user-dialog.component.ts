@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -11,9 +9,17 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class UserDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
-  @Input() user: any = {};
+  @Input() mode: boolean = false;
+  @Input() user: any;
+
   userRoleList: any[] = [];
   submitted: boolean = false;
+  emailSubmit: boolean = false;
+
+  userReg: RegExp = /^[a-zA-Z0-9_]/
+  strReg: RegExp = /^[a-zA-Zก-๙]/
+  emailReg: RegExp = /^[a-zA-Z0-9_@.]/
+  blockSpace: RegExp = /[^\s]/
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
 
@@ -53,6 +59,7 @@ export class UserDialogComponent implements OnInit {
 
   saveItem() {
     this.submitted = true;
+
     const userName = this.user.userName?.trim();
     const password = this.user.password?.trim();
     const firstName = this.user.firstName?.trim();
@@ -60,8 +67,12 @@ export class UserDialogComponent implements OnInit {
     const tel = this.user.tel?.trim();
     const email = this.user.email?.trim();
     const role = this.user.userRole;
-    
-    if (userName && password && firstName && lastName && tel && email && role) {
+
+    this.validate(this.user.email)
+
+    if (userName && userName.length > 5 && password && password.length > 5 && firstName && firstName.length > 5 && lastName && lastName.length > 5 && tel && email && role && this.emailSubmit) {
+      this.user.tel = this.user.tel.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
+
       if (this.user.userId) {
         this.saveToDatabase(this.user);
       }
@@ -90,6 +101,11 @@ export class UserDialogComponent implements OnInit {
         this.onlineQuizAdminService.alertMsg('error', 'Error', 'User update error');
       }
     });
+  }
+
+  validate(value: string) {
+    const emailRegExp = /^[a-zA-Z0-9_.]+@([a-z]+\.)+[a-z]{2,4}$/
+    this.emailSubmit = emailRegExp.test(value)
   }
 
 }

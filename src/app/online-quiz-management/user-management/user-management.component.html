@@ -2,7 +2,7 @@
     <p-table [value]="userList" [rows]="10" [paginator]="true"
         responsiveLayout="scroll"
         [(selection)]="selectedItem" [rowHover]="true" dataKey="userId"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="แสดง {first}-{last} จาก {totalRecords} รายการ" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
@@ -14,13 +14,13 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th>Profile</th>
+                <th>รูปประจำตัว</th>
                 <th pSortableColumn="userName">Username<p-sortIcon field="userName"></p-sortIcon>
                 </th>
-                <th pSortableColumn="firstName">Name<p-sortIcon field="firstName"></p-sortIcon>
+                <th pSortableColumn="firstName">ชื่อ-นามสกุล<p-sortIcon field="firstName"></p-sortIcon>
                 </th>
-                <th>Tel</th>
-                <th>Email</th>
+                <th>เบอร์โทรศัพท์มือถือ</th>
+                <th>อีเมล</th>
                 <th pSortableColumn="lastLogin">Last login<p-sortIcon field="lastLogin"></p-sortIcon>
                 </th>
                 <th pSortableColumn="userRole.userRoleName">Role<p-sortIcon field="userRole.userRoleName"></p-sortIcon>
@@ -53,10 +53,10 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{userList ? userList.length : 0 }} user.
+                มีผู้ใช้ทั้งหมด {{userList ? userList.length : 0 }} คน
             </div>
         </ng-template>
     </p-table>
 </div>
 
-<app-user-dialog [dialog]="dialog" [user]="user"></app-user-dialog>
+<app-user-dialog [dialog]="dialog" [mode]="modeDialog" [user]="user"></app-user-dialog>

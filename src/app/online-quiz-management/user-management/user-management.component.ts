@@ -10,6 +10,8 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class UserManagementComponent implements OnInit {
 
   dialog: boolean = false;
+  modeDialog: boolean = false;
+
   userList: any[] = [];
   userRoleList: any[] = [];
   user?: any;
@@ -47,6 +49,7 @@ export class UserManagementComponent implements OnInit {
 
   editItem(user: any) {
     this.user = { ...user };
+    this.modeDialog = true;
     this.dialog = false;
     setTimeout(() => this.dialog = true);
   }

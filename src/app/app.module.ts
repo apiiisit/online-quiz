@@ -41,6 +41,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ChipModule } from 'primeng/chip';
 import { MenuModule } from 'primeng/menu';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { RandomOrderPipe } from './pipe/random-order.pipe';
@@ -135,7 +137,9 @@ import { CategoryDialogComponent } from './dialog/category-dialog/category-dialo
     ScrollPanelModule,
     ChipModule,
     MenuModule,
-    InputNumberModule
+    InputNumberModule,
+    KeyFilterModule,
+    InputMaskModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
