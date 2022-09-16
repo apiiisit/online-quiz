@@ -1,17 +1,17 @@
-<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Category Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" [header]="mode ? 'แก้ไขข้อมูล' : 'เพิ่มหมวดหมู่'" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
-            <label for="name">Name</label>
+            <label for="name">ชื่อหมวดหมู่</label>
             <input type="text" pInputText id="name" [(ngModel)]="category.categoryName" required autofocus />
-            <small class="p-error" *ngIf="submitted && !category.categoryName?.trim()">Name is required.</small>
+            <small class="p-error" *ngIf="submitted && !category.categoryName?.trim()">กรุณากรอกชื่อหมวดหมู่</small>
         </div>
         <div class="field">
-            <label for="description">Description</label>
+            <label for="description">คำอธิบาย</label>
             <textarea id="description" pInputTextarea [(ngModel)]="category.categoryDescription" rows="3"
                 cols="20"></textarea>
         </div>
         <div class="field">
-            <label for="status">Status</label>
+            <label for="status">สถานะ</label>
             <div>
                 <p-inputSwitch [(ngModel)]="category.categoryActive"></p-inputSwitch>
             </div>
@@ -19,8 +19,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-seccect" class="p-button-danger"
+        <button pButton pRipple label="ยกเลิก" icon="pi pi-seccect" class="p-button-danger"
             (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveItem()"></button>
+        <button pButton pRipple label="บันทึก" icon="pi pi-check" class="p-button-success" (click)="saveItem()"></button>
     </ng-template>
 </p-dialog>

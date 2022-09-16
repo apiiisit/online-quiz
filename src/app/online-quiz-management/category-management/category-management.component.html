@@ -2,7 +2,7 @@
     <p-table [value]="categoryList" [rows]="10" [paginator]="true"
         responsiveLayout="scroll"
         [(selection)]="selectedItem" [rowHover]="true" dataKey="categoryId"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="แสดง {first} ถึง {last} จาก {totalRecords} รายการ" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
@@ -14,9 +14,9 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="categoryName">Name<p-sortIcon field="userName"></p-sortIcon></th>
-                <th>Description</th>
-                <th>Status</th>
+                <th pSortableColumn="categoryName">ชื่อหมวดหมู่<p-sortIcon field="userName"></p-sortIcon></th>
+                <th>คำอธิบาย</th>
+                <th>สถานะ</th>
                 <th></th>
                 
             </tr>
@@ -42,10 +42,10 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{categoryList ? categoryList.length : 0 }} user.
+                ทั้งหมดมี {{categoryList ? categoryList.length : 0 }} หมวดหมู่
             </div>
         </ng-template>
     </p-table>
 </div>
 
-<app-category-dialog [dialog]="dialog" [category]="category"></app-category-dialog>
+<app-category-dialog [dialog]="dialog" [mode]="modeDialog" [category]="category"></app-category-dialog>

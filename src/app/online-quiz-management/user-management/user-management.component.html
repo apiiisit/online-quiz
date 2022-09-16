@@ -2,7 +2,7 @@
     <p-table [value]="userList" [rows]="10" [paginator]="true"
         responsiveLayout="scroll"
         [(selection)]="selectedItem" [rowHover]="true" dataKey="userId"
-        currentPageReportTemplate="แสดง {first}-{last} จาก {totalRecords} รายการ" [showCurrentPageReport]="true">
+        currentPageReportTemplate="แสดง {first} ถึง {last} จาก {totalRecords} รายการ" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"

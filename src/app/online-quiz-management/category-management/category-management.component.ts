@@ -11,6 +11,7 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class CategoryManagementComponent implements OnInit {
 
   dialog: boolean = false;
+  modeDialog: boolean = false;
   categoryList: any[] = [];
   category?: any;
   selectedItem?: any;
@@ -31,6 +32,7 @@ export class CategoryManagementComponent implements OnInit {
 
   editItem(category: any) {
     this.category = { ...category };
+    this.modeDialog = true;
     this.dialog = false;
     setTimeout(() => this.dialog = true);
   }

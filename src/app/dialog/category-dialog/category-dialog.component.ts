@@ -9,6 +9,7 @@ import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.servic
 export class CategoryDialogComponent implements OnInit {
 
   @Input() dialog: boolean = false;
+  @Input() mode: boolean = false;
   @Input() category: any = {};
   submitted: boolean = false;
   
