@@ -83,15 +83,22 @@ export class QuizComponent implements OnInit {
   checkPassword() {
     this.submitted = true;
     if (this.password) {
-      if (this.password === this.quiz.quizPassword) {
-        this.quizKeyService.postQuizKey();
-        this.router.navigate(['/online-quiz/quiz/', this.params.categoryId, this.quiz.quizId])
-        this.quiz = {};
-        this.display = false;
 
-      } else {
-        this.cPassword = true;
+      const quiz = {
+        quizId: this.quiz.quizId,
+        quizPassword: this.password
       }
+
+      this.onlineQuizService.quizAuth(quiz).subscribe(res => {
+        if (res) {
+          this.quizKeyService.postQuizKey();
+          this.router.navigate(['/online-quiz/quiz/', this.params.categoryId, this.quiz.quizId])
+          this.quiz = {};
+          this.display = false;
+        } else {
+          this.cPassword = true;
+        }
+      })
     }
   }
 

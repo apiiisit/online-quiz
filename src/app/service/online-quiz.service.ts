@@ -20,6 +20,10 @@ export class OnlineQuizService {
     return this.http.get<any>(`api/quiz/q_${id}`);
   }
 
+  quizAuth(quiz: any) {
+    return this.http.post('api/quiz/auth', quiz);
+  }
+
   getQuestion(id: number, limit: number, time: number) {
     return this.http.get<any>(`api/question/question?quiz=${id}&limit=${limit}&time=${time}`);
   }
