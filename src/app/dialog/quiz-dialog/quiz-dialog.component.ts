@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -17,8 +16,14 @@ export class QuizDialogComponent implements OnInit {
   @Input() quiz: any = {};
   @Input() questionList: any[] = [];
 
+  submitted: boolean = false;
+  editCategory: boolean = false;
+
   caregoryList: any[] = [];
   randomPassword: boolean = false;
+  tempPassword?: string
+
+  displayError: boolean = false;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
@@ -48,6 +53,10 @@ export class QuizDialogComponent implements OnInit {
   }
 
   removeChoice(index: number, choiceIndex: number) {
+    if (this.questionList[index].choiceSelected == choiceIndex) {
+      delete this.questionList[index].choiceSelected;
+    }
+
     this.questionList[index].choiceArr.splice(choiceIndex, 1);
 
     if (this.questionList[index].choiceSelected) {
@@ -55,18 +64,96 @@ export class QuizDialogComponent implements OnInit {
         this.questionList[index].choiceSelected--;
       }
     }
-
   }
 
   saveItem() {
+    this.submitted = true;
+
+    let category = { ...this.category };
     if (typeof this.category.categoryName == 'object') {
-      this.category = this.category.categoryName
+      category = this.category.categoryName
     }
 
-    if (this.quiz.quizId) {
-      this.editQuiz()
-    } else {
-      this.newQuiz()
+    const categoryName = category.categoryName?.trim();
+    const start = this.quiz.quizStart;
+    const averageTestTime = this.quiz.averageTestTime;
+    const quizName = this.quiz.quizName?.trim();
+    const numberOfQuestion = this.quiz.numberOfQuestion;
+    const quizPass = this.quiz.quizPass;
+    const quizPassword = this.quiz.quizPassword?.trim();
+
+
+    if (this.checkQuestion() && categoryName && categoryName.length > 5 && start && averageTestTime && quizName && quizName.length > 5 && numberOfQuestion && quizPass && ((this.randomPassword) || (!this.randomPassword && quizPassword && quizPassword.length > 5))) {
+
+      if (this.questionList.length >= numberOfQuestion) {
+        if (typeof this.category.categoryName == 'object') {
+          this.category = this.category.categoryName
+        }
+
+        if (this.quiz.quizId) {
+          this.editQuiz()
+        } else {
+          this.newQuiz()
+        }
+      } else {
+        this.displayError = true;
+      }
+
+
+    }
+
+  }
+
+  checkQuestion() {
+    let check = true;
+
+    if (this.questionList.length <= 0) check = false
+
+    if (check) {
+      for (let question of this.questionList) {
+
+        if (question.questionType == true) {
+          check = question.choiceArr.filter((x: any) => x.choiceCorrect.choiceCorrectCheck == true).length >= 2
+        } else if (!question.questionType || question.questionType == false) {
+          check = Object.keys(question).includes('choiceSelected')
+        }
+        if (!check) return check
+
+        if (check) {
+          for (let key of ['questionName', 'questionTime', 'choiceArr']) {
+            if (!Object.keys(question).includes(key)) {
+              check = false;
+              return check
+            }
+          }
+        }
+
+        if (check) {
+          if (question.questionName?.trim().length < 5) {
+            check = false
+            return check
+          }
+        }
+
+        if (check) {
+          for (let choice of question.choiceArr) {
+            if (!choice.choiceName || choice.choiceName == '') {
+              check = false;
+              return check
+            }
+          }
+        }
+      }
+    }
+
+    return check;
+  }
+
+  choiceCorrect(question: any) {
+    if (question.questionType == true) {
+      question.validateChoice = question.choiceArr.filter((x: any) => x.choiceCorrect.choiceCorrectCheck == true).length >= 2
+    } else if (!question.questionType || question.questionType == false) {
+      question.validateChoice = Object.keys(question).includes('choiceSelected')
     }
   }
 
@@ -155,5 +242,17 @@ export class QuizDialogComponent implements OnInit {
     }
   }
 
+  checkEditCategory() {
+    this.editCategory = typeof this.category.categoryName != 'object'
+  }
+
+  randomPasswordToggle() {
+    if (this.randomPassword) {
+      this.tempPassword = this.quiz.quizPassword
+      this.quiz.quizPassword = null
+    } else {
+      this.quiz.quizPassword = this.tempPassword
+    }
+  }
 
 }

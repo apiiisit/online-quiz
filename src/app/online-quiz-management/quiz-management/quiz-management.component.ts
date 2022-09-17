@@ -1,4 +1,3 @@
-import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -43,26 +42,37 @@ export class QuizManagementComponent implements OnInit {
   }
 
   editItem(_quiz: any) {
-    this.category = {..._quiz.category};
+    this.category = { ..._quiz.category };
     delete this.category.quizLength
-    
-    let quiz = {..._quiz};
+
+    let quiz = { ..._quiz };
     quiz.quizStart = new Date(quiz.quizStart)
-    
+
     this.quiz = quiz;
 
     this.onlineQuizAdminService.getQuestionByQuiz(quiz.quizId).subscribe(res => {
       for (let question of res) {
+
         if (question.questionType == 'S') {
           question.choiceSelected = question.choiceArr.findIndex((x: any) => x.choiceCorrect.choiceCorrectCheck)
         }
         question.questionType = question.questionType == 'M'
+
+        this.choiceCorrect(question)
       }
       this.questionList = res
     })
 
     this.dialog = false;
     setTimeout(() => this.dialog = true);
+  }
+
+  choiceCorrect(question: any) {
+    if (question.questionType == true) {
+      question.validateChoice = question.choiceArr.filter((x: any) => x.choiceCorrect.choiceCorrectCheck == true).length >= 2
+    } else if (!question.questionType || question.questionType == false) {
+      question.validateChoice = Object.keys(question).includes('choiceSelected')
+    }
   }
 
   mapTask(res: any) {

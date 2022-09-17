@@ -43,14 +43,14 @@
         responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
-                <th>Quiz</th>
-                <th>Random test item</th>
-                <th>Pass%</th>
-                <th>Status</th>
-                <th>Start</th>
-                <th>Average test time</th>
-                <th>Password</th>
-                <th>Controls</th>
+                <th>ชื่อแบบทดสอบ</th>
+                <th>สุ่มแบบทดสอบ</th>
+                <th>ให้ผ่าน%</th>
+                <th>สถานะ</th>
+                <th>เริ่ม</th>
+                <th>เวลาทดสอบ</th>
+                <th>รหัสผ่าน</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="groupheader" let-quiz let-rowIndex="rowIndex" let-expanded="expanded">
@@ -66,20 +66,20 @@
         </ng-template>
         <ng-template pTemplate="groupfooter" let-quiz>
             <tr class="p-rowgroup-footer">
-                <td colspan="8" style="text-align: right">Total quiz {{quiz.category.quizLength}} items.</td>
+                <td colspan="8" style="text-align: right">มีแบบทดสอบ {{quiz.category.quizLength}} รายการ</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-quiz>
             <tr>
                 <td>{{quiz.quizName | showStrLen}}</td>
-                <td>{{quiz.numberOfQuestion}} items</td>
+                <td>{{quiz.numberOfQuestion}} ข้อ</td>
                 <td>{{quiz.quizPass}}%</td>
                 <td>
                     <p-tag [severity]="quiz.quizActive ? 'success' : 'info'"
                         [value]="quiz.quizActive ? 'Active' : 'Hidden'" [rounded]="true"></p-tag>
                 </td>
                 <td>{{quiz.quizStart | date:'short':'':'th'}}</td>
-                <td>{{quiz.averageTestTime}} min</td>
+                <td>{{quiz.averageTestTime}} นาที</td>
                 <td>{{quiz.quizPassword}}</td>
                 <td>
                     <button (click)="sendQuizToResult(quiz)" [style]="{width:'40px', height:'40px'}" pButton pRipple icon="pi pi-search"

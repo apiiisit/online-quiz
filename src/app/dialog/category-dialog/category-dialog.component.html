@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" [header]="mode ? 'แก้ไขข้อมูล' : 'เพิ่มหมวดหมู่'" [modal]="true" styleClass="p-fluid">
+<p-dialog [closable]="false" [(visible)]="dialog" [style]="{width: '450px'}" [header]="mode ? 'แก้ไขหมวดหมู่' : 'เพิ่มหมวดหมู่'" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">ชื่อหมวดหมู่</label>
