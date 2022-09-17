@@ -39,15 +39,15 @@ export class NavbarManagementComponent implements OnInit {
 
     this.items = [
       {
-        label: 'Options',
+        label: 'ตัวเลือก',
         items: [
           {
-            label: 'Edit profile',
+            label: 'แก้ไขข้อมูลส่วนตัว',
             icon: 'pi pi-user-edit',
             routerLink: 'edit/profile'
           },
           {
-            label: 'Change password',
+            label: 'เปลี่ยนรหัสผ่าน',
             icon: 'pi pi-lock',
             routerLink: 'edit/password'
           },
@@ -55,7 +55,7 @@ export class NavbarManagementComponent implements OnInit {
             separator: true
           },
           {
-            label: 'Logout',
+            label: 'ออกจากระบบ',
             icon: 'pi pi-fw pi-sign-out',
             command: () => {
               this.authService.logout();

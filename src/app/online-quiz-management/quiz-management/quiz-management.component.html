@@ -3,19 +3,19 @@
     <div class="filter">
         <div class="formgrid grid">
             <div class="field">
-                <label for="category">Category</label>
+                <label for="category">หมวดหมู่</label>
                 <p-dropdown [style]="{'width': '30vh'}" [options]="categoryList" [(ngModel)]="categorySelected"
-                    placeholder="All category" optionLabel="categoryName" [showClear]="true"></p-dropdown>
+                    placeholder="หมวดหมู่ทั้งหมด" optionLabel="categoryName" [showClear]="true"></p-dropdown>
             </div>
 
             <div class="field">
-                <label for="quiz">Quiz</label>
+                <label for="quiz">แบบทดสอบ</label>
                 <p-dropdown [style]="{'width': '30vh'}" [options]="quizListDropdown" [(ngModel)]="quizSelected"
-                    placeholder="All quiz" optionLabel="quizName" [showClear]="true"></p-dropdown>
+                    placeholder="แบบทดสอบทั้งหมด" optionLabel="quizName" [showClear]="true"></p-dropdown>
             </div>
 
             <div class="field">
-                <label for="status">Status</label>
+                <label for="status">สถานะ</label>
                 <div class="box">
                     <div class="field-checkbox">
                         <p-checkbox name="status" value="Active" [(ngModel)]="statusSelected" inputId="active">
@@ -32,7 +32,7 @@
         </div>
 
         <div class="btn">
-            <button (click)="filter()" pButton pRipple type="button" label="APPLY FILTER"
+            <button (click)="filter()" pButton pRipple type="button" label="กรองข้อมูล"
                 class="p-button-rounded p-button-info"></button>
         </div>
 

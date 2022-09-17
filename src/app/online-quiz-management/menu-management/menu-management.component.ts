@@ -23,25 +23,25 @@ export class MenuManagementComponent implements OnInit {
         command: () => setTimeout(() => this.ngOnInit())
       },
       {
-        label: 'All quiz',
+        label: 'แบบทดสอบทั้งหมด',
         icon: 'pi pi-star-fill',
         routerLink: '/online-quiz/management/quiz',
         command: () => setTimeout(() => this.ngOnInit())
       },
       {
-        label: 'Results',
+        label: 'ผลลัพธ์',
         icon: 'pi pi-check-circle',
         routerLink: '/online-quiz/management/results',
         command: () => setTimeout(() => this.ngOnInit())
       },
       {
-        label: 'Category',
+        label: 'หมวดหมู่',
         icon: 'pi pi-tags',
         routerLink: '/online-quiz/management/category',
         command: () => setTimeout(() => this.ngOnInit())
       },
       {
-        label: 'Users',
+        label: 'ผู้ใช้',
         icon: 'pi pi-users',
         routerLink: '/online-quiz/management/users',
         command: () => setTimeout(() => this.ngOnInit())

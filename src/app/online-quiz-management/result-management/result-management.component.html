@@ -2,19 +2,19 @@
     <div class="filter">
         <div class="formgrid grid">
             <div class="field">
-                <label for="category">Category</label>
+                <label for="category">หมวดหมู่</label>
                 <p-dropdown [style]="{'width': '30vh'}" [options]="categoryList" [(ngModel)]="categorySelected"
-                    placeholder="All category" optionLabel="categoryName" [showClear]="true"></p-dropdown>
+                    placeholder="หมวดหมู่ทั้งหมด" optionLabel="categoryName" [showClear]="true"></p-dropdown>
             </div>
 
             <div class="field">
-                <label for="quiz">Quiz</label>
+                <label for="quiz">แบบทดสอบ</label>
                 <p-dropdown [style]="{'width': '30vh'}" [options]="quizList" [(ngModel)]="quizSelected"
-                    placeholder="All quiz" optionLabel="quizName" [showClear]="true"></p-dropdown>
+                    placeholder="แบบทดสอบทั้งหมด" optionLabel="quizName" [showClear]="true"></p-dropdown>
             </div>
 
             <div class="field">
-                <label for="status">Status</label>
+                <label for="status">สถานะ</label>
                 <div class="box">
                     <div class="field-checkbox">
                         <p-checkbox name="status" value="Pass" [(ngModel)]="statusSelected" inputId="pass">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="btn">
-            <button (click)="filter()" pButton pRipple type="button" label="APPLY FILTER"
+            <button (click)="filter()" pButton pRipple type="button" label="กรองข้อมูล"
                 class="p-button-rounded p-button-info"></button>
         </div>
 
@@ -40,7 +40,7 @@
 
     <p-table [value]="taskList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedItem"
         [rowHover]="true" dataKey="taskId"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="แสดง {first} ถึง {last} จาก {totalRecords} รายการ" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItem()"
@@ -52,20 +52,20 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="fullName">Name<p-sortIcon field="fullName"></p-sortIcon>
+                <th pSortableColumn="fullName">ชื่อ-นามสกุล<p-sortIcon field="fullName"></p-sortIcon>
                 </th>
-                <th pSortableColumn="quiz.category.categoryName">Category<p-sortIcon field="quiz.category.categoryName">
+                <th pSortableColumn="quiz.category.categoryName">หมวดหมู่<p-sortIcon field="quiz.category.categoryName">
                     </p-sortIcon>
                 </th>
-                <th pSortableColumn="quiz.quizName">Quiz<p-sortIcon field="quiz.quizName"></p-sortIcon>
+                <th pSortableColumn="quiz.quizName">แบบทดสอบ<p-sortIcon field="quiz.quizName"></p-sortIcon>
                 </th>
-                <th pSortableColumn="taskScore">Score<p-sortIcon field="taskScore"></p-sortIcon>
+                <th pSortableColumn="taskScore">คะแนน<p-sortIcon field="taskScore"></p-sortIcon>
                 </th>
-                <th pSortableColumn="taskPass">Resule<p-sortIcon field="taskPass"></p-sortIcon>
+                <th pSortableColumn="taskPass">ผลลัพธ์<p-sortIcon field="taskPass"></p-sortIcon>
                 </th>
-                <th pSortableColumn="taskStatus">Status<p-sortIcon field="taskStatus"></p-sortIcon>
+                <th pSortableColumn="taskStatus">สถานะ<p-sortIcon field="taskStatus"></p-sortIcon>
                 </th>
-                <th pSortableColumn="time">Time<p-sortIcon field="time"></p-sortIcon>
+                <th pSortableColumn="time">เวลาที่ใช้<p-sortIcon field="time"></p-sortIcon>
                 </th>
                 <th></th>
             </tr>
@@ -94,7 +94,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{taskList ? taskList.length : 0 }} results.
+                มีทั้งหมด {{taskList ? taskList.length : 0 }} ผลลัพธ์
             </div>
         </ng-template>
     </p-table>

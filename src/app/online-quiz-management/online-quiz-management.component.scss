@@ -10,6 +10,11 @@
     width: 80%;
 }
 
+.img-menu {
+    display: flex;
+    justify-content: center;
+}
+
 @media screen and (max-width: 1300px) {
     .column {
         width: 100%;

@@ -2,26 +2,26 @@
     <div class="grid" style="margin-top: 3rem;">
 
         <div class="grid-item" (click)="gotoPage('category')">
-            <p-card header="Category" subheader="เปิดใช้งาน {{counter.counterCategory}}/{{counter.counterCategoryActive}}" [style]="cardStyle"></p-card>
+            <p-card header="หมวดหมู่" subheader="เปิดใช้งาน {{counter.counterCategory}}/{{counter.counterCategoryActive}}" [style]="cardStyle"></p-card>
         </div>
 
         <div class="grid-item" (click)="gotoPage('quiz')">
-            <p-card header="Quiz" subheader="เปิดใช้งาน {{counter.counterQuizActive}}/{{counter.counterQuiz}}" [style]="cardStyle"></p-card>
+            <p-card header="แบบทดสอบ" subheader="เปิดใช้งาน {{counter.counterQuizActive}}/{{counter.counterQuiz}}" [style]="cardStyle"></p-card>
         </div>
 
         <div class="grid-item" (click)="gotoPage('results')">
-            <p-card header="Results" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} คิดเป็น {{(counter.counterTaskStatus/counter.counterTask*100).toFixed(2)}}%" [style]="cardStyle"></p-card>
+            <p-card header="ผลลัพธ์" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} คิดเป็น {{(counter.counterTaskStatus/counter.counterTask*100).toFixed(2)}}%" [style]="cardStyle"></p-card>
         </div>
         
         <div class="grid-item" (click)="gotoPage('users')">
-            <p-card header="User" subheader="ผู้ใช้ {{counter.counterUser}} คน" [style]="cardStyle"></p-card>
+            <p-card header="ผู้ใช้" subheader="ผู้ใช้ {{counter.counterUser}} คน" [style]="cardStyle"></p-card>
         </div>
         
     </div>
     
     <div class="grid">
         <div class="chart-item" *ngFor="let quiz of quizList">
-            <p>Quiz {{quiz.quizName}}</p>
+            <p>แบบทดสอบ {{quiz.quizName}}</p>
             <app-chart [data]="quiz.quizId"></app-chart>
         </div>
     </div>
