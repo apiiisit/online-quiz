@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   newPassword?: string;
   rePassword?: string;
 
-  txtLabel: string = 'Search';
+  txtLabel: string = 'ค้นหา';
   txtMsg?: string;
 
   cSearch: boolean = false;
@@ -39,11 +39,11 @@ export class ResetPasswordComponent implements OnInit {
       if (this.newPassword && this.rePassword) {
 
         if (!this.validatePassword(this.newPassword!) || !this.validatePassword(this.rePassword!))  {
-          this.txtMsg = 'Password must be more than 6 characters.';
+          this.txtMsg = 'รหัสผ่านต้องมากกว่า 6 ตัวอักษร';
           this.cPassword = true;
           return
         } else if (this.newPassword !== this.rePassword) {
-          this.txtMsg = 'Passwords do not match.';
+          this.txtMsg = 'รหัสผ่านไม่ตรงกัน';
           this.cPassword = true;
           return
         }

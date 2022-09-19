@@ -28,6 +28,10 @@ export class ChangePasswordComponent implements OnInit {
     return REX_NAME.test(password);
   }
 
+  btnCancel() {
+    window.location.href = 'online-quiz'
+  }
+
   btnSearch() {
     this.submitted = true;
     if (this.oldPassword && this.newPassword && this.rePassword) {
@@ -35,10 +39,10 @@ export class ChangePasswordComponent implements OnInit {
         complete: () => {
           this.cIncorrect = false;
           if (!this.validatePassword(this.newPassword!) || !this.validatePassword(this.rePassword!)) {
-            this.txtMsg = 'Password must be more than 6 characters.';
+            this.txtMsg = 'รหัสผ่านต้องมีมากกว่า 6 ตัวอักษร';
             this.cPassword = true;
           } else if (this.newPassword !== this.rePassword) {
-            this.txtMsg = 'Passwords do not match.';
+            this.txtMsg = 'รหัสผ่านไม่ตรงกัน';
             this.cPassword = true;
           } else {
             this.authService.changePassword(this.authService.user.userName!, this.newPassword!).subscribe({

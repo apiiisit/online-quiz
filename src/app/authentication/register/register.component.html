@@ -1,4 +1,4 @@
-<p-card [style]="{width: '110vh'}">
+<p-card [style]="{width: '150vh'}">
     <ng-template pTemplate="header">
         <span class="center title">{{title}}</span>
     </ng-template>
@@ -10,48 +10,70 @@
         <label for="file" id="uploadBtn">Choose Photo</label>
     </div>
 
+
     <div class="body">
         <form [formGroup]="userForm">
             <div class="row">
-                <label for="username" class="block mb-1 mt-2"><i class="pi pi-user"></i> Username</label>
-                <input id="username" type="text" placeholder="Username" pInputText formControlName="userName" />
-                <small class="block p-error" *ngIf="submitted && userForm.get('userName')?.errors">Username is required.</small>
+                <input type="text" pInputText formControlName="userName" [pKeyFilter]="userReg"
+                    placeholder="Username" />
+                <small class="block p-error" *ngIf="submitted && !userForm.get('userName')?.value?.trim()">กรุณากรอก
+                    Username.</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('userName')?.status != 'DISABLED' && userForm.get('userName')?.value?.trim() && userForm.get('userName')?.value?.trim().length < 6">กรุณากรอก
+                    6 ตัวอักษรขึ้นไป</small>
             </div>
 
             <div class="row">
-                <label for="firstname" class="block mb-1 mt-2"><i class="pi pi-user"></i> Firstname</label>
-                <input id="firstname" type="text" placeholder="Firstname" pInputText formControlName="firstName" />
-                <small class="block p-error" *ngIf="submitted && userForm.get('firstName')?.errors">Firstname is required.</small>
+                <input type="text" pInputText formControlName="firstName" [pKeyFilter]="strReg" placeholder="ชื่อ" />
+                <small class="block p-error"
+                    *ngIf="submitted && !userForm.get('firstName')?.value?.trim()">กรุณากรอกชื่อ</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('firstName')?.value?.trim() && userForm.get('firstName')?.value?.trim().length < 6">กรุณากรอก
+                    6 ตัวอักษรขึ้นไป</small>
 
-                <label for="lastname" class="block mb-1 mt-2"><i class="pi pi-user"></i> Lastname</label>
-                <input id="lastname" type="text" placeholder="Lastname" pInputText formControlName="lastName" />
-                <small class="block p-error" *ngIf="submitted && userForm.get('lastName')?.errors">Lastname is required.</small>
+
+                <input type="text" pInputText formControlName="lastName" [pKeyFilter]="strReg" placeholder="นามสกุล" />
+                <small class="block p-error"
+                    *ngIf="submitted && !userForm.get('lastName')?.value?.trim()">กรุณากรอกนามสกุล</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('lastName')?.value?.trim() && userForm.get('lastName')?.value?.trim().length < 6">กรุณากรอก
+                    6 ตัวอักษรขึ้นไป</small>
+
             </div>
 
             <div class="row">
-                <label for="tel" class="block mb-1 mt-2"><i class="pi pi-user"></i> Tel</label>
-                <input id="tel" type="text" placeholder="Tel" pInputText formControlName="tel" />
-                <small class="block p-error" *ngIf="submitted && userForm.get('tel')?.errors">Tel is required.</small>
+                <p-inputMask [style]="{width:'35vh'}" mask="(999) 999-9999" formControlName="tel"
+                    placeholder="เบอร์โทรศัพท์มือถือ"></p-inputMask>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('tel')?.errors">กรุณากรอกเบอร์โทรศัพท์มือถือ</small>
             </div>
 
             <div class="row">
-                <label for="email" class="block mb-1 mt-2"><i class="pi pi-user"></i> Email</label>
-                <input id="email" type="email" placeholder="Email" pInputText formControlName="email" />
-                <small class="block p-error" *ngIf="submitted && userForm.get('email')?.errors">Email is required.</small>
+                <input id="email" type="email" placeholder="อีเมล" pInputText formControlName="email" />
+                <small class="block p-error"
+                    *ngIf="submitted && !userForm.get('email')?.value?.trim()">กรุณากรอกอีเมล</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('email')?.value?.trim() && userForm.get('email')?.errors">กรุณากรอกอีเมลให้ถูกต้อง</small>
             </div>
 
             <div class="row" *ngIf="mode === Mode.ADD">
-                <label for="password" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password</label>
-                <p-password formControlName="password" [toggleMask]="true" [feedback]="false" placeholder="Password">
-                </p-password>
-                <small class="block p-error" *ngIf="submitted && userForm.get('password')?.errors">Password is required.</small>
+                <input type="password" pInputText formControlName="password" placeholder="รหัสผ่าน" />
+                <small class="block p-error"
+                    *ngIf="submitted && !userForm.get('password')?.value?.trim()">กรุณากรอกรหัสผ่าน</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('password')?.value?.trim() && userForm.get('password')?.value?.trim().length < 6">กรุณากรอก
+                    6 ตัวอักษรขึ้นไป</small>
 
-                <label for="cPassword" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password Again</label>
-                <p-password formControlName="cPassword" [toggleMask]="true" [feedback]="false" placeholder="Password Again">
-                </p-password>
-                <small class="block p-error" *ngIf="submitted && userForm.get('cPassword')?.errors">Password again is required.</small>
-                <small class="block p-error" *ngIf="submitted && userForm.get('password')?.value !== userForm.get('cPassword')?.value">Passwords do
-                    not match.</small>
+
+                <input type="password" pInputText formControlName="cPassword" placeholder="ยืนยันรหัสผ่าน" />
+                <small class="block p-error"
+                    *ngIf="submitted && !userForm.get('cPassword')?.value?.trim()">กรุณากรอกรหัสผ่านอีกครั้ง</small>
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('cPassword')?.value?.trim() && userForm.get('cPassword')?.value?.trim().length < 6">กรุณากรอก
+                    6 ตัวอักษรขึ้นไป</small>
+
+                <small class="block p-error"
+                    *ngIf="submitted && userForm.get('password')?.value?.trim() !== userForm.get('cPassword')?.value?.trim()">รหัสผ่านไม่ตรงกัน</small>
             </div>
 
         </form>
@@ -59,7 +81,9 @@
 
     <ng-template pTemplate="footer">
         <div class="center">
-            <p-button [label]="btnValue!" (click)="btnSubmit()"></p-button>
+            <button pButton pRipple type="button" label="บันทึก" class="btn" (click)="btnSubmit()"></button>
+            <button pButton pRipple type="button" label="ยกเลิก" class="btn p-button-danger"
+                (click)="btnCancel()"></button>
         </div>
     </ng-template>
 </p-card>
