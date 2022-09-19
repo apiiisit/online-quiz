@@ -12,7 +12,7 @@ input {
     width: 32vh;
 }
 
-.center  {
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,4 +37,10 @@ input {
 
 .link a {
     margin-right: 1vh;
+
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
 }

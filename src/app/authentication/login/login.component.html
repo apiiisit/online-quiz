@@ -1,30 +1,30 @@
 <p-card [style]="{width: '100vh'}">
     <ng-template pTemplate="header">
-        <span class="center title">Login</span>
+        <span class="center title">เข้าสู่ระบบ</span>
     </ng-template>
 
     <div class="body">
         <div class="center incorrect" *ngIf="cLogin">
             <div class="msg">
-                Username or password is incorrect.
+                Username หรือ รหัสผ่านไม่ถูกต้อง
             </div>
         </div>
 
         <label for="username" class="block mb-1 mt-2"><i class="pi pi-user"></i> Username</label>
         <input id="username" type="username" placeholder="Username" pInputText [(ngModel)]="username" />
-        <small class="block p-error" *ngIf="submitted && !username">Username is required.</small>
+        <small class="block p-error" *ngIf="submitted && !username">กรุณากรอก Username.</small>
 
-        <label for="password" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password</label>
+        <label for="password" class="block mb-1 mt-2"><i class="pi pi-lock"></i> รหัสผ่าน</label>
         <input id="password" type="password" placeholder="Password" pInputText [(ngModel)]="password" (keydown.enter)="btnSubmit()" />
-        <small class="block p-error" *ngIf="submitted && !password">Password is required.</small>
+        <small class="block p-error" *ngIf="submitted && !password">กรุณากรอกรหัสผ่าน</small>
     </div>
 
     <ng-template pTemplate="footer">
         <div class="center">
-            <p-button label="Login" (click)="btnSubmit()"></p-button>
+            <p-button label="เข้าสู่ระบบ" (click)="btnSubmit()"></p-button>
             <div class="link">
-                <a routerLink="register">Go to register</a>
-                <a routerLink="resetpassword">Reset-password</a>
+                <a routerLink="register">สมัครสมาชิก</a>
+                <a routerLink="resetpassword">ลืมรหัสผ่าน</a>
             </div>
         </div>
     </ng-template>
