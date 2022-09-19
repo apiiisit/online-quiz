@@ -12,7 +12,7 @@ export class CategoryDialogComponent implements OnInit {
   @Input() mode: boolean = false;
   @Input() category: any = {};
   submitted: boolean = false;
-  
+
   constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
 
   ngOnInit(): void {
@@ -33,11 +33,12 @@ export class CategoryDialogComponent implements OnInit {
   saveItem() {
     this.submitted = true;
     const name = this.category.categoryName?.trim();
-    if (name) {
+    if (name && name.length > 5) {
       if (this.category.categoryId) {
         this.saveToDatabase(this.category);
       }
       else {
+        this.category.categoryActive = this.category.categoryActive ? true : false;
         this.onlineQuizAdminService.newCategory(this.category).subscribe({
           complete: () => {
             this.refresh();

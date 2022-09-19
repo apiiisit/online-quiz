@@ -25,9 +25,11 @@ export class CategoryManagementComponent implements OnInit {
 
   refresh() {
     this.category = {};
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['online-quiz/management', 'category'])
-    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['online-quiz/management', 'category'])
+      });
+    }, 1000)
   }
 
   editItem(category: any) {
@@ -36,7 +38,7 @@ export class CategoryManagementComponent implements OnInit {
     this.dialog = false;
     setTimeout(() => this.dialog = true);
   }
-  
+
   deleteItem(category: any) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + category.categoryName + '?',

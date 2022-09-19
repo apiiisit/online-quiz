@@ -4,6 +4,8 @@
             <label for="name">ชื่อหมวดหมู่</label>
             <input type="text" pInputText id="name" [(ngModel)]="category.categoryName" required autofocus />
             <small class="p-error" *ngIf="submitted && !category.categoryName?.trim()">กรุณากรอกชื่อหมวดหมู่</small>
+            <small class="p-error" *ngIf="submitted && category.categoryName?.trim() && category.categoryName?.trim().length < 6">กรุณากรอก 6
+                ตัวอักษรขึ้นไป</small>
         </div>
         <div class="field">
             <label for="description">คำอธิบาย</label>

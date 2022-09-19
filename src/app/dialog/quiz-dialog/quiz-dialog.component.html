@@ -79,7 +79,7 @@
             <div class="field col-1">
                 <label for="password">รหัสผ่าน</label>
                 <input type="text" pInputText id="password" [(ngModel)]="quiz.quizPassword" [disabled]="randomPassword"
-                    [placeholder]="randomPassword ? 'สุ่มรหัส' : 'รหัสผ่าน'" />
+                    [placeholder]="randomPassword ? 'สุ่มรหัส' : ''" />
                 <small class="p-error"
                     *ngIf="submitted && !randomPassword && !quiz.quizPassword?.trim()">กรุณากรอกให้ผ่าน%</small>
                 <small class="p-error"
