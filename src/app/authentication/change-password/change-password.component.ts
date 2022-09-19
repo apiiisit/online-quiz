@@ -29,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   btnCancel() {
-    window.location.href = 'online-quiz'
+    window.location.href = ''
   }
 
   btnSearch() {

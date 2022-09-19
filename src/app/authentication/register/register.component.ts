@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
   }
 
   btnCancel() {
-    window.location.href = 'online-quiz'
+    window.location.href = ''
   }
 
   btnSubmit() {
