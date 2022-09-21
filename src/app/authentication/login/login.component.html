@@ -9,14 +9,16 @@
                 Username หรือ รหัสผ่านไม่ถูกต้อง
             </div>
         </div>
+        <div class="login-input">
+            <input id="username" type="username" placeholder="Username" pInputText [(ngModel)]="username" (keydown.enter)="btnSubmit()" />
+            <small class="block p-error" *ngIf="submitted && !username">กรุณากรอก Username.</small>
+        </div>
 
-        <label for="username" class="block mb-1 mt-2"><i class="pi pi-user"></i> Username</label>
-        <input id="username" type="username" placeholder="Username" pInputText [(ngModel)]="username" />
-        <small class="block p-error" *ngIf="submitted && !username">กรุณากรอก Username.</small>
+        <div class="login-input">
+            <input id="password" type="password" placeholder="Password" pInputText [(ngModel)]="password" (keydown.enter)="btnSubmit()" />
+            <small class="block p-error" *ngIf="submitted && !password">กรุณากรอกรหัสผ่าน</small>
+        </div>
 
-        <label for="password" class="block mb-1 mt-2"><i class="pi pi-lock"></i> รหัสผ่าน</label>
-        <input id="password" type="password" placeholder="Password" pInputText [(ngModel)]="password" (keydown.enter)="btnSubmit()" />
-        <small class="block p-error" *ngIf="submitted && !password">กรุณากรอกรหัสผ่าน</small>
     </div>
 
     <ng-template pTemplate="footer">

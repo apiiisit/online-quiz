@@ -2,6 +2,7 @@
     background-color: rgb(239, 81, 81);
     height: 4vh;
     width: 40vh;
+    margin-bottom: 2vh;
 }
 
 .msg {
@@ -32,7 +33,7 @@ input {
 }
 
 .link {
-    margin-top: 1vh;
+    margin-top: 2vh;
 }
 
 .link a {
@@ -43,4 +44,8 @@ input {
 a:link,
 a:visited {
     text-decoration: none;
+}
+
+.login-input {
+    margin-bottom: 2vh;
 }
