@@ -120,6 +120,7 @@ export class RegisterComponent implements OnInit {
           }
           this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 1500 });
           setTimeout(() => {
+            this.authService.setProfile(user.profile)
             this.navigate();
           }, 1500)
         });

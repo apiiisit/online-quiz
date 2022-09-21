@@ -80,4 +80,10 @@ export class AuthService {
     return profileStr === 'person.png' ? 'assets/images/person.png' : `api/user/image/${profileStr}`;
   }
 
+  setProfile(profile: string) {
+    const profileBase64 = btoa(profile);
+    localStorage.setItem(this.PROFILE, profileBase64);
+    this.profileUrl = this.getProfile(profileBase64);
+  }
+
 }
