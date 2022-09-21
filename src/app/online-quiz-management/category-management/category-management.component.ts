@@ -65,18 +65,22 @@ export class CategoryManagementComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
-          this.onlineQuizAdminService.deleteCategory(item).subscribe({
-            complete: () => {
-              if (index === this.selectedItem?.length - 1) {
-                this.refresh();
-                this.selectedItem = null;
+
+          setTimeout(() => {
+            this.onlineQuizAdminService.deleteCategory(item).subscribe({
+              complete: () => {
+                if (index === this.selectedItem?.length - 1) {
+                  this.refresh();
+                  this.selectedItem = null;
+                }
+                this.onlineQuizAdminService.alertMsg('success', 'Successful', `Category ${item.userName} deleted`);
+              },
+              error: () => {
+                this.onlineQuizAdminService.alertMsg('error', 'Error', `Category ${item.userName} delete error`);
               }
-              this.onlineQuizAdminService.alertMsg('success', 'Successful', `Category ${item.userName} deleted`);
-            },
-            error: () => {
-              this.onlineQuizAdminService.alertMsg('error', 'Error', `Category ${item.userName} delete error`);
-            }
-          })
+            })
+          }, index * 200);
+
         })
       }
     });

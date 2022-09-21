@@ -35,7 +35,7 @@ export class AuthService {
         this._isLoggedIn$.next(true);
         localStorage.setItem(this.TOKEN_NAME, res.token);
         this.user = this.getUser(res.token)
-        
+
         const profileBase64 = btoa(res.profile || 'person.png');
         localStorage.setItem(this.PROFILE, profileBase64);
         this.profileUrl = this.getProfile(profileBase64);
@@ -79,5 +79,5 @@ export class AuthService {
     const profileStr = atob(profile);
     return profileStr === 'person.png' ? 'assets/images/person.png' : `api/user/image/${profileStr}`;
   }
-  
+
 }

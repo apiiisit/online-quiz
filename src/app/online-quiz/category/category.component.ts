@@ -15,6 +15,9 @@ export class CategoryComponent implements OnInit {
   constructor(private onlineQuizService: OnlineQuizService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.onlineQuizService.clearQuizKey();
+
     this.onlineQuizService.getCategory().subscribe(res => {
       if (res.length > 0) {
         this.categoryList = res;

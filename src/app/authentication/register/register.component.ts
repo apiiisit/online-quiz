@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
@@ -41,9 +41,12 @@ export class RegisterComponent implements OnInit {
   mode!: Mode;
   Mode = Mode;
 
-  constructor(private activeRoute: ActivatedRoute, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
 
   ngOnInit(): void {
+
+    this.onlineQuizService.clearQuizKey();
+
     const { mode } = this.activeRoute.snapshot.data;
     this.mode = mode;
 
@@ -74,7 +77,12 @@ export class RegisterComponent implements OnInit {
   }
 
   btnCancel() {
-    window.location.href = ''
+    const role = this.authService.user.role
+    let path = ['online-quiz']
+    if (role == 'Admin') {
+      path.push('management')
+    }
+    this.router.navigate(path)
   }
 
   btnSubmit() {

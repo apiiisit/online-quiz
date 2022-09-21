@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
+import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 
 @Component({
   selector: 'app-change-password',
@@ -18,9 +20,12 @@ export class ChangePasswordComponent implements OnInit {
   cPassword: boolean = false;
   submitted: boolean = false;
 
-  constructor(private authService: AuthService, private messageService: MessageService) { }
+  constructor(private onlineQuizService: OnlineQuizService, private authService: AuthService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.onlineQuizService.clearQuizKey();
+
   }
 
   validatePassword(password: string) {
@@ -29,7 +34,12 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   btnCancel() {
-    window.location.href = ''
+    const role = this.authService.user.role
+    let path = ['online-quiz']
+    if (role == 'Admin') {
+      path.push('management')
+    }
+    this.router.navigate(path)
   }
 
   btnSearch() {

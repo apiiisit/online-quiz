@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizKeyService } from '../service/quiz-key.service';
 
 @Component({
   selector: 'app-authentication',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private quizKeyService: QuizKeyService) { }
 
   ngOnInit(): void {
+    this.quizKeyService.clearQuizKey();
   }
 
 }

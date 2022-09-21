@@ -1,12 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { QuizKeyService } from './quiz-key.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OnlineQuizService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private quizKeyService: QuizKeyService, private http: HttpClient) { }
+
+  clearQuizKey() {
+    return this.quizKeyService.clearQuizKey();
+  }
 
   getCategory() {
     return this.http.get<any>('api/category');
@@ -33,11 +38,11 @@ export class OnlineQuizService {
   }
 
   updateLastLogin(id: number) {
-    return this.http.put(`api/user/lastlogin`, {userId: id});
+    return this.http.put(`api/user/lastlogin`, { userId: id });
   }
-  
+
   getUser(id: number) {
-    return this.http.get<any>(`api/user/${id}`);    
+    return this.http.get<any>(`api/user/${id}`);
   }
 
   postUser(user: any) {

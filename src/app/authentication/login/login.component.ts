@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   cLogin: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private messageService: MessageService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(res => {
@@ -34,9 +34,14 @@ export class LoginComponent implements OnInit {
         .subscribe({
           complete: (() => {
             this.authService.updateLastLogin().subscribe();
+            this.messageService.add({ severity: 'success', summary: 'เข้าสู่ระบบ', detail: 'เข้าสู่ระบบสำเร็จ', life: 1000 });
             this.navigate()
           }),
-          error: (() => this.cLogin = true)
+          error: (() => {
+            this.cLogin = true
+            this.messageService.add({ severity: 'error', summary: 'เข้าสู่ระบบ', detail: 'เข้าสู่ระบบไม่สำเร็จ', life: 2000 });
+
+          })
         })
     }
 
@@ -46,7 +51,15 @@ export class LoginComponent implements OnInit {
     const role = this.authService.user?.role;
     const path = ['/online-quiz/']
     if (role === 'Admin') path.push('management')
-    window.location.pathname = path.join('');
+
+    if (this.submitted) {
+      setTimeout(() => {
+        window.location.pathname = path.join('');
+      }, 1500);
+    } else {
+      window.location.pathname = path.join('');
+    }
+    
   }
 
 }

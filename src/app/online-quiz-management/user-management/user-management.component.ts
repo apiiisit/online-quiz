@@ -53,7 +53,7 @@ export class UserManagementComponent implements OnInit {
     this.dialog = false;
     setTimeout(() => this.dialog = true);
   }
-  
+
   deleteItem(user: any) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + user.userName + '?',
@@ -80,18 +80,22 @@ export class UserManagementComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
-          this.onlineQuizAdminService.deleteUser(item).subscribe({
-            complete: () => {
-              if (index === this.selectedItem?.length - 1) {
-                this.refresh();
-                this.selectedItem = null;
+
+          setTimeout(() => {
+            this.onlineQuizAdminService.deleteUser(item).subscribe({
+              complete: () => {
+                if (index === this.selectedItem?.length - 1) {
+                  this.refresh();
+                  this.selectedItem = null;
+                }
+                this.onlineQuizAdminService.alertMsg('success', 'Successful', `User ${item.userName} deleted`);
+              },
+              error: () => {
+                this.onlineQuizAdminService.alertMsg('error', 'Error', `User ${item.userName} delete error`);
               }
-              this.onlineQuizAdminService.alertMsg('success', 'Successful', `User ${item.userName} deleted`);
-            },
-            error: () => {
-              this.onlineQuizAdminService.alertMsg('error', 'Error', `User ${item.userName} delete error`);
-            }
-          })
+            })
+          }, index * 200);
+
         })
       }
     });

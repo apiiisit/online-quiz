@@ -117,18 +117,22 @@ export class ResultManagementComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
-          this.onlineQuizAdminService.deleteTask(item).subscribe({
-            complete: () => {
-              if (index === this.selectedItem?.length - 1) {
-                this.refresh();
-                this.selectedItem = null;
+
+          setTimeout(() => {
+            this.onlineQuizAdminService.deleteTask(item).subscribe({
+              complete: () => {
+                if (index === this.selectedItem?.length - 1) {
+                  this.refresh();
+                  this.selectedItem = null;
+                }
+                this.onlineQuizAdminService.alertMsg('success', 'Successful', `Result ${item.fullName} deleted`);
+              },
+              error: () => {
+                this.onlineQuizAdminService.alertMsg('error', 'Error', `Result ${item.fullName} delete error`);
               }
-              this.onlineQuizAdminService.alertMsg('success', 'Successful', `Result ${item.fullName} deleted`);
-            },
-            error: () => {
-              this.onlineQuizAdminService.alertMsg('error', 'Error', `Result ${item.fullName} delete error`);
-            }
-          })
+            })
+          }, index * 200)
+
         })
       }
     });

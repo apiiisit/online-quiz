@@ -10,7 +10,7 @@
         </div>
 
         <div class="grid-item" (click)="gotoPage('results')">
-            <p-card header="ผลลัพธ์" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} คิดเป็น {{(counter.counterTaskStatus/counter.counterTask*100).toFixed(2)}}%" [style]="cardStyle"></p-card>
+            <p-card header="ผลลัพธ์" subheader="ผ่าน {{counter.counterTaskStatus}}/{{counter.counterTask}} คิดเป็น {{(counter.counterTaskStatus/counter.counterTask*100 || 0).toFixed(2)}}%" [style]="cardStyle"></p-card>
         </div>
         
         <div class="grid-item" (click)="gotoPage('users')">

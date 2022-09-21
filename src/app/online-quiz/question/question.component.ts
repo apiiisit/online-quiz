@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { interval } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
+import { QuizKeyService } from 'src/app/service/quiz-key.service';
 
 @Component({
   selector: 'app-question',
@@ -199,6 +200,7 @@ export class QuestionComponent implements OnInit {
           complete: () => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 2000 });
             setTimeout(() => {
+              this.onlineQuizService.clearQuizKey();
               window.location.pathname = 'online-quiz';
             }, 2000)
 

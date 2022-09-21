@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IsAuthenticatedGuard } from 'src/app/guard/is-authenticated.guard';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 import { QuizKeyService } from 'src/app/service/quiz-key.service';
@@ -18,6 +19,9 @@ export class QuizComponent implements OnInit {
   constructor(private onlineQuizService: OnlineQuizService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService, private quizKeyService: QuizKeyService) { }
 
   ngOnInit(): void {
+
+    this.onlineQuizService.clearQuizKey();
+
     this.params = this.activeRoute.snapshot.params;
     this.onlineQuizService.getQuiz(this.params.categoryId).subscribe(res => {
       if (res.length > 0) {
@@ -92,7 +96,9 @@ export class QuizComponent implements OnInit {
       this.onlineQuizService.quizAuth(quiz).subscribe(res => {
         if (res) {
           this.quizKeyService.postQuizKey();
-          this.router.navigate(['/online-quiz/quiz/', this.params.categoryId, this.quiz.quizId])
+          
+          window.location.href = `/online-quiz/quiz/${this.params.categoryId}/${this.quiz.quizId}`
+          
           this.quiz = {};
           this.display = false;
         } else {

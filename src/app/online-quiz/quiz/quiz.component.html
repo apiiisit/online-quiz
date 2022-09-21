@@ -26,13 +26,13 @@
     <div class="center" style="flex-direction: column">
         <div class="center incorrect" *ngIf="cPassword">
             <div class="msg">
-                Password is incorrect.
+                รหัสผ่านไม่ถูกต้อง
             </div>
         </div>
     
-        <label for="password" class="block mb-1 mt-2"><i class="pi pi-key"></i> Password</label>
-        <input style="width: 40vh;" id="password" type="text" placeholder="Password" pInputText [(ngModel)]="password"/>
-        <small class="block p-error" *ngIf="submitted && !password">Password is required.</small>
+        <label for="password" class="block mb-1 mt-2"><i class="pi pi-lock"></i> รหัสผ่าน</label>
+        <input style="width: 40vh;" id="password" type="text" placeholder="รหัสผ่าน" pInputText [(ngModel)]="password"/>
+        <small class="block p-error" *ngIf="submitted && !password">กรุณากรอกรหัสผ่าน</small>
     </div>
 
 
