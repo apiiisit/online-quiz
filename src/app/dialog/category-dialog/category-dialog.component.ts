@@ -19,6 +19,7 @@ export class CategoryDialogComponent implements OnInit {
   }
 
   refresh() {
+    this.dialog = false;
     this.category = {};
     setTimeout(() => {
       window.location.reload();
@@ -42,14 +43,14 @@ export class CategoryDialogComponent implements OnInit {
         this.onlineQuizAdminService.newCategory(this.category).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Category created');
+            this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
           },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Category create error');
+          error: (error) => {
+            console.log(error);
+            this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มีบางอย่างผิดพลาด');
           }
         });
       }
-      this.dialog = false;
     }
   }
 
@@ -57,10 +58,11 @@ export class CategoryDialogComponent implements OnInit {
     this.onlineQuizAdminService.updateCategory(category).subscribe({
       complete: () => {
         this.refresh();
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Category updated');
+        this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
       },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'Category update error');
+      error: (error) => {
+        console.log(error);
+        this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มีบางอย่างผิดพลาด');
       }
     });
   }

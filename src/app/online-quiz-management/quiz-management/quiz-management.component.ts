@@ -111,17 +111,17 @@ export class QuizManagementComponent implements OnInit {
 
   deleteItem(quiz: any) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + quiz.quizName + '?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + quiz.quizName + '?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.onlineQuizAdminService.deleteQuiz(quiz).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz deleted');
+            this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบแบบทดสอบ ${quiz.quizName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz delete error');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
           }
         });
       }

@@ -15,6 +15,7 @@ export class UserDialogComponent implements OnInit {
   userRoleList: any[] = [];
   submitted: boolean = false;
   emailSubmit: boolean = false;
+  repeatUser: boolean = false;
 
   userReg: RegExp = /^[a-zA-Z0-9_]/
   strReg: RegExp = /^[a-zA-Zก-๙]/
@@ -46,6 +47,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   refresh() {
+    this.dialog = false;
     this.user = {};
     setTimeout(() => {
       window.location.reload();
@@ -58,6 +60,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   saveItem() {
+    this.repeatUser = false;
     this.submitted = true;
 
     const userName = this.user.userName?.trim();
@@ -77,28 +80,28 @@ export class UserDialogComponent implements OnInit {
         this.saveToDatabase(this.user);
       }
       else {
-        this.onlineQuizAdminService.newUser(this.user).subscribe({
-          complete: () => {
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'User created');
-            this.refresh();
-          },
-          error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'User create error');
+        this.onlineQuizAdminService.newUser(this.user).subscribe((res: any) => {
+          if (res.error) {
+            this.repeatUser = true;
+            return this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มี Username นี้อยู่แล้วในระบบ');
           }
+          this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
+          this.refresh();
         });
       }
-      this.dialog = false;
+      
     }
   }
 
   saveToDatabase(user: any) {
     this.onlineQuizAdminService.updateUser(user).subscribe({
       complete: () => {
-        this.onlineQuizAdminService.alertMsg('success', 'Successful', 'User updated');
+        this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
         this.refresh();
       },
-      error: () => {
-        this.onlineQuizAdminService.alertMsg('error', 'Error', 'User update error');
+      error: (error) => {
+        console.log(error);
+        this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มีบางอย่างผิดพลาด');
       }
     });
   }

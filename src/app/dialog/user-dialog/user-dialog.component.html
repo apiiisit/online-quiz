@@ -1,5 +1,5 @@
-<p-dialog [closable]="false" [(visible)]="dialog" [style]="{width: '500px'}" [header]="mode ? 'แก้ไขข้อมูลผู้ใช้' : 'เพิ่มผู้ใช้'" [modal]="true"
-    styleClass="p-fluid">
+<p-dialog [closable]="false" [(visible)]="dialog" [style]="{width: '500px'}"
+    [header]="mode ? 'แก้ไขข้อมูลผู้ใช้' : 'เพิ่มผู้ใช้'" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
 
         <div class="field">
@@ -13,6 +13,7 @@
             <small class="p-error"
                 *ngIf="submitted && user.userName?.trim() && user.userName?.trim().length < 6">กรุณากรอก 6
                 ตัวอักษรขึ้นไป</small>
+            <small class="block p-error" *ngIf="submitted && repeatUser">มี Username นี้อยู่แล้วในระบบ</small>
         </div>
 
         <div class="formgrid grid">

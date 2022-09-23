@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
   strReg: RegExp = /^[a-zA-Zก-๙]/
 
   submitted: boolean = false;
+  repeatUser: boolean = false;
   cLogin: boolean = false;
   imageSrc: any = 'assets/images/person.png';
 
@@ -77,7 +78,7 @@ export class RegisterComponent implements OnInit {
   }
 
   btnCancel() {
-    const role = this.authService.user.role
+    const role = this.authService.user?.role
     let path = ['online-quiz']
     if (role == 'Admin') {
       path.push('management')
@@ -86,6 +87,7 @@ export class RegisterComponent implements OnInit {
   }
 
   btnSubmit() {
+    this.repeatUser = false;
     this.submitted = true;
     const user = this.userForm.value;
     user.tel = user.tel?.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
@@ -104,7 +106,8 @@ export class RegisterComponent implements OnInit {
         user['userRole'] = { userRoleId: 2 }
         this.onlineQuizService.postUser(user).subscribe((res: any) => {
           if (res.error) {
-            return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: res.error, life: 1500 });
+            this.repeatUser = true;
+            return this.messageService.add({ severity: 'error', summary: 'บันทึกไม่สำเร็จ', detail: 'มี Username นี้อยู่แล้วในระบบ', life: 3000 });
           }
           this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 1500 });
           setTimeout(() => {

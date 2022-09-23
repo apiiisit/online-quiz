@@ -41,17 +41,17 @@ export class CategoryManagementComponent implements OnInit {
 
   deleteItem(category: any) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + category.categoryName + '?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + category.categoryName + '?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.onlineQuizAdminService.deleteCategory(category).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Category deleted');
+            this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบหมวดหมู่ ${category.categoryName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Category delete error');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
           }
         });
       }
@@ -60,8 +60,8 @@ export class CategoryManagementComponent implements OnInit {
 
   deleteSelectedItem() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected category?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่ที่เลือก?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
@@ -73,10 +73,10 @@ export class CategoryManagementComponent implements OnInit {
                   this.refresh();
                   this.selectedItem = null;
                 }
-                this.onlineQuizAdminService.alertMsg('success', 'Successful', `Category ${item.userName} deleted`);
+                this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบหมวดหมู่ ${item.categoryName} สำเร็จแล้ว`);
               },
               error: () => {
-                this.onlineQuizAdminService.alertMsg('error', 'Error', `Category ${item.userName} delete error`);
+                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบหมวดหมู่ ${item.categoryName} ได้`);
               }
             })
           }, index * 200);

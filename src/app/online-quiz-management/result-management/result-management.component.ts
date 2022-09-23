@@ -93,17 +93,17 @@ export class ResultManagementComponent implements OnInit {
 
   deleteItem(task: any) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + task.fullName + '?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + task.fullName + '?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.onlineQuizAdminService.deleteTask(task).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Result deleted');
+            this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบ ${task.fullName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'Result delete error');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
           }
         });
       }
@@ -112,8 +112,8 @@ export class ResultManagementComponent implements OnInit {
 
   deleteSelectedItem() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected result?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือไม่ว่าต้องการลบผลลัพธ์ที่เลือก?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
@@ -125,10 +125,10 @@ export class ResultManagementComponent implements OnInit {
                   this.refresh();
                   this.selectedItem = null;
                 }
-                this.onlineQuizAdminService.alertMsg('success', 'Successful', `Result ${item.fullName} deleted`);
+                this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบผลลัพธ์ของ ${item.fullName} สำเร็จแล้ว`);
               },
               error: () => {
-                this.onlineQuizAdminService.alertMsg('error', 'Error', `Result ${item.fullName} delete error`);
+                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบผลลัพธ์ของ ${item.fullName} ได้`);
               }
             })
           }, index * 200)

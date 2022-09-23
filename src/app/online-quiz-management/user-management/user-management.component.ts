@@ -56,17 +56,17 @@ export class UserManagementComponent implements OnInit {
 
   deleteItem(user: any) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + user.userName + '?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + user.userName + '?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.onlineQuizAdminService.deleteUser(user).subscribe({
           complete: () => {
             this.refresh();
-            this.onlineQuizAdminService.alertMsg('success', 'Successful', 'User deleted');
+            this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบผู้ใช้ ${user.userName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'Error', 'User delete error');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
           }
         });
       }
@@ -75,8 +75,8 @@ export class UserManagementComponent implements OnInit {
 
   deleteSelectedItem() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected user?',
-      header: 'Confirm',
+      message: 'คุณแน่ใจหรือไม่ว่าต้องการลบผู้ใช้ที่เลือก?',
+      header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         [...this.selectedItem].forEach((item, index) => {
@@ -88,10 +88,10 @@ export class UserManagementComponent implements OnInit {
                   this.refresh();
                   this.selectedItem = null;
                 }
-                this.onlineQuizAdminService.alertMsg('success', 'Successful', `User ${item.userName} deleted`);
+                this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบผู้ใช้ ${item.userName} สำเร็จแล้ว`);
               },
               error: () => {
-                this.onlineQuizAdminService.alertMsg('error', 'Error', `User ${item.userName} delete error`);
+                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบผู้ใช้ ${item.userName} ได้`);
               }
             })
           }, index * 200);

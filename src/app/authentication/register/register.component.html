@@ -7,7 +7,7 @@
         (mouseleave)="uploadBtn.style.display = 'none'">
         <img [src]="imageSrc" id="photo">
         <input type="file" id="file" accept="image/jpeg, image/png" (change)="previewImage($event)">
-        <label for="file" id="uploadBtn">Choose Photo</label>
+        <label for="file" id="uploadBtn">เลือกรูปภาพ</label>
     </div>
 
 
@@ -21,6 +21,7 @@
                 <small class="block p-error"
                     *ngIf="submitted && userForm.get('userName')?.status != 'DISABLED' && userForm.get('userName')?.value?.trim() && userForm.get('userName')?.value?.trim().length < 6">กรุณากรอก
                     6 ตัวอักษรขึ้นไป</small>
+                <small class="block p-error" *ngIf="submitted && repeatUser">มี Username นี้อยู่แล้วในระบบ</small>
             </div>
 
             <div class="row">

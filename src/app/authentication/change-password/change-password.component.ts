@@ -34,7 +34,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   btnCancel() {
-    const role = this.authService.user.role
+    const role = this.authService.user?.role
     let path = ['online-quiz']
     if (role == 'Admin') {
       path.push('management')

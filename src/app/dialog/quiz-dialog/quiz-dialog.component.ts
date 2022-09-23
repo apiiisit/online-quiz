@@ -189,10 +189,11 @@ export class QuizDialogComponent implements OnInit {
         },
         complete: () => {
           this.refresh();
-          this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz updated');
+          this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
         },
-        error: () => {
-          this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz update error');
+        error: (error) => {
+          console.log(error);
+          this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มีบางอย่างผิดพลาด');
         }
       })
     })
@@ -227,10 +228,11 @@ export class QuizDialogComponent implements OnInit {
         },
         complete: () => {
           this.refresh();
-          this.onlineQuizAdminService.alertMsg('success', 'Successful', 'Quiz created');
+          this.onlineQuizAdminService.alertMsg('success', 'บันทึกข้อมูลสำเร็จ', 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว');
         },
-        error: () => {
-          this.onlineQuizAdminService.alertMsg('error', 'Error', 'Quiz create error');
+        error: (error) => {
+          console.log(error);
+          this.onlineQuizAdminService.alertMsg('error', 'บันทึกข้อมูลไม่สำเร็จ', 'มีบางอย่างผิดพลาด');
         }
       })
     })
