@@ -13,6 +13,7 @@ export class ResultManagementComponent implements OnInit {
   taskList: any[] = [];
   selectedItem?: any;
 
+  fullName?: string;
   categoryList: any;
   quizList: any;
 
@@ -68,10 +69,12 @@ export class ResultManagementComponent implements OnInit {
     }
 
     const query = [];
+
+    if(this.fullName) query.push(`fullName=${this.fullName.toLowerCase()}`)
     if (categoryId) query.push(`categoryId=${categoryId}`)
     if (quizId) query.push(`quizId=${quizId}`)
     if (status) query.push(`status=${status}`)
-
+    
     this.onlineQuizAdminService.getTaskFilter(query.join('&')).subscribe(res => this.taskList = this.mapTask(res));
   }
 

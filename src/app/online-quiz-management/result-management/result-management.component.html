@@ -1,6 +1,12 @@
 <div class="container">
     <div class="filter">
         <div class="formgrid grid">
+
+            <div class="field">
+                <label for="name">ชื่อ-นามสกุล</label>
+                <input type="text" pInputText [(ngModel)]="fullName" placeholder="ทั้งหมด"> 
+            </div>
+
             <div class="field">
                 <label for="category">หมวดหมู่</label>
                 <p-dropdown [style]="{'width': '30vh'}" [options]="categoryList" [(ngModel)]="categorySelected"
