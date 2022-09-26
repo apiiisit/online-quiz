@@ -17,6 +17,9 @@ export class ResetPasswordComponent implements OnInit {
   txtLabel: string = 'ค้นหา';
   txtMsg?: string;
 
+  txtFullName?: string;
+  imageSrc: any = 'assets/images/person.png';
+
   cSearch: boolean = false;
   cIncorrect: boolean = false;
   cPassword: boolean = false;
@@ -68,6 +71,12 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       if (this.username && this.email) {
         this.authService.searchUser(this.username!, this.email!, '').subscribe({
+          next: (res: any) => {
+
+            if (res.firstName && res.lastName) this.txtFullName = res.firstName + ' ' + res.lastName;
+            if(res.profile) this.imageSrc = `api/user/image/${res.profile}`
+            
+          },
           complete: () => {
             this.cSearch = true;
             this.cIncorrect = false;
