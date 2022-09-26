@@ -1,5 +1,5 @@
-<p-dialog [closable]="false" [(visible)]="dialog" [style]="{width: '1200px'}" [header]="edit ? 'แก้ไขแบบทดสอบ' : 'เพิ่มแบบทดสอบ'"
-    [modal]="true" styleClass="p-fluid">
+<p-dialog [closable]="false" [(visible)]="dialog" [style]="{width: '1200px'}"
+    [header]="edit ? 'แก้ไขแบบทดสอบ' : 'เพิ่มแบบทดสอบ'" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid">
             <div class="field col">
@@ -51,11 +51,11 @@
             </div>
 
             <div class="field col">
-                <label for="number-of-question">สุ่มแบบทดสอบ (ข้อ)</label>
+                <label for="number-of-question">จำนวนข้อสอบ (ข้อ)</label>
                 <p-inputNumber [(ngModel)]="quiz.numberOfQuestion"
                     (ngModelChange)="generateQuestion(quiz.numberOfQuestion)" inputId="number-of-question"
                     mode="decimal" [min]="0" [max]="300" [maxlength]="3"></p-inputNumber>
-                <small class="p-error" *ngIf="submitted && !quiz.numberOfQuestion">กรุณากรอกสุ่มแบบทดสอบ</small>
+                <small class="p-error" *ngIf="submitted && !quiz.numberOfQuestion">กรุณากรอกจำนวนข้อสอบ</small>
 
             </div>
 
@@ -87,6 +87,10 @@
                     6 ตัวอักษรขึ้นไป</small>
 
             </div>
+        </div>
+        
+        <div>
+            ขณะนี้มีข้อคำถามทั้งหมด {{questionList.length}} ข้อ
         </div>
 
         <div *ngFor="let question of questionList; let i = index" class="structure-question">
@@ -139,6 +143,8 @@
                     <small class="p-error" *ngIf="submitted && !choice.choiceName?.trim()">กรุณากรอกคำตอบ</small>
                 </div>
                 <div class="btn-right">
+                    <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="ข้อคำถาม {{i+1}}"
+                        icon="pi pi-trash" class="p-button-text p-button-danger" (click)="btnRemoveQuestion(i)"></button>
                     <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="เพิ่มตัวเลือก"
                         class="p-button-text" (click)="addChoice(i)"></button>
                 </div>
@@ -161,8 +167,8 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [closable]="false" header="มีข้อผิดพลาด" [(visible)]="displayError" [breakpoints]="{'960px': '75vw'}" [style]="{width: '60vh'}"
-    [draggable]="false" [resizable]="false">
+<p-dialog [closable]="false" header="มีข้อผิดพลาด" [(visible)]="displayError" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '60vh'}" [draggable]="false" [resizable]="false">
 
     <div class="center" style="flex-direction: column">
         <p>ต้องมีชุดคำถามอย่างน้อย {{quiz.numberOfQuestion}} ข้อ</p>

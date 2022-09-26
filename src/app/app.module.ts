@@ -43,6 +43,7 @@ import { MenuModule } from 'primeng/menu';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputMaskModule } from 'primeng/inputmask';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 import { AutoFocusDirective } from './directive/auto-focus.directive';
 import { RandomOrderPipe } from './pipe/random-order.pipe';
@@ -139,7 +140,8 @@ import { CategoryDialogComponent } from './dialog/category-dialog/category-dialo
     MenuModule,
     InputNumberModule,
     KeyFilterModule,
-    InputMaskModule
+    InputMaskModule,
+    ConfirmPopupModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

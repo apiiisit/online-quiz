@@ -4,7 +4,7 @@
 <div class="row">
     <div class="column left">
         <div class="img-menu">
-            <img src="assets/images/cdg-logo.png" height="80" class="mr-2">
+            <img [style]="{cursor: 'pointer'}" src="assets/images/cdg-logo.png" height="80" class="mr-2" (click)="goHome()">
         </div>
         <app-menu-management></app-menu-management>
     </div>

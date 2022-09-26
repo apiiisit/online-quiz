@@ -56,7 +56,7 @@ export class UserManagementComponent implements OnInit {
 
   deleteItem(user: any) {
     this.confirmationService.confirm({
-      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + user.userName + '?',
+      message: 'คุณแน่ใจหรือว่าต้องการลบผู้ใช้ ' + user.userName + '?',
       header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -66,7 +66,7 @@ export class UserManagementComponent implements OnInit {
             this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบผู้ใช้ ${user.userName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'ระบบไม่สามารถลบได้เนื่องจากมีผลลัพธ์อยู่');
           }
         });
       }
@@ -91,7 +91,7 @@ export class UserManagementComponent implements OnInit {
                 this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบผู้ใช้ ${item.userName} สำเร็จแล้ว`);
               },
               error: () => {
-                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบผู้ใช้ ${item.userName} ได้`);
+                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบผู้ใช้ ${item.userName} ได้เนื่องจากมีผลลัพธ์อยู่`);
               }
             })
           }, index * 200);

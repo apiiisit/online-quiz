@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
+import { QuizKeyService } from 'src/app/service/quiz-key.service';
 
 @Component({
   selector: 'app-menu-user',
@@ -11,7 +12,7 @@ import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 })
 export class MenuUserComponent implements OnInit {
 
-  constructor(private router: Router, private onlineQuizService: OnlineQuizService, private authService: AuthService) { }
+  constructor(private quizKeyService: QuizKeyService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router, private onlineQuizService: OnlineQuizService, private authService: AuthService) { }
 
   items!: MenuItem[];
   showMenu: boolean = false;
@@ -21,7 +22,7 @@ export class MenuUserComponent implements OnInit {
     this.items = [
       {
         label: 'หน้าหลัก',
-        routerLink: `/online-quiz/`
+        command: () => this.sendRouterLink('/online-quiz')
       },
       {
         label: 'User profile',
@@ -30,19 +31,18 @@ export class MenuUserComponent implements OnInit {
           {
             label: 'แก้ไขข้อมูลส่วนตัว',
             icon: 'pi pi-fw pi-pencil',
-            routerLink: 'edit/profile'
+            command: () => this.sendRouterLink('/online-quiz/edit/profile')
           },
           {
             label: 'เปลี่ยนรหัสผ่าน',
             icon: 'pi pi-fw pi-lock',
-            routerLink: 'edit/password'
+            command: () => this.sendRouterLink('/online-quiz/edit/password')
           },
           {
             label: 'ออกจากระบบ',
             icon: 'pi pi-power-off',
             command: (() => {
-              this.authService.logout();
-              this.router.navigate(['']);
+              this.confirmLogout()
             })
           }
         ]
@@ -62,9 +62,7 @@ export class MenuUserComponent implements OnInit {
             this.items[2].items!.push({
               label: item.categoryName,
               command: (() => {
-                this.router.navigateByUrl('/online-quiz', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(['/online-quiz/quiz', item.categoryId])
-                )
+                this.sendRouterLink(`/online-quiz/quiz/${item.categoryId}`, 're')
               })
             })
           })
@@ -75,6 +73,46 @@ export class MenuUserComponent implements OnInit {
       })
     })
 
+  }
+
+  sendRouterLink(url: string, mode?: string) {
+
+    if (this.quizKeyService.quizKey) {
+      this.confirmationService.confirm({
+        message: 'คุณต้องการออกจากหน้านี้หรือไม่',
+        header: 'ยืนยัน',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          if (mode) {
+            this.router.navigateByUrl('/online-quiz', { skipLocationChange: true }).then(() => this.router.navigateByUrl(url))
+          } else {
+            this.router.navigateByUrl(url);
+          }
+        }
+      });
+    } else {
+      if (mode) {
+        this.router.navigateByUrl('/online-quiz', { skipLocationChange: true }).then(() => this.router.navigateByUrl(url))
+      } else {
+        this.router.navigateByUrl(url);
+      }
+    }
+
+  }
+
+  confirmLogout() {
+    this.confirmationService.confirm({
+      message: 'คุณต้องการออกจากระบบหรือไม่',
+      header: 'ยืนยัน',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.authService.logout();
+        this.messageService.add({ severity: 'success', summary: 'ออกจากระบบ', detail: 'ออกจากระบบสำเร็จ', life: 1000 });
+        setTimeout(() => {
+          this.router.navigate(['']);
+        }, 2000);
+      }
+    });
   }
 
 }

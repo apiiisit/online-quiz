@@ -20,6 +20,7 @@ export class QuizDialogComponent implements OnInit {
   editCategory: boolean = false;
 
   caregoryList: any[] = [];
+  removeQuestionList: any[] = [];
   randomPassword: boolean = false;
   tempPassword?: string
 
@@ -33,6 +34,7 @@ export class QuizDialogComponent implements OnInit {
 
   refresh() {
     this.dialog = false;
+    this.removeQuestionList = [];
     setTimeout(() => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['online-quiz/management', 'quiz'])
@@ -41,6 +43,7 @@ export class QuizDialogComponent implements OnInit {
   }
 
   hideDialog() {
+    this.removeQuestionList = [];
     this.dialog = false;
   }
 
@@ -50,6 +53,11 @@ export class QuizDialogComponent implements OnInit {
 
   addChoice(index: number) {
     this.questionList[index].choiceArr.push({ choiceCorrect: { choiceCorrectCheck: false } })
+  }
+
+  btnRemoveQuestion(index: number) {
+    this.removeQuestionList.push(this.questionList[index].questionId)
+    this.questionList.splice(index, 1);
   }
 
   removeChoice(index: number, choiceIndex: number) {
@@ -162,8 +170,11 @@ export class QuizDialogComponent implements OnInit {
       this.quiz.category = { categoryId: res.categoryId }
       if (this.randomPassword) this.quiz.quizPassword = null;
       this.onlineQuizAdminService.updateQuiz(this.quiz).subscribe({
-        next: (res: any) => {
+        next: async (res: any) => {
           let quizId = res.quizId
+
+          if (this.removeQuestionList.length > 0) await this.removeQuestion();
+
           for (let question of this.questionList) {
             question.quiz = { quizId: quizId };
             question.questionType = question.questionType == true ? 'M' : 'S'
@@ -254,6 +265,14 @@ export class QuizDialogComponent implements OnInit {
       this.quiz.quizPassword = null
     } else {
       this.quiz.quizPassword = this.tempPassword
+    }
+  }
+
+  async removeQuestion() {
+    for (let questionId of this.removeQuestionList) {
+      if (questionId) {
+        this.onlineQuizAdminService.deleteQuestion({questionId: questionId}).subscribe()
+      }
     }
   }
 

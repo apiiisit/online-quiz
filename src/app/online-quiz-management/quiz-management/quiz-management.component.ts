@@ -111,7 +111,7 @@ export class QuizManagementComponent implements OnInit {
 
   deleteItem(quiz: any) {
     this.confirmationService.confirm({
-      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + quiz.quizName + '?',
+      message: 'คุณแน่ใจหรือว่าต้องการลบแบบทดสอบ ' + quiz.quizName + '?',
       header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -121,7 +121,7 @@ export class QuizManagementComponent implements OnInit {
             this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบแบบทดสอบ ${quiz.quizName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'ระบบไม่สามารถลบได้เนื่องจากมีผลลัพธ์อยู่');
           }
         });
       }

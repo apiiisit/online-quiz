@@ -93,7 +93,7 @@ export class ResultManagementComponent implements OnInit {
 
   deleteItem(task: any) {
     this.confirmationService.confirm({
-      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + task.fullName + '?',
+      message: 'คุณแน่ใจหรือว่าต้องการลบผลลัพธ์ของ ' + task.fullName + '?',
       header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

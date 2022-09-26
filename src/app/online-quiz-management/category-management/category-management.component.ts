@@ -41,7 +41,7 @@ export class CategoryManagementComponent implements OnInit {
 
   deleteItem(category: any) {
     this.confirmationService.confirm({
-      message: 'คุณแน่ใจหรือว่าต้องการลบ ' + category.categoryName + '?',
+      message: 'คุณแน่ใจหรือว่าต้องการลบหมวดหมู่ ' + category.categoryName + '?',
       header: 'ยืนยัน',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -51,7 +51,7 @@ export class CategoryManagementComponent implements OnInit {
             this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบหมวดหมู่ ${category.categoryName} สำเร็จแล้ว`);
           },
           error: () => {
-            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'มีบางอย่างผิดพลาด');
+            this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', 'ระบบไม่สามารถลบได้เนื่องจากมีแบบทดสอบอยู่');
           }
         });
       }
@@ -76,7 +76,7 @@ export class CategoryManagementComponent implements OnInit {
                 this.onlineQuizAdminService.alertMsg('success', 'สำเร็จ', `ระบบลบหมวดหมู่ ${item.categoryName} สำเร็จแล้ว`);
               },
               error: () => {
-                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบหมวดหมู่ ${item.categoryName} ได้`);
+                this.onlineQuizAdminService.alertMsg('error', 'ผิดพลาด', `ระบบไม่สามารถลบหมวดหมู่ ${item.categoryName} ได้เนื่องจากมีแบบทดสอบอยู่`);
               }
             })
           }, index * 200);
