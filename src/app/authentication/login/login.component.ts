@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
 
   btnSubmit() {
     this.submitted = true;
+    this.cLogin = false;
+    
     const user = this.username?.toLowerCase();
     const pass = this.password;
     if (user && pass) {

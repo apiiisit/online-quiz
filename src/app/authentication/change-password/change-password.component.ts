@@ -42,7 +42,9 @@ export class ChangePasswordComponent implements OnInit {
     this.router.navigate(path)
   }
 
-  btnSearch() {
+  btnSubmit() {
+    this.cIncorrect = false;
+    this.cPassword = false;
     this.submitted = true;
     if (this.oldPassword && this.newPassword && this.rePassword) {
       this.authService.searchUser(this.authService.user.userName!, '', this.oldPassword!).subscribe({

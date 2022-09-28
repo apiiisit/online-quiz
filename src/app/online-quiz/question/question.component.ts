@@ -42,7 +42,7 @@ export class QuestionComponent implements OnInit {
   detail!: string;
   task: any = {};
 
-  constructor(private onlineQuizService: OnlineQuizService, private messageService: MessageService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
+  constructor(private quizKeyService: QuizKeyService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -185,6 +185,9 @@ export class QuestionComponent implements OnInit {
   }
 
   postAnswer() {
+
+    if (!this.quizKeyService.quizKey) return
+
     this.task['user'] = { userId: this.authService.user.userId };
     this.task['taskFinish'] = new Date();
 
@@ -198,7 +201,7 @@ export class QuestionComponent implements OnInit {
       complete: () => {
         this.onlineQuizService.postTask(this.task).subscribe({
           complete: () => {
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 2000 });
+            this.messageService.add({ severity: 'success', summary: 'ระบบบันทึกคำตอบ', detail: 'ระบบได้บันทึกคำตอบเรียบร้อยแล้ว', life: 2000 });
             setTimeout(() => {
               this.onlineQuizService.clearQuizKey();
               window.location.pathname = 'online-quiz';
@@ -207,7 +210,7 @@ export class QuestionComponent implements OnInit {
           },
           error: () => {
             this.displayError = true;
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'มีบางอย่างผิดพลาด', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ระบบบันทึกคำตอบ', detail: 'มีบางอย่างผิดพลาด', life: 3000 });
           }
         });
       }
