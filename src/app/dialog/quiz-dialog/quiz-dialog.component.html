@@ -109,7 +109,7 @@
                     <div class="field col-2">
                         <label for="question-time">เวลาทดสอบ (วินาที)</label>
                         <p-inputNumber [(ngModel)]="question.questionTime" inputId="question-time" mode="decimal"
-                            [min]="0" [max]="999" [maxlength]="3"></p-inputNumber>
+                            [min]="0" [max]="9999" [maxlength]="5"></p-inputNumber>
                         <small class="p-error" *ngIf="submitted && !question.questionTime">กรุณากรอกเวลาทดสอบ</small>
 
                     </div>
@@ -143,7 +143,7 @@
                     <small class="p-error" *ngIf="submitted && !choice.choiceName?.trim()">กรุณากรอกคำตอบ</small>
                 </div>
                 <div class="btn-right">
-                    <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="ข้อคำถาม {{i+1}}"
+                    <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="ลบข้อคำถาม {{i+1}}"
                         icon="pi pi-trash" class="p-button-text p-button-danger" (click)="btnRemoveQuestion(i)"></button>
                     <button [style]="{'width': 'auto'}" pButton pRipple type="button" label="เพิ่มตัวเลือก"
                         class="p-button-text" (click)="addChoice(i)"></button>

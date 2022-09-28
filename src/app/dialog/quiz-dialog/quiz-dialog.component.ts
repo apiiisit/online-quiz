@@ -48,7 +48,7 @@ export class QuizDialogComponent implements OnInit {
   }
 
   addQuestion() {
-    this.questionList.push({ choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
+    this.questionList.push({ questionTime: 30, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
   }
 
   addChoice(index: number) {
@@ -251,7 +251,7 @@ export class QuizDialogComponent implements OnInit {
 
   generateQuestion(num: number) {
     for (let i = this.questionList.length; i < num; i++) {
-      this.questionList.push({ choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
+      this.addQuestion()
     }
   }
 

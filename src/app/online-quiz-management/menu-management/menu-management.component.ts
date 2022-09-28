@@ -49,14 +49,21 @@ export class MenuManagementComponent implements OnInit {
     ];
 
     this.styleConfig = {
-      'border-left': '10px solid #5b6cbf'
+      'border-left': '10px solid #5b6cbf',
+      'font-size': '20px'
     }
+
+    let arrItem: any[] = [];
+    this.items?.forEach(x => {
+      arrItem.push(x.routerLink.split('/')[x.routerLink.split('/').length-1])
+    })
 
     const path = this.router.url.split('/');
     const pathName = path[path.length - 1].split('?')[0];
-    const index = this.items.findIndex(item => item.label?.toLowerCase().includes(pathName));
+    const index = arrItem.findIndex(item => item === pathName);
     if (index > -1) this.items[index]['style'] = this.styleConfig;
 
   }
+
 
 }

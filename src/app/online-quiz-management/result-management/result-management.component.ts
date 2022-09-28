@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-result-management',
@@ -70,11 +71,11 @@ export class ResultManagementComponent implements OnInit {
 
     const query = [];
 
-    if(this.fullName) query.push(`fullName=${this.fullName.toLowerCase()}`)
+    if (this.fullName) query.push(`fullName=${this.fullName.toLowerCase()}`)
     if (categoryId) query.push(`categoryId=${categoryId}`)
     if (quizId) query.push(`quizId=${quizId}`)
     if (status) query.push(`status=${status}`)
-    
+
     this.onlineQuizAdminService.getTaskFilter(query.join('&')).subscribe(res => this.taskList = this.mapTask(res));
   }
 
@@ -140,5 +141,39 @@ export class ResultManagementComponent implements OnInit {
       }
     });
   }
+
+  exportExcel() {
+
+    const taskList: any = [];
+
+    for (let task of [...this.taskList]) {
+      taskList.push({
+        name: task.fullName,
+        category: task.quiz.category.categoryName,
+        quiz: task.quiz.quizName,
+        score: task.taskScore,
+        result: task.taskPass,
+        status: task.taskStatus ? 'Pass' : 'Not pass',
+        time: task.time
+      })
+    }
+
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(taskList);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "results");
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
 
 }

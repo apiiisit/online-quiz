@@ -54,7 +54,7 @@
                 *ngIf="submitted && !emailSubmit && user.email?.trim().length > 0">กรุณากรอกอีเมลที่ถูกต้อง</small>
         </div>
 
-        <div class="field">
+        <div class="field" *ngIf="!mode">
             <label for="password">รหัสผ่าน</label>
             <input type="text" pInputText [(ngModel)]="user.password" [pKeyFilter]="blockSpace" placeholder="รหัสผ่าน"
                 required />
