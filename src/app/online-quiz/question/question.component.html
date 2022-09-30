@@ -36,13 +36,18 @@
                         **ข้อนี้ตอบได้ {{questionList[currentPage].choiceCorrectLength}} ข้อ
                     </p>
                     <div *ngFor="let c of questionList[currentPage].choiceArr | randomOrder" class="blab">
-                        <div class="inputGroup">
-                            <input *ngIf="questionList[currentPage].questionType==='S'" [id]="c.choiceId" name="radio"
+                        <div class="inputGroup" *ngIf="questionList[currentPage].questionType==='S'">
+                            <input [id]="c.choiceId" name="radio"
                                 type="radio" [value]="[c]" [(ngModel)]="selectedChoice" />
-                            <input *ngIf="questionList[currentPage].questionType==='M'" [id]="c.choiceId" name="option"
+                            <label [for]="c.choiceId" [innerHTML]="c.choiceName"></label>
+                        </div>
+
+                        <div class="inputGroupMulti" *ngIf="questionList[currentPage].questionType==='M'">
+                            <input [id]="c.choiceId" name="option"
                                 type="checkbox" (click)="pushSelectedChoice(c)" />
                             <label [for]="c.choiceId" [innerHTML]="c.choiceName"></label>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="btn">
