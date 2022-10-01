@@ -24,10 +24,10 @@
                     </div>
                     <div class="column2">
                         <p-progressBar [value]="progressbarValue" [showValue]="false"
-                            [style]="{'height': '10px', 'margin-right': '10vh'}">
+                            [style]="{'height': '10px', 'margin-right': '10vh', 'background-color': questionTimeDisplay <= 5 ? questionTimeDisplay%2 ? 'red' : 'orange' :''}">
                         </p-progressBar>
                     </div>
-                    
+
                 </div>
 
                 <hr color=00bcd4>
@@ -37,17 +37,16 @@
                     </p>
                     <div *ngFor="let c of questionList[currentPage].choiceArr | randomOrder" class="blab">
                         <div class="inputGroup" *ngIf="questionList[currentPage].questionType==='S'">
-                            <input [id]="c.choiceId" name="radio"
-                                type="radio" [value]="[c]" [(ngModel)]="selectedChoice" />
+                            <input [id]="c.choiceId" name="radio" type="radio" [value]="[c]"
+                                [(ngModel)]="selectedChoice" />
                             <label [for]="c.choiceId" [innerHTML]="c.choiceName"></label>
                         </div>
 
                         <div class="inputGroupMulti" *ngIf="questionList[currentPage].questionType==='M'">
-                            <input [id]="c.choiceId" name="option"
-                                type="checkbox" (click)="pushSelectedChoice(c)" />
+                            <input [id]="c.choiceId" name="option" type="checkbox" (click)="pushSelectedChoice(c)" />
                             <label [for]="c.choiceId" [innerHTML]="c.choiceName"></label>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="btn">
