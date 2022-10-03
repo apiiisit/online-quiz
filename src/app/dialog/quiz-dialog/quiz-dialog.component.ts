@@ -24,7 +24,10 @@ export class QuizDialogComponent implements OnInit {
   randomPassword: boolean = false;
   tempPassword?: string
 
+  guideTime: number = 0;
+
   displayError: boolean = false;
+  displayGuide: boolean = false;
 
   constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
 
@@ -74,7 +77,7 @@ export class QuizDialogComponent implements OnInit {
     }
   }
 
-  saveItem() {
+  async saveItem() {
     this.submitted = true;
 
     let category = { ...this.category };
@@ -94,6 +97,12 @@ export class QuizDialogComponent implements OnInit {
     if (this.checkQuestion() && categoryName && categoryName.length > 5 && start && averageTestTime && quizName && quizName.length > 5 && numberOfQuestion && quizPass && ((this.randomPassword) || (!this.randomPassword && quizPassword && quizPassword.length > 5))) {
 
       if (this.questionList.length >= numberOfQuestion) {
+
+        if (await this.guideAverageTime() > this.quiz.averageTestTime) {
+          this.displayGuide = true;
+          return
+        }
+
         if (typeof this.category.categoryName == 'object') {
           this.category = this.category.categoryName
         }
@@ -110,6 +119,21 @@ export class QuizDialogComponent implements OnInit {
 
     }
 
+  }
+
+  async guideAverageTime() {
+    this.guideTime = 0;
+    const questionTime = this.questionList.map(x => x.questionTime).sort().reverse();
+    for (let i=0; i<this.quiz.numberOfQuestion; i++) {
+      this.guideTime += questionTime[i];
+    }
+    this.guideTime = Math.ceil(this.guideTime / 60);
+    return this.guideTime;
+  }
+
+  btnChangeAverageTime() {
+    this.quiz.averageTestTime = this.guideTime;
+    this.displayGuide = false;
   }
 
   checkQuestion() {

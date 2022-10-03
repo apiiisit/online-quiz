@@ -178,3 +178,16 @@
         <p-button label="ตกลง" styleClass="p-button-text" (click)="displayError=false"></p-button>
     </ng-template>
 </p-dialog>
+
+<p-dialog [closable]="false" header="แนะนำ" [(visible)]="displayGuide" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '60vh'}" [draggable]="false" [resizable]="false">
+
+    <div class="center" style="flex-direction: column">
+        <p>เวลาทดสอบ ควรมากกว่าหรือเท่ากับ {{guideTime}} นาทีขึ้นไป</p>
+        <p style="color:red">*อาจส่งผลให้เวลาในการทำข้อสอบไม่เพียงพอ</p>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button label="ตกลง" styleClass="p-button-text" (click)="btnChangeAverageTime()"></p-button>
+    </ng-template>
+</p-dialog>
