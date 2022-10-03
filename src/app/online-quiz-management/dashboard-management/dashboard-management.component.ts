@@ -31,7 +31,7 @@ export class DashboardManagementComponent implements OnInit {
   }
 
   gotoPage(name: string) {
-    return this.router.navigate(['online-quiz/management', name])
+    return window.location.href = `online-quiz/management/${name}`
   }
 
 }
