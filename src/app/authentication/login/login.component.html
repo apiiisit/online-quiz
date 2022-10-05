@@ -11,12 +11,12 @@
         </div>
         <div class="login-input">
             <input id="username" type="username" placeholder="Username" pInputText [(ngModel)]="username" (keydown.enter)="btnSubmit()" />
-            <small class="block p-error" *ngIf="submitted && !username">กรุณากรอก Username.</small>
+            <small class="block p-error" *ngIf="!cLogin && submitted && !username">กรุณากรอก Username.</small>
         </div>
 
         <div class="login-input">
             <input id="password" type="password" placeholder="Password" pInputText [(ngModel)]="password" (keydown.enter)="btnSubmit()" />
-            <small class="block p-error" *ngIf="submitted && !password">กรุณากรอกรหัสผ่าน</small>
+            <small class="block p-error" *ngIf="!cLogin && submitted && !password">กรุณากรอกรหัสผ่าน</small>
         </div>
 
     </div>

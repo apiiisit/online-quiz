@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
           }),
           error: (() => {
             this.cLogin = true
+            this.password = '';
             this.messageService.add({ severity: 'error', summary: 'เข้าสู่ระบบ', detail: 'เข้าสู่ระบบไม่สำเร็จ', life: 2000 });
 
           })

@@ -9,7 +9,7 @@
             <div class="box-lab">
                 <div *ngFor="let c of categoryList" class="blab">
                     <p-card [style]="{cursor: 'pointer'}" styleClass="mb-3" (click)="gotoQuiz(c.categoryId)"
-                        [header]="c.categoryName" [subheader]="c.categoryName">
+                        [header]="c.categoryName" [subheader]="c.categoryDescription || 'ไม่มีคำอธิบาย'">
                     </p-card>
                 </div>
             </div>

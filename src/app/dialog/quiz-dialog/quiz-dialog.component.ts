@@ -51,7 +51,7 @@ export class QuizDialogComponent implements OnInit {
   }
 
   addQuestion() {
-    this.questionList.push({ questionTime: 30, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
+    this.questionList.push({ questionTime: 60, choiceArr: [{ choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }, { choiceCorrect: { choiceCorrectCheck: false } }] })
   }
 
   addChoice(index: number) {
