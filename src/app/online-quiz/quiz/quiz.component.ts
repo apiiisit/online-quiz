@@ -75,11 +75,11 @@ export class QuizComponent implements OnInit {
   showStatus(quizStatus: boolean, endTime: Date) {
     let status = '...';
     if (quizStatus) {
-      status = 'ทำแล้ว';
+      status = 'ทำแบบทดสอบแล้ว';
     } else if (this.checkEndTime(endTime)) {
       status = 'หมดสิทธิ์ทำแบบทดสอบ';
     } else {
-      status = 'ยังไม่ได้ทำ';
+      status = 'ยังไม่ได้ทำแบบทดสอบ';
     }
     return status;
   }
