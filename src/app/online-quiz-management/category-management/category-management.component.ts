@@ -17,7 +17,11 @@ export class CategoryManagementComponent implements OnInit {
   selectedItem?: any;
   submitted: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private confirmationService: ConfirmationService, private router: Router) { }
+  constructor(
+    private onlineQuizAdminService: OnlineQuizAdminService,
+    private confirmationService: ConfirmationService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.categoryList = res);

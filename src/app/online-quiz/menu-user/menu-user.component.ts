@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 import { QuizKeyService } from 'src/app/service/quiz-key.service';
@@ -12,7 +12,14 @@ import { QuizKeyService } from 'src/app/service/quiz-key.service';
 })
 export class MenuUserComponent implements OnInit {
 
-  constructor(private quizKeyService: QuizKeyService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router, private onlineQuizService: OnlineQuizService, private authService: AuthService) { }
+  constructor(
+    private quizKeyService: QuizKeyService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private router: Router,
+    private onlineQuizService: OnlineQuizService,
+    private authService: AuthService
+  ) { }
 
   items!: MenuItem[];
   showMenu: boolean = false;

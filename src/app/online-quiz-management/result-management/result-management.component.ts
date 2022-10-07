@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 import * as FileSaver from 'file-saver';
@@ -23,7 +23,11 @@ export class ResultManagementComponent implements OnInit {
   statusSelected: any;
 
 
-  constructor(private activeRoute: ActivatedRoute, private onlineQuizAdminService: OnlineQuizAdminService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private onlineQuizAdminService: OnlineQuizAdminService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
 

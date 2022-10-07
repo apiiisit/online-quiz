@@ -20,7 +20,12 @@ export class ChangePasswordComponent implements OnInit {
   cPassword: boolean = false;
   submitted: boolean = false;
 
-  constructor(private onlineQuizService: OnlineQuizService, private authService: AuthService, private messageService: MessageService, private router: Router) { }
+  constructor(
+    private onlineQuizService: OnlineQuizService,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 

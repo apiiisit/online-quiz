@@ -29,20 +29,24 @@ export class QuizDialogComponent implements OnInit {
   displayError: boolean = false;
   displayGuide: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
+  constructor(
+    private onlineQuizAdminService: OnlineQuizAdminService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCategory().subscribe(res => this.caregoryList = res)
   }
 
   refresh() {
-    this.dialog = false;
-    this.removeQuestionList = [];
     setTimeout(() => {
+      this.dialog = false;
+      this.removeQuestionList = [];
+
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['online-quiz/management', 'quiz'])
       });
-    }, 2000);
+    }, 3000);
   }
 
   hideDialog() {
@@ -124,7 +128,7 @@ export class QuizDialogComponent implements OnInit {
   async guideAverageTime() {
     this.guideTime = 0;
     const questionTime = this.questionList.map(x => x.questionTime).sort().reverse();
-    for (let i=0; i<this.quiz.numberOfQuestion; i++) {
+    for (let i = 0; i < this.quiz.numberOfQuestion; i++) {
       this.guideTime += questionTime[i];
     }
     this.guideTime = Math.ceil(this.guideTime / 60);
@@ -240,25 +244,24 @@ export class QuizDialogComponent implements OnInit {
       if (this.randomPassword) this.quiz.quizPassword = null;
       this.onlineQuizAdminService.newQuiz(this.quiz).subscribe({
         next: (res: any) => {
-          let quizId = res.quizId
+          let quizId = res.quizId;
           for (let question of this.questionList) {
             question.quiz = { quizId: quizId };
-            question.questionType = question.questionType == true ? 'M' : 'S'
+            question.questionType = question.questionType == true ? 'M' : 'S';
 
             if (question.questionType == 'S') {
               question.choiceArr.forEach((item: any) => {
-                item.choiceCorrect.choiceCorrectId = 0
-                item.choiceCorrect.choiceCorrectCheck = false
+                item.choiceCorrect.choiceCorrectId = 0;
+                item.choiceCorrect.choiceCorrectCheck = false;
               })
-              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectId = 1
-              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectCheck = true
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectId = 1;
+              question.choiceArr[question.choiceSelected].choiceCorrect.choiceCorrectCheck = true;
             } else {
               question.choiceArr.forEach((item: any) => {
-                item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck
+                item.choiceCorrect.choiceCorrectId = +item.choiceCorrect.choiceCorrectCheck;
               })
             }
-
-            this.onlineQuizAdminService.newQuestion(question).subscribe()
+            this.onlineQuizAdminService.newQuestion(question).subscribe();
           }
         },
         complete: () => {
@@ -295,7 +298,7 @@ export class QuizDialogComponent implements OnInit {
   async removeQuestion() {
     for (let questionId of this.removeQuestionList) {
       if (questionId) {
-        this.onlineQuizAdminService.deleteQuestion({questionId: questionId}).subscribe()
+        this.onlineQuizAdminService.deleteQuestion({ questionId: questionId }).subscribe()
       }
     }
   }

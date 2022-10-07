@@ -18,7 +18,10 @@ export class UserManagementComponent implements OnInit {
   selectedItem?: any;
   submitted: boolean = false;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private onlineQuizAdminService: OnlineQuizAdminService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getUser().subscribe(res => {

@@ -12,7 +12,10 @@ export class CategoryComponent implements OnInit {
   categoryList: any[] = [];
   emptyList: boolean = false;
 
-  constructor(private onlineQuizService: OnlineQuizService, private router: Router) { }
+  constructor(
+    private onlineQuizService: OnlineQuizService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 

@@ -25,7 +25,10 @@ export class ResetPasswordComponent implements OnInit {
   cPassword: boolean = false;
   submitted: boolean = false;
 
-  constructor(private authService: AuthService, private messageService: MessageService) { }
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -41,7 +44,7 @@ export class ResetPasswordComponent implements OnInit {
     if (this.cSearch) {
       if (this.newPassword && this.rePassword) {
 
-        if (!this.validatePassword(this.newPassword!) || !this.validatePassword(this.rePassword!))  {
+        if (!this.validatePassword(this.newPassword!) || !this.validatePassword(this.rePassword!)) {
           this.txtMsg = 'รหัสผ่านต้องมากกว่า 6 ตัวอักษร';
           this.cPassword = true;
           return
@@ -74,8 +77,8 @@ export class ResetPasswordComponent implements OnInit {
           next: (res: any) => {
 
             if (res.firstName && res.lastName) this.txtFullName = res.firstName + ' ' + res.lastName;
-            if(res.profile) this.imageSrc = `api/user/image/${res.profile}`
-            
+            if (res.profile) this.imageSrc = `api/user/image/${res.profile}`
+
           },
           complete: () => {
             this.cSearch = true;

@@ -42,7 +42,14 @@ export class RegisterComponent implements OnInit {
   mode!: Mode;
   Mode = Mode;
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private authService: AuthService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private el: ElementRef) { }
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private authService: AuthService,
+    private onlineQuizService: OnlineQuizService,
+    private messageService: MessageService,
+    private el: ElementRef
+  ) { }
 
   ngOnInit(): void {
 
@@ -123,7 +130,7 @@ export class RegisterComponent implements OnInit {
           }
           this.messageService.add({ severity: 'success', summary: 'บันทึกสำเร็จ', detail: 'ระบบได้บันทึกข้อมูลเรียบร้อยแล้ว', life: 1500 });
           setTimeout(() => {
-            if(user.profile) this.authService.setProfile(user.profile)
+            if (user.profile) this.authService.setProfile(user.profile)
             this.navigate();
           }, 1500)
         });

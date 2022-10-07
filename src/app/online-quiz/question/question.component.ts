@@ -42,7 +42,14 @@ export class QuestionComponent implements OnInit {
   detail!: string;
   task: any = {};
 
-  constructor(private quizKeyService: QuizKeyService, private onlineQuizService: OnlineQuizService, private messageService: MessageService, private activeRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
+  constructor(
+    private quizKeyService: QuizKeyService,
+    private onlineQuizService: OnlineQuizService,
+    private messageService: MessageService,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
 

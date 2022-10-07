@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { OnlineQuizAdminService } from 'src/app/service/online-quiz-admin.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class DashboardManagementComponent implements OnInit {
   showDisplay: boolean = false;
   cardStyle: any;
 
-  constructor(private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
+  constructor(private onlineQuizAdminService: OnlineQuizAdminService) { }
 
   ngOnInit(): void {
     this.onlineQuizAdminService.getCounter().subscribe({

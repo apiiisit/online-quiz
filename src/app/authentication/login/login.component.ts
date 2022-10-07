@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   cLogin: boolean = false;
 
-  constructor(private messageService: MessageService, private authService: AuthService) { }
+  constructor(
+    private messageService: MessageService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(res => {
@@ -27,7 +30,7 @@ export class LoginComponent implements OnInit {
   btnSubmit() {
     this.submitted = true;
     this.cLogin = false;
-    
+
     const user = this.username?.toLowerCase();
     const pass = this.password;
     if (user && pass) {
@@ -62,7 +65,7 @@ export class LoginComponent implements OnInit {
     } else {
       window.location.pathname = path.join('');
     }
-    
+
   }
 
 }

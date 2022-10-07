@@ -12,7 +12,7 @@ import { OnlineQuizService } from 'src/app/service/online-quiz.service';
 export class NavbarManagementComponent implements OnInit {
   btnShow!: string;
   items!: MenuItem[];
-  
+
   fullName!: string;
   imageSrc: any;
 
@@ -20,7 +20,11 @@ export class NavbarManagementComponent implements OnInit {
   dialogCategory: boolean = false;
   dialogUser: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private onlineQuizService: OnlineQuizService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private onlineQuizService: OnlineQuizService
+  ) { }
 
   ngOnInit(): void {
 

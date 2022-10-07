@@ -25,7 +25,11 @@ export class QuizManagementComponent implements OnInit {
   quizSelected: any;
   statusSelected: any;
 
-  constructor(private confirmationService: ConfirmationService, private onlineQuizAdminService: OnlineQuizAdminService, private router: Router) { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private onlineQuizAdminService: OnlineQuizAdminService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 

@@ -10,7 +10,11 @@ import { QuizKeyService } from 'src/app/service/quiz-key.service';
 })
 export class NavbarUserComponent implements OnInit {
 
-  constructor(private quizKeyService: QuizKeyService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(
+    private quizKeyService: QuizKeyService,
+    private router: Router,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
   }
