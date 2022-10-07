@@ -6,10 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Installing
 ----------
-Ideally, you should be able to just type:
+Install module
 
     npm install
 
-Start
+Start project
 
     npm start
