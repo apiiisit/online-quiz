@@ -13,3 +13,5 @@ Install module
 Start project
 
     npm start
+
+[web project](http://localhost:4200/online-quiz)
