@@ -8,4 +8,7 @@ Installing
 Ideally, you should be able to just type:
 
     npm install
+
+Start
+
     npm start
