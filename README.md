@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## To Run Locally (prerequisites: nodejs 16)
 
+Backend [online-quiz-api](https://github.com/apiiisit/online-quiz-api)
+
 Installing
 ----------
 Install module
@@ -13,5 +15,3 @@ Install module
 Start project
 
     npm start
-
-[web project](http://localhost:4200/online-quiz)
